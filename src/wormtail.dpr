@@ -1,6 +1,7 @@
 program wormtail;
 
 uses
+  ExceptionLog,
   Forms,
   MainFormUnit in 'MainFormUnit.pas' {MainForm},
   Core in 'Core.pas';

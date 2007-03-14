@@ -106,7 +106,7 @@
 			<Compiler Name="CodePage"></Compiler>
 		</Compiler>
 		<Linker>
-			<Linker Name="MapFile">0</Linker>
+			<Linker Name="MapFile">3</Linker>
 			<Linker Name="OutputObjs">0</Linker>
 			<Linker Name="GenerateHpps">False</Linker>
 			<Linker Name="ConsoleApp">1</Linker>
@@ -119,13 +119,13 @@
 			<Linker Name="ExeDescription"></Linker>
 		</Linker>
 		<Directories>
-			<Directories Name="OutputDir"></Directories>
-			<Directories Name="UnitOutputDir"></Directories>
+			<Directories Name="OutputDir">..\bin</Directories>
+			<Directories Name="UnitOutputDir">..\dcu</Directories>
 			<Directories Name="PackageDLLOutputDir"></Directories>
 			<Directories Name="PackageDCPOutputDir"></Directories>
 			<Directories Name="SearchPath"></Directories>
 			<Directories Name="Packages"></Directories>
-			<Directories Name="Conditionals"></Directories>
+			<Directories Name="Conditionals">EUREKALOG;EUREKALOG_VER6</Directories>
 			<Directories Name="DebugSourceDirs"></Directories>
 			<Directories Name="UsePackages">False</Directories>
 		</Directories>
@@ -177,13 +177,13 @@
 <!-- EurekaLog First Line
 [Exception Log]
 EurekaLog Version=600
-Activate=0
+Activate=1
 Activate Handle=1
-Save Log File=1
+Save Log File=0
 Foreground Tab=0
 Freeze Activate=0
-Freeze Timeout=0
-SMTP From=eurekalog@email.com
+Freeze Timeout=1
+SMTP From=wormtail@eureka.log
 SMTP Host=
 SMTP Port=25
 SMTP UserID=
@@ -192,9 +192,9 @@ Append to Log=0
 TerminateBtn Operation=2
 Errors Number=32
 Errors Terminate=3
-Email Address=
-Email Object=
-Email Send Options=0
+Email Address=michael@elsdoerfer.info
+Email Object=Wormtail Exception
+Email Send Options=3
 Output Path=
 Encrypt Password=
 AutoCloseDialogSecs=0
@@ -302,8 +302,8 @@ sndSendXMLLogCopy=0
 sndSendScreenshot=1
 sndUseOnlyActiveWindow=0
 sndSendLastHTMLPage=1
-sndSendInSeparatedThread=0
-sndAddDateInFileName=0
+sndSendInSeparatedThread=1
+sndAddDateInFileName=1
 sndAddComputerNameInFileName=0
 edoSendErrorReportChecked=1
 edoAttachScreenshotChecked=1
@@ -655,6 +655,6 @@ Count mtException_AntiFreeze=1
 mtException_AntiFreeze0="The application seems to be frozen."
 Count mtInvalidEmailMsg=1
 mtInvalidEmailMsg0="Invalid email."
-TextsCollection=English
+TextsCollection=
 EurekaLog Last Line -->
 </BorlandProject>
