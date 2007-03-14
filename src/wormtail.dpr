@@ -1,12 +1,12 @@
 program wormtail;
 
+{$R 'wormtail.res' 'wormtail.rc'}
+
 uses
   ExceptionLog,
   Forms,
   MainFormUnit in 'MainFormUnit.pas' {MainForm},
   Core in 'Core.pas';
-
-{$R *.res}
 
 begin
   Application.Initialize;
