@@ -6,7 +6,8 @@ uses
   ExceptionLog,
   Forms,
   MainFormUnit in 'MainFormUnit.pas' {MainForm},
-  Core in 'Core.pas';
+  Core in 'Core.pas',
+  AboutFormUnit in 'AboutFormUnit.pas' {AboutForm};
 
 begin
   Application.Initialize;
