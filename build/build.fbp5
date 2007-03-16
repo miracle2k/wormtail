@@ -2109,48 +2109,144 @@ Comments=
             <Property MultiValue="0" name="ValueName" type="WideString">Build</Property>
             <Property name="ValueType" type="TIniValueType">vtString</Property>
             </Object>
-          <Object Class="TFBSubversionCommit" XMLID="{B3A7A503-4848-4BCE-B62C-43EE143963C4}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
-            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Subversion Commit]]>
+          <Object Class="TCommentAction" XMLID="{33573D9F-3BC8-4562-9BCA-B809AF8CDFA7}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- As the Version ini file is part of source control, why not just commit the changed file right now?]]>
               </Property>
-            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property name="ActionTextColor" type="Cardinal">16711680</Property>
             <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
-            <Property MultiValue="0" name="ArgsFile" type="string"></Property>
-            <Property MultiValue="0" name="Comment" type="string"></Property>
-            <Property MultiValue="0" name="ConfigDir" type="string"></Property>
-            <Property MultiValue="0" name="EditorCommand" type="string"></Property>
-            <Property name="Enabled" type="WordBool">False</Property>
-            <Property name="EnableTimeout" type="Boolean">False</Property>
-            <Property MultiValue="0" name="Encoding" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[-- As the Version ini file is part of source control, why not just commit the changed file right now?]]>
+              </Property>
+            <Property name="Enabled" type="WordBool">True</Property>
             <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
-            <Property MultiValue="0" name="ExtraCmdLineParamsAtEnd" type="string"></Property>
-            <Property MultiValue="0" name="ExtraCmdLineParamsAtStart" type="string"></Property>
-            <Property name="ForceLog" type="Boolean">False</Property>
             <Property name="IgnoreFailure" type="WordBool">False</Property>
-            <Property MultiValue="0" name="ImpersonateToken" type="string"></Property>
-            <Property name="ImpersonateUser" type="Boolean">False</Property>
-            <Property MultiValue="0" name="ImpersonateUserName" type="string"></Property>
             <Property name="IsAction" type="Boolean">True</Property>
             <Property name="IsBreakPoint" type="WordBool">False</Property>
             <Property MultiValue="0" name="LogToVariable" type="string"></Property>
             <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
-            <Property name="NoAuthCache" type="Boolean">False</Property>
             <Property name="NodeCollapsed" type="Boolean">False</Property>
-            <Property name="NonInteractive" type="Boolean">True</Property>
-            <Property name="NoRecurse" type="Boolean">False</Property>
-            <Property name="NoUnlock" type="Boolean">False</Property>
-            <Property MultiValue="0" name="Password" type="string"></Property>
-            <Property MultiValue="0" name="Path" type="string"></Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
-            <Property name="ProcessorAffinity" type="Cardinal">0</Property>
-            <Property name="ProcessPriority" type="TFBExecuteThreadPriority">tpNormal</Property>
-            <Property name="Quiet" type="Boolean">False</Property>
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
-            <Property MultiValue="0" name="Targets" type="string"></Property>
-            <Property name="TerminateOnTimeout" type="Boolean">True</Property>
-            <Property name="TimeoutLength" type="Cardinal">2</Property>
-            <Property MultiValue="0" name="UserName" type="string"></Property>
-            <Property MultiValue="0" name="WorkFolder" type="string"></Property>
+            </Object>
+          <Object Class="TFBTryAction" XMLID="{F0793338-F872-4406-AF0C-17476DF6A97B}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="0" name="ActionDescription" type="string">Try</Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Object Class="TFBSubversionCommit" XMLID="{B3A7A503-4848-4BCE-B62C-43EE143963C4}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+              <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Subversion Commit]]>
+                </Property>
+              <Property name="ActionTextColor" type="Cardinal">0</Property>
+              <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+              <Property MultiValue="0" name="ArgsFile" type="string"></Property>
+              <Property MultiValue="1" name="Comment" type="string"><![CDATA[Auto Commit: Build %VersionBuild% is running.]]>
+                </Property>
+              <Property MultiValue="0" name="ConfigDir" type="string"></Property>
+              <Property MultiValue="0" name="EditorCommand" type="string"></Property>
+              <Property name="Enabled" type="WordBool">True</Property>
+              <Property name="EnableTimeout" type="Boolean">False</Property>
+              <Property MultiValue="0" name="Encoding" type="string"></Property>
+              <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+              <Property MultiValue="0" name="ExtraCmdLineParamsAtEnd" type="string"></Property>
+              <Property MultiValue="0" name="ExtraCmdLineParamsAtStart" type="string"></Property>
+              <Property name="ForceLog" type="Boolean">False</Property>
+              <Property name="IgnoreFailure" type="WordBool">False</Property>
+              <Property MultiValue="0" name="ImpersonateToken" type="string"></Property>
+              <Property name="ImpersonateUser" type="Boolean">False</Property>
+              <Property MultiValue="0" name="ImpersonateUserName" type="string"></Property>
+              <Property name="IsAction" type="Boolean">True</Property>
+              <Property name="IsBreakPoint" type="WordBool">False</Property>
+              <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+              <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+              <Property name="NoAuthCache" type="Boolean">True</Property>
+              <Property name="NodeCollapsed" type="Boolean">False</Property>
+              <Property name="NonInteractive" type="Boolean">True</Property>
+              <Property name="NoRecurse" type="Boolean">False</Property>
+              <Property name="NoUnlock" type="Boolean">False</Property>
+              <Property MultiValue="0" name="Password" type="string">%PersonalVersionControlPassword%</Property>
+              <Property MultiValue="0" name="Path" type="string">%VersionInfoIniFile%</Property>
+              <Property name="PauseInterval" type="Cardinal">0</Property>
+              <Property name="ProcessorAffinity" type="Cardinal">0</Property>
+              <Property name="ProcessPriority" type="TFBExecuteThreadPriority">tpNormal</Property>
+              <Property name="Quiet" type="Boolean">False</Property>
+              <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+              <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              <Property MultiValue="0" name="Targets" type="string"></Property>
+              <Property name="TerminateOnTimeout" type="Boolean">True</Property>
+              <Property name="TimeoutLength" type="Cardinal">2</Property>
+              <Property MultiValue="0" name="UserName" type="string">%PersonalVersionControlUsername%</Property>
+              <Property MultiValue="0" name="WorkFolder" type="string">%FBPROJECTDIR%\..\</Property>
+              </Object>
+            </Object>
+          <Object Class="TFBExceptAction" XMLID="{00F8C807-B9CE-448B-8F99-0126FAA02EDE}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="0" name="ActionDescription" type="string">Catch</Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Object Class="TFBScriptBasedAction" XMLID="{EB7DF467-5BFB-4318-94D8-09E45E6F06CF}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+              <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[MessageBox Subversion failed]]>
+                </Property>
+              <Property name="ActionTextColor" type="Cardinal">0</Property>
+              <Property MultiValue="0" name="ActionTypeID" type="string">{3D6458F4-1522-48B6-8446-D2DEE0A36D55}</Property>
+              <Property name="Enabled" type="WordBool">True</Property>
+              <Property name="EnableTimeout" type="Boolean">False</Property>
+              <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+              <Property name="IgnoreFailure" type="WordBool">False</Property>
+              <Property name="IsAction" type="Boolean">True</Property>
+              <Property name="IsBreakPoint" type="WordBool">False</Property>
+              <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+              <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+              <Property name="NodeCollapsed" type="Boolean">False</Property>
+              <Property name="PauseInterval" type="Cardinal">0</Property>
+              <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+              <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              <Property name="TerminateOnTimeout" type="Boolean">True</Property>
+              <Property name="TimeoutLength" type="Cardinal">2</Property>
+              <CustomProperty MultiValue="0" name="Caption" type="ptString">Subversion failed</CustomProperty>
+              <CustomProperty MultiValue="0" name="Text" type="ptString">Could not commit Version ini file to repository after incrementing build number. Check the log for details.</CustomProperty>
+              <CustomProperty name="Buttons" type="ptInteger">0</CustomProperty>
+              <CustomProperty name="Icon" type="ptInteger">3</CustomProperty>
+              <CustomProperty name="DefaultButton" type="ptInteger">0</CustomProperty>
+              <CustomProperty name="SystemModal" type="ptInteger">0</CustomProperty>
+              <CustomProperty name="ReturnValue" type="ptInteger">1</CustomProperty>
+              <CustomProperty MultiValue="0" name="ReturnVariable" type="ptString"></CustomProperty>
+              </Object>
+            </Object>
+          <Object Class="TFBEndBlockAction" XMLID="{98B18023-7F81-4863-996B-A18191CBCB79}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="0" name="ActionDescription" type="string">End</Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             </Object>
           </Object>
         <Object Class="TFBActionListParametersCollection" XMLID="{CBEDBB99-EE37-4EB2-B07A-F0F1A405E924}"/>
@@ -2266,6 +2362,14 @@ Comments=
         <Property name="IsPersistent" type="Boolean">False</Property>
         <Property name="MakeEnv" type="Boolean">False</Property>
         <Property MultiValue="0" name="Name" type="string">SourceDir</Property>
+        <Property name="VariableType" type="TFBVariableType">vtProject</Property>
+        </Object>
+      <Object Class="TFBVariable" XMLID="{3C6C32F0-28C1-4E6E-8BB4-41AC6544166F}"><Property MultiValue="0" name="Comment" type="string"></Property>
+        <Property MultiValue="0" name="DefaultValue" type="string"></Property>
+        <Property name="IsMacro" type="Boolean">False</Property>
+        <Property name="IsPersistent" type="Boolean">False</Property>
+        <Property name="MakeEnv" type="Boolean">False</Property>
+        <Property MultiValue="0" name="Name" type="string">__TempString</Property>
         <Property name="VariableType" type="TFBVariableType">vtProject</Property>
         </Object>
       </Object>
