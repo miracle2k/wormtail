@@ -490,7 +490,7 @@
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             </Object>
           <Object Class="TDelphiCompilerAction" XMLID="{B493CC82-CAE5-498B-99E6-3A89EC221C02}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
-            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Compile Delphi Win32 Project [ %FBPROJECTDIR%\..\src\patronus.dpr ]]]>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Compile Delphi Win32 Project [ %FBPROJECTDIR%\..\src\wormtail.dpr ]]]>
               </Property>
             <Property name="ActionTextColor" type="Cardinal">0</Property>
             <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
@@ -527,7 +527,7 @@
             <Property name="MinorVersion" type="Integer">0</Property>
             <Property name="NodeCollapsed" type="Boolean">False</Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
-            <Property MultiValue="0" name="ProjectFile" type="WideString">%FBPROJECTDIR%\..\src\patronus.dpr</Property>
+            <Property MultiValue="0" name="ProjectFile" type="WideString">%FBPROJECTDIR%\..\src\wormtail.dpr</Property>
             <Property name="RegenerateResource" type="WordBool">False</Property>
             <Property name="ReleaseVersion" type="Integer">0</Property>
             <Property MultiValue="0" name="ResourceCompilerOptions" type="string"></Property>
@@ -627,7 +627,7 @@ Comments=
             <Property name="Enabled" type="WordBool">True</Property>
             <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
             <Property name="FailIfNoFile" type="WordBool">False</Property>
-            <Property MultiValue="0" name="FileSpec" type="string">%OutputDir%\patronus.map</Property>
+            <Property MultiValue="0" name="FileSpec" type="string">%OutputDir%\wormtail.map</Property>
             <Property name="IgnoreFailure" type="WordBool">False</Property>
             <Property name="IsAction" type="Boolean">True</Property>
             <Property name="IsBreakPoint" type="WordBool">False</Property>
@@ -701,7 +701,7 @@ Comments=
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             </Object>
           <Object Class="TFBZipAction" XMLID="{E99C0FB0-54DA-4CE4-8BD1-646ABD8324E0}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
-            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Create Zip File [ %FBPROJECTDIR%\patronus.zip ]]]>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Create Zip File [ %FBPROJECTDIR%\wormtail.zip ]]]>
               </Property>
             <Property name="ActionTextColor" type="Cardinal">0</Property>
             <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
@@ -726,7 +726,7 @@ Comments=
             <Property name="NoCompressList" type="TStrings"><![CDATA[]]>
               </Property>
             <Property name="NodeCollapsed" type="Boolean">False</Property>
-            <Property MultiValue="0" name="OutputFileName" type="WideString">%FBPROJECTDIR%\patronus.zip</Property>
+            <Property MultiValue="0" name="OutputFileName" type="WideString">%FBPROJECTDIR%\wormtail.zip</Property>
             <Property name="PackLevel" type="Integer">9</Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
             <Property name="Recurse" type="WordBool">True</Property>
@@ -1449,7 +1449,6 @@ Comments=
                 <Property name="IsAction" type="Boolean">True</Property>
                 <Property name="IsBreakPoint" type="WordBool">False</Property>
                 <Property name="ListOfItems" type="TStrings"><![CDATA[default
-eureka
 ]]>
                   </Property>
                 <Property MultiValue="0" name="LogToVariable" type="string"></Property>
