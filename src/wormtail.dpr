@@ -7,7 +7,8 @@ uses
   Forms,
   MainFormUnit in 'MainFormUnit.pas' {MainForm},
   Core in 'Core.pas',
-  AboutFormUnit in 'AboutFormUnit.pas' {AboutForm};
+  AboutFormUnit in 'AboutFormUnit.pas' {AboutForm},
+  VersionInfo in 'VersionInfo.pas';
 
 begin
   Application.Initialize;
