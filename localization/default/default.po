@@ -1,0 +1,309 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr "Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2007-03-16 17:23\n"
+"PO-Revision-Date: 2007-03-16 17:23\n"
+"Last-Translator: Somebody <your.email@address.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: dxgettext 1.2.1\n"
+
+#. AboutForm..Caption
+#: AboutFormUnit.dfm:5
+#. MainForm..LeftDock..LeftToolbar..SpTBXItem3..Caption
+#: MainFormUnit.dfm:111
+msgid "About"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:29
+msgid "&b&uWormtail"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:32
+msgid "<michael@elsdoerfer.info>"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:36
+msgid "&bBuilt in Delphi"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:40
+msgid "&b&uComponents && Libraries"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:42
+msgid "Toolbar2000, TBX, SpTBX, mbTBX"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:43
+msgid "TntWare Unicode Controls"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:44
+msgid "VirtualTreeView"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:45
+msgid "VirtualShellTools"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:46
+msgid "JCL/JVCL"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:47
+msgid "PngDelphi"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:48
+msgid "RemObjects Pascal Script"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:49
+msgid "EurekaLog"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:53
+msgid "&b&uApplication Toolbar Icons"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:55
+msgid "iconaholic.com"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:59
+msgid "&b&uShoutouts"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:61
+msgid "FinalBuilder"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:62
+msgid "InnoSetup"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:63
+msgid "SmartInspect"
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:72
+msgid "&iPointless act! You don't give a 500 dollar tip "
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:73
+msgid "&ito the housekeeper!  That's inappropriate! "
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:74
+msgid "&iThat's inexcusable! That, I don't forgive! &iWhat "
+msgstr ""
+
+#. AboutForm..ScrollingCredits....Credits.Strings
+#: AboutFormUnit.dfm:75
+msgid "&iwere you thinking? What were you thinking?"
+msgstr ""
+
+#. AboutForm..BottomPanel..OKButton..Caption
+#: AboutFormUnit.dfm:106
+msgid "OK"
+msgstr ""
+
+#. MainForm..Caption
+#: MainFormUnit.dfm:4
+msgid "Wormtail"
+msgstr ""
+
+#. MainForm..LeftDock..LeftToolbar..AlwaysOnTopButton..Caption
+#: MainFormUnit.dfm:82
+msgid "Always On Top"
+msgstr ""
+
+#. MainForm..LeftDock..LeftToolbar..WordWrapItem..Caption
+#: MainFormUnit.dfm:88
+msgid "Word Wrap"
+msgstr ""
+
+#. MainForm..LeftDock..LeftToolbar..SpTBXItem11..Caption
+#: MainFormUnit.dfm:96
+#. MainForm..LogViewPopup..CustomHighlightItem..Caption
+#: MainFormUnit.dfm:240
+msgid "Highlight"
+msgstr ""
+
+#. MainForm..LeftDock..LeftToolbar..SpTBXItem4..Caption
+#: MainFormUnit.dfm:100
+msgid "Plugin"
+msgstr ""
+
+#. MainForm..LeftDock..LeftToolbar..SpTBXItem14..Caption
+#: MainFormUnit.dfm:107
+msgid "Put In Tray"
+msgstr ""
+
+#. MainForm..LogView......WideText
+#: MainFormUnit.dfm:146
+msgid "Line"
+msgstr ""
+
+#. MainForm..LogView......WideText
+#: MainFormUnit.dfm:151
+msgid "Date"
+msgstr ""
+
+#. MainForm..TopDock..MainToolbar..Caption
+#: MainFormUnit.dfm:162
+msgid "MainToolbar"
+msgstr ""
+
+#. MainForm..TopDock..MainToolbar..OpenFileItem..Caption
+#: MainFormUnit.dfm:173
+msgid "Previous Files"
+msgstr ""
+
+#. MainForm..TopDock..MainToolbar..FilterLabelItem..Caption
+#: MainFormUnit.dfm:183
+msgid "Filter:"
+msgstr ""
+
+#. MainForm..TopDock..MainToolbar..StatusLabel..Caption
+#: MainFormUnit.dfm:192
+msgid "%VARIABLE%"
+msgstr ""
+
+#. MainForm..TopDock..MainToolbar..CloseButton..Caption
+#: MainFormUnit.dfm:198
+msgid "Close"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXItem1..Caption
+#: MainFormUnit.dfm:232
+msgid "Copy"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..Caption
+#: MainFormUnit.dfm:251
+msgid "Buffer Size"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem10..Caption
+#: MainFormUnit.dfm:253
+msgid "100 lines"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem9..Caption
+#: MainFormUnit.dfm:256
+msgid "500 lines"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem13..Caption
+#: MainFormUnit.dfm:259
+msgid "1000 lines"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem12..Caption
+#: MainFormUnit.dfm:262
+msgid "5000 lines"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem8..Caption
+#: MainFormUnit.dfm:265
+msgid "Do not trim"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXEditItem2..Caption
+#: MainFormUnit.dfm:270
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXEditItem2..EditCaption
+#: MainFormUnit.dfm:271
+#. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..CustomDateFormatEditItem..Caption
+#: MainFormUnit.dfm:2150
+msgid "Custom"
+msgstr ""
+
+#. MainForm..LogViewPopup..SpTBXItem2..Caption
+#: MainFormUnit.dfm:275
+msgid "Change Font"
+msgstr ""
+
+#. MainForm..LogViewHeaderPopup..ShowDateColumnButton..Caption
+#: MainFormUnit.dfm:2132
+msgid "Show Date"
+msgstr ""
+
+#. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..Caption
+#: MainFormUnit.dfm:2137
+msgid "Date Format"
+msgstr ""
+
+#. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..SpTBXItem7..Caption
+#: MainFormUnit.dfm:2139
+msgid "Full (dd.mm.yy hh:nn:ss:zzz)"
+msgstr ""
+
+#. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..SpTBXItem6..Caption
+#: MainFormUnit.dfm:2142
+msgid "No Year (dd.mm hh:nn:ss:zzz)"
+msgstr ""
+
+#. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..SpTBXItem5..Caption
+#: MainFormUnit.dfm:2145
+msgid "Seconds (dd.mm hh:nn:ss)"
+msgstr ""
+
+#. MainForm..ToolbarPopup..SmallIconsButton..Caption
+#: MainFormUnit.dfm:2162
+msgid "Small Icons"
+msgstr ""
+
+#. MainForm..ToolbarPopup..LargeIconsButton..Caption
+#: MainFormUnit.dfm:2168
+msgid "Large Icons"
+msgstr ""
+
+#. MainForm..MRUList....Items.Strings
+#: MainFormUnit.dfm:2177
+msgid "G:\\Programme\\Xampp\\apache\\logs\\access.log"
+msgstr ""
+
+#. MainForm..MRUList..Prefix
+#: MainFormUnit.dfm:2179
+msgid "MRU"
+msgstr ""
+
+#. MainForm..ExplorerTreePopup..OpenItem..Caption
+#: MainFormUnit.dfm:2189
+msgid "Open"
+msgstr ""
+
+#. Programmer's name: MAINICON ICON
+#: wormtail.rc:1
+msgid "..\\resApp Icon.ico"
+msgstr ""
+
