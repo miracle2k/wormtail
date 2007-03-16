@@ -26,53 +26,7 @@ object AboutForm: TAboutForm
     Margins.Top = 10
     Margins.Right = 10
     Credits.Strings = (
-      '&b&uWormtail'
-      ''
-      '2007 by Michael Elsd'#246'rfer '
-      '<michael@elsdoerfer.info>'
-      ''
-      ''
-      ''
-      '&bBuilt in Delphi'
-      ''
-      ''
-      ''
-      '&b&uComponents && Libraries'
-      ''
-      'Toolbar2000, TBX, SpTBX, mbTBX'
-      'TntWare Unicode Controls'
-      'VirtualTreeView'
-      'VirtualShellTools'
-      'JCL/JVCL'
-      'PngDelphi'
-      'RemObjects Pascal Script'
-      'EurekaLog'
-      ''
-      ''
-      ''
-      '&b&uApplication Toolbar Icons'
-      ''
-      'iconaholic.com'
-      ''
-      ''
-      ''
-      '&b&uShoutouts'
-      ''
-      'FinalBuilder'
-      'InnoSetup'
-      'SmartInspect'
-      ''
-      ''
-      ''
-      ''
-      ''
-      ''
-      ''
-      ''
-      '&iPointless act! You don'#39't give a 500 dollar tip '
-      '&ito the housekeeper!  That'#39's inappropriate! '
-      '&iThat'#39's inexcusable! That, I don'#39't forgive! &iWhat '
-      '&iwere you thinking? What were you thinking?')
+      '')
     CreditsFont.Charset = DEFAULT_CHARSET
     CreditsFont.Color = clBlack
     CreditsFont.Height = -11
@@ -96,8 +50,13 @@ object AboutForm: TAboutForm
     BevelOuter = bvNone
     Color = clWhite
     TabOrder = 0
-    ExplicitTop = 285
-    ExplicitWidth = 299
+    object VersionLabel: TLabel
+      Left = 10
+      Top = 10
+      Width = 92
+      Height = 13
+      Caption = '%DYNAMICTEXT%'
+    end
     object OKButton: TButton
       Left = 212
       Top = 3
