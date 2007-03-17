@@ -13,12 +13,12 @@ uses
     // Format:  MAJOR.MINOR-STRING.BUILD
     // Example: 1.5-rc2.434
     // -1 values will be ignored
-    WORMTAIL_VERSION_MAJOR    = -1;
-    WORMTAIL_VERSION_MINOR    = -1;
-    WORMTAIL_VERSION_IDENT    = 'ide-build';
-    WORMTAIL_VERSION_BUILD    = -1;
+    APP_VERSION_MAJOR    = -1;
+    APP_VERSION_MINOR    = -1;
+    APP_VERSION_IDENT    = 'ide-build';
+    APP_VERSION_BUILD    = -1;
     // A codename for the version, e.g. "Longhorn"
-    WORMTAIL_VERSION_NAME     = '';
+    APP_VERSION_NAME     = '';
 }
 
 {$IFDEF AUTOMISED_BUILD}
@@ -27,6 +27,17 @@ uses
   {$INCLUDE VersionInfoIDE.inc}
 {$ENDIF}
 
+const
+  // As the minor version is not simply a counter, we need to specify a
+  // precision, which at the same time limits the maximum number of the
+  // minor version. E.g., if this is set to "2", then a minor version of "1"
+  // actually means "x.01", and "x.1" would be represented by a minor version
+  // of "10". "3" digits would mean that a minor version of 1 actually means
+  // "x.001". It is possible to change this number during the application
+  // lifecycle, but then the meaning of all previously used version numbers
+  // will change, so bear that in mind.
+  MINOR_VERSION_DIGITS = 2;
+
 type
   TVersionStringFormat = (
     vsfFull,     // major/minor/ident/build
@@ -34,34 +45,34 @@ type
     vsfShort     // major/minor
   );
 
-function MakeVersionString(Format: TVersionStringFormat): string;
+function MakeVersionString(AVersionFormat: TVersionStringFormat): string;
 
 implementation
 
 {$WARNINGS off}  // Prevent "Comparison always evaluates to True" for constant comparisons
-function MakeVersionString(Format: TVersionStringFormat): string;
+function MakeVersionString(AVersionFormat: TVersionStringFormat): string;
 begin
   Result := '';
 
   // Start off with major version
-  if (WORMTAIL_VERSION_MAJOR<>-1) then
+  if (APP_VERSION_MAJOR<>-1) then
   begin
-    Result := Result+IntToStr(WORMTAIL_VERSION_MAJOR);
+    Result := Result+IntToStr(APP_VERSION_MAJOR);
     // No minor version without a major on
-    if (WORMTAIL_VERSION_MINOR<>-1) then
-      Result := Result+'.'+IntToStr(WORMTAIL_VERSION_MINOR);
+    if (APP_VERSION_MINOR<>-1) then
+      Result := Result+'.'+Format('%.*d', [MINOR_VERSION_DIGITS, APP_VERSION_MINOR]);
   end;
 
   // Ident
-  if (WORMTAIL_VERSION_IDENT<>'') then
+  if (APP_VERSION_IDENT<>'') then
   begin
     if Result <> '' then Result := Result+'-';
-    Result := Result+WORMTAIL_VERSION_IDENT;
+    Result := Result+APP_VERSION_IDENT;
   end;
 
   // Add build number
-  if (WORMTAIL_VERSION_BUILD<>-1) then
-    Result := Result+'.'+IntToStr(WORMTAIL_VERSION_BUILD);
+  if (APP_VERSION_BUILD<>-1) then
+    Result := Result+'.'+IntToStr(APP_VERSION_BUILD);
 end;
 {$WARNINGS on}
 

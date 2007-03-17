@@ -2173,6 +2173,7 @@ object MainForm: TMainForm
   object MRUList: TTBXMRUList
     HidePathExtension = False
     OnClick = MRUListClick
+    Prefix = 'MRU'
     Left = 40
     Top = 168
   end

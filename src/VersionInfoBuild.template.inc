@@ -10,8 +10,8 @@
 }
 
 const
-  WORMTAIL_VERSION_MAJOR    = %VersionMajor%;
-  WORMTAIL_VERSION_MINOR    = %VersionMinor%;
-  WORMTAIL_VERSION_IDENT    = '%VersionIdent%';
-  WORMTAIL_VERSION_BUILD    = %VersionBuild%;
-  WORMTAIL_VERSION_NAME     = '';
+  APP_VERSION_MAJOR    = %VersionMajor%;
+  APP_VERSION_MINOR    = %VersionMinor%;
+  APP_VERSION_IDENT    = '%VersionIdent%';
+  APP_VERSION_BUILD    = %VersionBuild%;
+  APP_VERSION_NAME     = '';

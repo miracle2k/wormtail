@@ -10,8 +10,8 @@
 }
 
 const
-  WORMTAIL_VERSION_MAJOR    = -1;
-  WORMTAIL_VERSION_MINOR    = -1;
-  WORMTAIL_VERSION_IDENT    = 'ide-build';
-  WORMTAIL_VERSION_BUILD    = -1;
-  WORMTAIL_VERSION_NAME     = '';
+  APP_VERSION_MAJOR    = -1;
+  APP_VERSION_MINOR    = -1;
+  APP_VERSION_IDENT    = 'ide-build';
+  APP_VERSION_BUILD    = -1;
+  APP_VERSION_NAME     = '';
