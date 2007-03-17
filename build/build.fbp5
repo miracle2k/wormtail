@@ -828,6 +828,61 @@ Comments=
           <Property name="PauseInterval" type="Cardinal">0</Property>
           <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
           <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+          <Object Class="TCommentAction" XMLID="{353AAA53-B81F-4E84-8A31-9A987328C95A}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Package the application]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">16711680</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[-- Package the application]]>
+              </Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            </Object>
+          <Object Class="TCommentAction" XMLID="{46B61433-0E45-4173-95AF-C1DA795589BE}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="0" name="ActionDescription" type="string">---------------------------------------------------------------------------------------------------------</Property>
+            <Property name="ActionTextColor" type="Cardinal">16711680</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="0" name="Description" type="string">---------------------------------------------------------------------------------------------------------</Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            </Object>
+          <Object Class="TCommentAction" XMLID="{BB59EBCD-B6C1-471C-B082-DC7BE56BF1A8}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Dependencies]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">16711680</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[-- Dependencies]]>
+              </Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            </Object>
           <Object Class="TRunActionListAction" XMLID="{3DF69DC5-089B-4E1C-850D-BA31F3657744}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Run Action List [ _InitForBuild ] (make sure we have version info available)]]>
               </Property>
@@ -866,6 +921,25 @@ Comments=
             <Property name="NodeCollapsed" type="Boolean">False</Property>
             <Property name="Parameters" type="TStrings"><![CDATA[]]>
               </Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            </Object>
+          <Object Class="TCommentAction" XMLID="{D11C3DD2-6BE0-438B-B38A-53A13F50B22B}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Create zip file]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">16711680</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[-- Create zip file]]>
+              </Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
@@ -911,15 +985,16 @@ Comments=
             <Property name="ZipAction" type="TZipAction">zaUpdate</Property>
             <Property MultiValue="0" name="ZipComment" type="WideString"></Property>
             </Object>
-          <Object Class="TInnoSetupAction" XMLID="{2625677D-8793-4C46-B412-BCA8D93D1B95}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
-            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Build Inno Setup Script [ %FBPROJECTDIR%\..\setup\setup.iss ]]]>
+          <Object Class="TCommentAction" XMLID="{8695B3AC-26E6-4B25-A90B-6EA3168051D7}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Create setup (execute manually instead of using built-in action, need to pass parameters)]]>
               </Property>
-            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property name="ActionTextColor" type="Cardinal">16711680</Property>
             <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[-- Create setup (execute manually instead of using built-in action, need to pass parameters)]]>
+              </Property>
             <Property name="Enabled" type="WordBool">True</Property>
             <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
             <Property name="IgnoreFailure" type="WordBool">False</Property>
-            <Property name="InnoVersion" type="TInnoSetupVersion">Inno5</Property>
             <Property name="IsAction" type="Boolean">True</Property>
             <Property name="IsBreakPoint" type="WordBool">False</Property>
             <Property MultiValue="0" name="LogToVariable" type="string"></Property>
@@ -927,9 +1002,107 @@ Comments=
             <Property name="NodeCollapsed" type="Boolean">False</Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
-            <Property MultiValue="0" name="ScriptFile" type="string">%FBPROJECTDIR%\..\setup\setup.iss</Property>
-            <Property name="ShowProgress" type="Boolean">True</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            </Object>
+          <Object Class="TFBIfVariableDefined" XMLID="{8E6C9E56-5B08-4A77-A3A5-402C2D01EFAC}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Check if path to InnoSetup comand line compiler is available]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[Check if path to InnoSetup comand line compiler is available]]>
+              </Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="FailIfNotDefined" type="Boolean">False</Property>
+            <Property MultiValue="0" name="FBVariable" type="string">InnoSetupISCCPath</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="Invert" type="Boolean">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Object Class="TRunProgramAction" XMLID="{311EC1D0-B2AA-4CED-9ED6-02B6C9016CA1}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+              <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Build Inno Setup Script]]>
+                </Property>
+              <Property name="ActionTextColor" type="Cardinal">0</Property>
+              <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+              <Property name="CaptureOutput" type="Boolean">True</Property>
+              <Property MultiValue="1" name="Description" type="string"><![CDATA[Build Inno Setup Script]]>
+                </Property>
+              <Property name="Enabled" type="WordBool">True</Property>
+              <Property name="EnableLiveCapture" type="Boolean">True</Property>
+              <Property name="EnableReturnCodeCheck" type="Boolean">True</Property>
+              <Property name="EnableTimeout" type="Boolean">False</Property>
+              <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+              <Property MultiValue="0" name="ExtraCmdLineParamsAtEnd" type="string"></Property>
+              <Property MultiValue="0" name="ExtraCmdLineParamsAtStart" type="string"></Property>
+              <Property name="HideWindow" type="Boolean">True</Property>
+              <Property name="IgnoreFailure" type="WordBool">False</Property>
+              <Property MultiValue="0" name="ImpersonateToken" type="string"></Property>
+              <Property name="ImpersonateUser" type="Boolean">False</Property>
+              <Property MultiValue="0" name="ImpersonateUserName" type="string"></Property>
+              <Property name="IsAction" type="Boolean">True</Property>
+              <Property name="IsBreakPoint" type="WordBool">False</Property>
+              <Property name="LogOutput" type="WordBool">True</Property>
+              <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+              <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+              <Property name="NodeCollapsed" type="Boolean">False</Property>
+              <Property MultiValue="1" name="Params" type="WideString"><![CDATA[%FBPROJECTDIR%\..\setup\setup.iss /dShortVersion="%VersionMajor%.%VersionMinor%"]]>
+                </Property>
+              <Property name="PauseInterval" type="Cardinal">0</Property>
+              <Property name="ProcessorAffinity" type="Cardinal">0</Property>
+              <Property name="ProcessPriority" type="TFBExecuteThreadPriority">tpNormal</Property>
+              <Property MultiValue="0" name="ProgramName" type="WideString">%InnoSetupISCCPath%</Property>
+              <Property name="RedirectStdErr" type="Boolean">True</Property>
+              <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+              <Property name="ReturnCodeComparator" type="TFBRunReturnCodeComparator">rcEqualTo</Property>
+              <Property name="ReturnCodeToCheck" type="Integer">0</Property>
+              <Property MultiValue="0" name="StartInDir" type="WideString"></Property>
+              <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              <Property name="TerminateOnTimeout" type="Boolean">True</Property>
+              <Property name="TimeoutLength" type="Cardinal">1</Property>
+              <Property name="WaitForCompletion" type="Boolean">True</Property>
+              </Object>
+            </Object>
+          <Object Class="TFBElseAction" XMLID="{C0A69C55-3C0D-4E08-A3D1-23059C184A93}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="0" name="ActionDescription" type="string">Else</Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Object Class="TFBStopBuildAction" XMLID="{28A258EA-AB1F-4EB9-9A52-48A54859F207}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+              <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Build failed: Need "InnoSetupISCCPath" as a user variable]]>
+                </Property>
+              <Property name="ActionTextColor" type="Cardinal">0</Property>
+              <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+              <Property name="BuildResult" type="Boolean">False</Property>
+              <Property MultiValue="1" name="Description" type="string"><![CDATA[Build failed: Need "InnoSetupISCCPath" as a user variable]]>
+                </Property>
+              <Property name="Enabled" type="WordBool">True</Property>
+              <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+              <Property name="IgnoreFailure" type="WordBool">False</Property>
+              <Property name="IsAction" type="Boolean">True</Property>
+              <Property name="IsBreakPoint" type="WordBool">False</Property>
+              <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+              <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+              <Property name="NodeCollapsed" type="Boolean">False</Property>
+              <Property name="PauseInterval" type="Cardinal">0</Property>
+              <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+              <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              </Object>
             </Object>
           </Object>
         <Object Class="TFBActionListParametersCollection" XMLID="{B003F291-A09E-42A4-A201-24322DB5130B}"/>
@@ -1146,7 +1319,7 @@ Comments=
             <Property MultiValue="0" name="LogToVariable" type="string"></Property>
             <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
             <Property name="NodeCollapsed" type="Boolean">False</Property>
-            <Property MultiValue="1" name="Params" type="WideString"><![CDATA[*.pas *.inc *.dpr  -b %FBPROJECTDIR%\..\src --so %LocalizationDir%\default\temp.po]]>
+            <Property MultiValue="1" name="Params" type="WideString"><![CDATA[*.pas *.inc *.dpr *.dfm  -b %FBPROJECTDIR%\..\src --so %LocalizationDir%\default\temp.po]]>
               </Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
             <Property name="ProcessorAffinity" type="Cardinal">0</Property>
