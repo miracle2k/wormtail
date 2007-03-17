@@ -9,13 +9,9 @@
     Real builds are going to be automised via the build process.
 }
 
-interface
-
 const
   WORMTAIL_VERSION_MAJOR    = -1;
   WORMTAIL_VERSION_MINOR    = -1;
   WORMTAIL_VERSION_IDENT    = 'ide-build';
   WORMTAIL_VERSION_BUILD    = -1;
   WORMTAIL_VERSION_NAME     = '';
-
-implementation

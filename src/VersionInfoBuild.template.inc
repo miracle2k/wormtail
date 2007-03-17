@@ -9,13 +9,9 @@
     See VersionInfoIDE.inc
 }
 
-interface
-
 const
   WORMTAIL_VERSION_MAJOR    = %VersionMajor%;
   WORMTAIL_VERSION_MINOR    = %VersionMinor%;
   WORMTAIL_VERSION_IDENT    = '%VersionIdent%';
   WORMTAIL_VERSION_BUILD    = %VersionBuild%;
   WORMTAIL_VERSION_NAME     = '';
-
-implementation
