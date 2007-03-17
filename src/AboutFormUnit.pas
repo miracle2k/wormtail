@@ -25,7 +25,7 @@ var
 implementation
 
 uses
-  Core;
+  Core, GnuGetText;
 
 const
   CreditsString =
@@ -86,6 +86,9 @@ procedure TAboutForm.FormCreate(Sender: TObject);
 var
   C: string;
 begin
+  // Localize
+  TranslateComponent(Self);
+
   // Prepare credits string (replace version number etc)
   C := CreditsString;
   C := StringReplace(C, '%VERSION%', AppVersion, [rfIgnoreCase, rfReplaceAll]);

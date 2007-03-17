@@ -159,7 +159,6 @@ object MainForm: TMainForm
     object MainToolbar: TSpTBXToolbar
       Left = 0
       Top = 0
-      Caption = 'MainToolbar'
       DockMode = dmCannotFloatOrChangeDocks
       DockPos = 0
       DragHandleStyle = dhNone
@@ -2173,10 +2172,7 @@ object MainForm: TMainForm
   end
   object MRUList: TTBXMRUList
     HidePathExtension = False
-    Items.Strings = (
-      'G:\Programme\Xampp\apache\logs\access.log')
     OnClick = MRUListClick
-    Prefix = 'MRU'
     Left = 40
     Top = 168
   end

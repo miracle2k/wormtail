@@ -182,7 +182,7 @@ const
 implementation
 
 uses
-  Core, MPShellUtilities, AboutFormUnit;
+  Core, GnuGetText, MPShellUtilities, AboutFormUnit;
 
 {$R *.dfm}
 
@@ -389,10 +389,14 @@ begin
   LastHighlightColor := DefaultHighlightColor;
   BufferSize := 5;
 
+  TranslateComponent(Self);
+
   ExplorerTree.Active := True;  
 
   FWatchThread := nil;
   UpdateGUI;
+
+  MRUList.Add('G:\Programme\Xampp\apache\logs\access.log');
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);

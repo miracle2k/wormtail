@@ -1,0 +1,10 @@
+# Placeholders
+msgid "%DYNAMICTEXT%"
+msgstr ""
+
+msgid "%VARIABLE%"
+msgstr ""
+
+# Appname
+msgid "Wormtail"
+msgstr ""
