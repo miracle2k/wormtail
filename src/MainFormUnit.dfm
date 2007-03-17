@@ -13,6 +13,7 @@ object MainForm: TMainForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  ShowHint = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
@@ -170,6 +171,7 @@ object MainForm: TMainForm
       TabOrder = 0
       object OpenFileItem: TSpTBXSubmenuItem
         Caption = 'Previous Files'
+        Hint = 'List of previously opened files'
         DisplayMode = nbdmImageAndText
         ImageIndex = 7
         Options = [tboDropdownArrow]
@@ -195,6 +197,7 @@ object MainForm: TMainForm
       end
       object CloseButton: TSpTBXItem
         Caption = 'Close'
+        Hint = 'Close current file'
         DisplayMode = nbdmImageAndText
         ImageIndex = 5
         OnClick = CloseButtonClick

@@ -145,6 +145,8 @@ type
     procedure SetDefaultHighlightColor(const Value: TColor);
     procedure SetLastHighlightColor(const Value: TColor);
     procedure SetBufferSize(const Value: Cardinal);
+  private
+    procedure InitializeHintsFromCaption(AParent: TComponent);
   protected
     // Generic
     procedure OpenFile(AFilename: string);
@@ -391,7 +393,10 @@ begin
 
   TranslateComponent(Self);
 
-  ExplorerTree.Active := True;  
+  // set the hint property of all toolbar buttons to their caption
+  InitializeHintsFromCaption(Self);
+
+  ExplorerTree.Active := True;
 
   FWatchThread := nil;
   UpdateGUI;
@@ -402,6 +407,23 @@ end;
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   CloseFile;
+end;
+
+procedure TMainForm.InitializeHintsFromCaption(AParent: TComponent);
+var
+  I: Integer;
+begin          
+  for I := 0 to AParent.ComponentCount - 1 do
+  begin               
+    // check if this is a toolbar item
+    if (AParent.Components[I] is TTBCustomItem)
+      and ((AParent.Components[I] as TTBCustomItem).Hint = '') then
+        with (AParent.Components[I] as TTBCustomItem) do Hint := Caption;
+
+    // resursive, search child components
+    if (AParent.Components[I] is TComponent) then
+      InitializeHintsFromCaption(AParent.Components[I]);
+  end;
 end;
 
 procedure TMainForm.LargeIconsButtonClick(Sender: TObject);
