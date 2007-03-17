@@ -93,16 +93,50 @@ object MainForm: TMainForm
       end
       object SpTBXSeparatorItem6: TSpTBXSeparatorItem
       end
-      object SpTBXItem11: TSpTBXItem
-        Caption = 'Highlight'
+      object SpTBXSubmenuItem3: TSpTBXSubmenuItem
+        Caption = 'Coloring Rules'
         ImageIndex = 14
-      end
-      object SpTBXItem4: TSpTBXItem
-        Caption = 'Plugin'
-        ImageIndex = 10
+        Options = [tboDropdownArrow]
+        object SpTBXLabelItem1: TSpTBXLabelItem
+          Caption = 'Coloring Rules'
+          FontSettings.Bold = tsTrue
+          FontSettings.Color = clSilver
+          Anchored = True
+        end
+        object SpTBXSeparatorItem7: TSpTBXSeparatorItem
+        end
+        object SpTBXSubmenuItem4: TSpTBXSubmenuItem
+          Caption = 'Filter: %sdfsdfsdfsfd'
+          object TBXColorPalette2: TTBXColorPalette
+            PaletteOptions = [tpoCustomImages]
+          end
+          object SpTBXSeparatorItem9: TSpTBXSeparatorItem
+          end
+          object SpTBXItem11: TSpTBXItem
+            Caption = 'Delete Filter'
+          end
+        end
+        object SpTBXSubmenuItem5: TSpTBXSubmenuItem
+          Caption = 'Filter: Date'
+          object TBXColorPalette1: TTBXColorPalette
+            PaletteOptions = [tpoCustomImages]
+          end
+          object SpTBXSeparatorItem8: TSpTBXSeparatorItem
+          end
+          object SpTBXItem4: TSpTBXItem
+            Caption = 'Delete Filter'
+          end
+        end
+        object SpTBXSeparatorItem10: TSpTBXSeparatorItem
+        end
+        object SpTBXDropDownItem1: TSpTBXDropDownItem
+          EditCaption = 'New Filter:'
+          EditWidth = 200
+          ExtendedAccept = True
+        end
       end
       object SpTBXRightAlignSpacerItem2: TSpTBXRightAlignSpacerItem
-        CustomWidth = 125
+        CustomWidth = 136
       end
       object SpTBXItem14: TSpTBXItem
         Caption = 'Put In Tray'
@@ -149,7 +183,7 @@ object MainForm: TMainForm
       item
         Position = 1
         Width = 140
-        WideText = 'Date'
+        WideText = 'Timestamp'
       end>
   end
   object TopDock: TSpTBXDock
@@ -182,6 +216,7 @@ object MainForm: TMainForm
       end
       object FilterLabelItem: TSpTBXLabelItem
         Caption = 'Filter:'
+        Hint = 'Enter a regular expression'
       end
       object TBControlItem1: TTBControlItem
         Control = FilterEdit
@@ -228,13 +263,14 @@ object MainForm: TMainForm
   end
   object LogViewPopup: TSpTBXPopupMenu
     Images = SmallImages
+    OnPopup = LogViewPopupPopup
     Left = 40
     Top = 104
-    object SpTBXItem1: TSpTBXItem
+    object CopyToClipboardItem: TSpTBXItem
       Caption = 'Copy'
       ImageIndex = 1
       ShortCut = 16451
-      OnClick = SpTBXItem1Click
+      OnClick = CopyToClipboardItemClick
     end
     object SpTBXSeparatorItem5: TSpTBXSeparatorItem
     end
@@ -249,28 +285,28 @@ object MainForm: TMainForm
     end
     object SpTBXSeparatorItem2: TSpTBXSeparatorItem
     end
+    object AutoScrollItem: TSpTBXItem
+      Caption = 'Auto Scroll'
+      AutoCheck = True
+      OnClick = AutoScrollItemClick
+    end
     object SpTBXSubmenuItem2: TSpTBXSubmenuItem
       Caption = 'Buffer Size'
-      object SpTBXItem10: TSpTBXItem
-        Caption = '100 lines'
-      end
-      object SpTBXItem9: TSpTBXItem
-        Caption = '500 lines'
-      end
-      object SpTBXItem13: TSpTBXItem
-        Caption = '1000 lines'
-      end
-      object SpTBXItem12: TSpTBXItem
-        Caption = '5000 lines'
-      end
-      object SpTBXItem8: TSpTBXItem
-        Caption = 'Do not trim'
+      object BufferLimitEditItem: TSpTBXEditItem
+        Checked = True
+        EditCaption = 'Max. Lines'
+        EditWidth = 70
+        ImageIndex = 1
+        OnAcceptText = BufferLimitEditItemAcceptText
+        ExtendedAccept = True
       end
       object SpTBXSeparatorItem4: TSpTBXSeparatorItem
       end
-      object SpTBXEditItem2: TSpTBXEditItem
-        Caption = 'Custom'
-        EditCaption = 'Custom'
+      object BufferNoLimitItem: TSpTBXItem
+        Caption = 'No Limit'
+        AutoCheck = True
+        Checked = True
+        OnClick = BufferNoLimitItemClick
       end
     end
     object SpTBXItem2: TSpTBXItem
@@ -2130,27 +2166,30 @@ object MainForm: TMainForm
     OnPopup = LogViewHeaderPopupPopup
     Left = 72
     Top = 104
-    object ShowDateColumnButton: TSpTBXItem
-      Caption = 'Show Date'
+    object ShowTimestampColumnItem: TSpTBXItem
+      Caption = 'Show Timestamp'
       AutoCheck = True
-      OnClick = ShowDateColumnButtonClick
+      OnClick = ShowTimestampColumnItemClick
     end
     object SpTBXSubmenuItem1: TSpTBXSubmenuItem
-      Caption = 'Date Format'
+      Caption = 'Timestamp Format'
       object SpTBXItem7: TSpTBXItem
-        Caption = 'Full (dd.mm.yy hh:nn:ss:zzz)'
+        Caption = 'dd.mm.yy hh:nn:ss:zzz'
+        OnClick = DefaultTimestampFormatClick
       end
       object SpTBXItem6: TSpTBXItem
-        Caption = 'No Year (dd.mm hh:nn:ss:zzz)'
+        Caption = 'dd.mm hh:nn:ss:zzz'
+        OnClick = DefaultTimestampFormatClick
       end
       object SpTBXItem5: TSpTBXItem
-        Caption = 'Seconds (dd.mm hh:nn:ss)'
+        Caption = 'dd.mm hh:nn:ss'
+        OnClick = DefaultTimestampFormatClick
       end
       object SpTBXSeparatorItem3: TSpTBXSeparatorItem
       end
       object CustomDateFormatEditItem: TSpTBXEditItem
-        Caption = 'Custom'
-        EditWidth = 100
+        EditCaption = 'Custom'
+        EditWidth = 150
         OnAcceptText = CustomDateFormatEditItemAcceptText
         ExtendedAccept = True
       end

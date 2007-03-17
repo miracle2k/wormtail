@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, TntStdCtrls, TB2Dock, TBX, SpTBXItem, TB2Toolbar, TB2Item,
   TB2ExtItems, SpTBXEditors, XPMan, Menus, JclWideStrings, TBXToolPals, ImgList,
   PngImageList, TB2MRU, VirtualTrees, VirtualExplorerTree, TntDialogs,
-  TBXExtItems, ExceptionLog, TntClipbrd;
+  TBXExtItems, ExceptionLog, TntClipbrd, PerlRegEx, FormValidation;
 
 type
   TFileReadThread = class;
@@ -50,7 +50,7 @@ type
     SmallImages: TPngImageList;
     LargeImages: TPngImageList;
     SpTBXSeparatorItem2: TSpTBXSeparatorItem;
-    SpTBXItem1: TSpTBXItem;
+    CopyToClipboardItem: TSpTBXItem;
     SpTBXItem3: TSpTBXItem;
     SpTBXRightAlignSpacerItem2: TSpTBXRightAlignSpacerItem;
     LogView: TVirtualStringTree;
@@ -63,7 +63,7 @@ type
     SpTBXRightAlignSpacerItem1: TSpTBXRightAlignSpacerItem;
     CloseButton: TSpTBXItem;
     LogViewHeaderPopup: TSpTBXPopupMenu;
-    ShowDateColumnButton: TSpTBXItem;
+    ShowTimestampColumnItem: TSpTBXItem;
     SpTBXSubmenuItem1: TSpTBXSubmenuItem;
     SpTBXItem5: TSpTBXItem;
     SpTBXItem6: TSpTBXItem;
@@ -71,18 +71,12 @@ type
     CustomDateFormatEditItem: TSpTBXEditItem;
     SpTBXSeparatorItem3: TSpTBXSeparatorItem;
     SpTBXSubmenuItem2: TSpTBXSubmenuItem;
-    SpTBXItem8: TSpTBXItem;
-    SpTBXItem9: TSpTBXItem;
-    SpTBXItem10: TSpTBXItem;
-    SpTBXItem12: TSpTBXItem;
-    SpTBXItem13: TSpTBXItem;
-    SpTBXSeparatorItem4: TSpTBXSeparatorItem;
-    SpTBXEditItem2: TSpTBXEditItem;
+    BufferNoLimitItem: TSpTBXItem;
+    BufferLimitEditItem: TSpTBXEditItem;
     SpTBXSeparatorItem5: TSpTBXSeparatorItem;
     CustomHighlightItem: TSpTBXSubmenuItem;
     CustomHighlightColorItem: TTBXColorPalette;
     SpTBXSeparatorItem6: TSpTBXSeparatorItem;
-    SpTBXItem11: TSpTBXItem;
     SpTBXItem14: TSpTBXItem;
     FilterEdit: TSpTBXEdit;
     TBControlItem1: TTBControlItem;
@@ -94,7 +88,21 @@ type
     OpenItem: TSpTBXItem;
     FilterLabelItem: TSpTBXLabelItem;
     EurekaLog: TEurekaLog;
+    SpTBXSubmenuItem3: TSpTBXSubmenuItem;
+    SpTBXLabelItem1: TSpTBXLabelItem;
+    SpTBXSeparatorItem7: TSpTBXSeparatorItem;
+    SpTBXSubmenuItem4: TSpTBXSubmenuItem;
+    SpTBXSubmenuItem5: TSpTBXSubmenuItem;
+    TBXColorPalette1: TTBXColorPalette;
+    SpTBXSeparatorItem8: TSpTBXSeparatorItem;
     SpTBXItem4: TSpTBXItem;
+    TBXColorPalette2: TTBXColorPalette;
+    SpTBXSeparatorItem9: TSpTBXSeparatorItem;
+    SpTBXItem11: TSpTBXItem;
+    SpTBXSeparatorItem10: TSpTBXSeparatorItem;
+    SpTBXDropDownItem1: TSpTBXDropDownItem;
+    SpTBXSeparatorItem4: TSpTBXSeparatorItem;
+    AutoScrollItem: TSpTBXItem;
     procedure FormCreate(Sender: TObject);
     procedure AlwaysOnTopButtonClick(Sender: TObject);
     procedure WordWrapItemClick(Sender: TObject);
@@ -108,7 +116,7 @@ type
     procedure SmallIconsButtonClick(Sender: TObject);
     procedure LargeIconsButtonClick(Sender: TObject);
     procedure ToolbarPopupPopup(Sender: TObject);
-    procedure ShowDateColumnButtonClick(Sender: TObject);
+    procedure ShowTimestampColumnItemClick(Sender: TObject);
     procedure LogViewHeaderPopupPopup(Sender: TObject);
     procedure CustomDateFormatEditItemAcceptText(Sender: TObject; var NewText: WideString;
       var Accept: Boolean);
@@ -120,7 +128,7 @@ type
       EurekaAction: TEurekaActionType; var Execute: Boolean);
     procedure LogViewMeasureItem(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; var NodeHeight: Integer);
-    procedure SpTBXItem1Click(Sender: TObject);
+    procedure CopyToClipboardItemClick(Sender: TObject);
     procedure CustomHighlightColorItemChange(Sender: TObject);
     procedure LogViewBeforeItemErase(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; ItemRect: TRect;
@@ -130,23 +138,34 @@ type
       TextType: TVSTTextType);
     procedure CustomHighlightItemClick(Sender: TObject);
     procedure FilterEditChange(Sender: TObject);
+    procedure DefaultTimestampFormatClick(Sender: TObject);
+    procedure LogViewPopupPopup(Sender: TObject);
+    procedure BufferNoLimitItemClick(Sender: TObject);
+    procedure BufferLimitEditItemAcceptText(Sender: TObject;
+      var NewText: WideString; var Accept: Boolean);
+    procedure AutoScrollItemClick(Sender: TObject);
   protected
     procedure EventHandler(Sender: TFileReadThread; Data: WideString);
   private
     FCurrentFilename: WideString;
-    procedure SetCurrentFilename(const Value: WideString);
-  private
     FWatchThread: TFileReadThread;
-    FDateColumnFormat: WideString;
+    FTimestampColumnFormat: WideString;
     FDefaultHighlightColor: TColor;
     FLastHighlightColor: TColor;
     FBufferSize: Cardinal;
-    procedure SetDateColumnFormat(const Value: WideString);
+    FAutoTrimBuffer: Boolean;
+    FAutoScroll: Boolean;    
+    procedure SetTimestampColumnFormat(const Value: WideString);
     procedure SetDefaultHighlightColor(const Value: TColor);
     procedure SetLastHighlightColor(const Value: TColor);
     procedure SetBufferSize(const Value: Cardinal);
-  private
     procedure InitializeHintsFromCaption(AParent: TComponent);
+    procedure SetAutoTrimBuffer(const Value: Boolean);
+    procedure SetAutoScroll(const Value: Boolean);
+    procedure SetCurrentFilename(const Value: WideString);
+  private
+    // color the filter edit depending on regex correctness
+    FilterEditValidator: TFormValidator;
   protected
     // Generic
     procedure OpenFile(AFilename: string);
@@ -160,16 +179,19 @@ type
 
     // Log mode
     procedure SelectionSetCustomColorHighlight(AColor: TColor);
-    procedure CleanBuffer;
+    procedure TrimBuffer;
+    procedure ApplyFilter(StartNode: PVirtualNode);
   protected
     // Set-Accessor takes care of updating caption. Apart from that, best not
     // touch it, use OpenFile() and CloseFile() instead.
     property CurrentFilename: WideString read FCurrentFilename write SetCurrentFilename;
   public
-    property DateColumnFormat: WideString read FDateColumnFormat write SetDateColumnFormat;
+    property TimestampColumnFormat: WideString read FTimestampColumnFormat write SetTimestampColumnFormat;
     property DefaultHighlightColor: TColor read FDefaultHighlightColor write SetDefaultHighlightColor;
     property LastHighlightColor: TColor read FLastHighlightColor write SetLastHighlightColor;
     property BufferSize: Cardinal read FBufferSize write SetBufferSize;
+    property AutoTrimBuffer: Boolean read FAutoTrimBuffer write SetAutoTrimBuffer;
+    property AutoScroll: Boolean read FAutoScroll write SetAutoScroll;
   end;
 
 var
@@ -179,6 +201,7 @@ var
   FileChangeEvent_CS: TRTLCriticalSection;
 
 const
+  // Linebreak format to use when exporting nodes
   LineBreakFmt = #13#10;
 
 implementation
@@ -315,10 +338,11 @@ procedure TMainForm.EventHandler(Sender: TFileReadThread; Data: WideString);
 var
   Strings: TWideStringList;
   I: Integer;
-  NewNode: PVirtualNode;
+  NewNode, FirstNodeAdded: PVirtualNode;
   NewNodeData: PLogLineNodeData;
 begin
    LogView.BeginUpdate;
+   FirstNodeAdded := nil;
    try
      Strings := TWideStringList.Create;
      try
@@ -333,21 +357,25 @@ begin
          NewNodeData.CustomHighlightColor := clNone;
          // make sure the node is initialized
          LogView.ReinitNode(NewNode, False);
+         // store the first node we add for later
+         if FirstNodeAdded = nil then
+           FirstNodeAdded := NewNode;
        end;
      finally
        Strings.Free;
      end;
 
     // attempt to cleanup buffer
-    CleanBuffer;
-     
-    // auto scroll to the last node in the tree
-    LogView.FocusedNode := LogView.GetLast();
+    if AutoTrimBuffer then TrimBuffer;
+
+    // apply current filter to all new nodes
+    ApplyFilter(FirstNodeAdded);
   finally
     LogView.EndUpdate;
   end;
 
-  LogView.ScrollIntoView(LogView.FocusedNode, False);
+  if AutoScroll then
+    LogView.ScrollIntoView(LogView.GetLast, False);
 
   // update status / line count
   UpdateStatusLabel;
@@ -365,48 +393,53 @@ begin
 end;
 
 procedure TMainForm.FilterEditChange(Sender: TObject);
-var
-  Data: PLogLineNodeData;
-  CurrentNode: PVirtualNode;
 begin
-  CurrentNode := LogView.GetFirst;
-  while CurrentNode <> nil do
-  begin
-    // retrieve data and search
-    Data := LogView.GetNodeData(CurrentNode);
-    LogView.IsVisible[CurrentNode] :=
-      (FilterEdit.Text = '') or ((Pos(FilterEdit.Text, Data.Line) > 0));
-    // next node
-    CurrentNode := LogView.GetNextSibling(CurrentNode);
-  end;
-  UpdateStatusLabel;
+  ApplyFilter(nil);
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  LogView.NodeDataSize := SizeOf(TLogLineNodeData);
+  // Vista
 
-  DateColumnFormat := 'dd.mm. hh:nn:ss:zzz';
-  DefaultHighlightColor := clRed;
-  LastHighlightColor := DefaultHighlightColor;
-  BufferSize := 5;
-
+  // Localize
   TranslateComponent(Self);
 
-  // set the hint property of all toolbar buttons to their caption
+  // Set the hint property of all toolbar buttons to their caption
   InitializeHintsFromCaption(Self);
 
+  // Create some objects
+  FilterEditValidator := TFormValidator.Create;
+  FilterEditValidator.AddRule(FilterEdit, dvrCustom);
+
+  // Init controls
+  LogView.NodeDataSize := SizeOf(TLogLineNodeData);
+
+  // Init some properties
+  BufferSize := 1000;
+  AutoTrimBuffer := True;
+  TimestampColumnFormat := 'dd.mm. hh:nn:ss:zzz';
+  DefaultHighlightColor := clRed;
+  LastHighlightColor := DefaultHighlightColor;
+  AutoScroll := True;
+
+  // Activate the integrated explorer
   ExplorerTree.Active := True;
 
+  // Start off with an empty file
   FWatchThread := nil;
+  CurrentFilename := '';
+
+  // Update the GUI to reflect init state
   UpdateGUI;
 
+  // TODO: testing only, remove for release
   MRUList.Add('G:\Programme\Xampp\apache\logs\access.log');
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   CloseFile;
+  FilterEditValidator.Free;
 end;
 
 procedure TMainForm.InitializeHintsFromCaption(AParent: TComponent);
@@ -458,15 +491,15 @@ begin
   // Free the data associated with the node
   Data := Sender.GetNodeData(Node);
   if Column = 0 then CellText := Data^.Line
-  else if Column = 1 then CellText := FormatDateTime(DateColumnFormat, Data^.Added)
+  else if Column = 1 then CellText := FormatDateTime(TimestampColumnFormat, Data^.Added)
   else CellText := '';
 end;
 
 procedure TMainForm.LogViewHeaderPopupPopup(Sender: TObject);
 begin
   // init popup menu state
-  ShowDateColumnButton.Checked := (coVisible in LogView.Header.Columns[1].Options);
-  CustomDateFormatEditItem.Text := DateColumnFormat;
+  ShowTimestampColumnItem.Checked := (coVisible in LogView.Header.Columns[1].Options);
+  CustomDateFormatEditItem.Text := TimestampColumnFormat;
 end;
 
 procedure TMainForm.LogViewMeasureItem(Sender: TBaseVirtualTree;
@@ -502,6 +535,16 @@ begin
     TargetCanvas.Font.Color := clHighlightText;
 end;
 
+procedure TMainForm.LogViewPopupPopup(Sender: TObject);
+begin
+  // init popup menu state
+  CustomHighlightItem.Enabled := LogView.SelectedCount > 0;
+  CopyToClipboardItem.Enabled := LogView.SelectedCount > 0;
+  BufferLimitEditItem.Text := IntToStr(BufferSize);
+  BufferNoLimitItem.Checked := not AutoTrimBuffer;
+  AutoScrollItem.Checked := AutoScroll;
+end;
+
 procedure TMainForm.MRUListClick(Sender: TObject; const Filename: string);
 begin
   // Open the path in internal explorer
@@ -532,6 +575,80 @@ begin
     OpenFile(SelectedNodeFilename);
 end;
 
+procedure TMainForm.ApplyFilter(StartNode: PVirtualNode);
+var
+  Data: PLogLineNodeData;
+  CurrentNode: PVirtualNode;
+  PCRE: TPerlRegEx; // TODO: add this to credits
+begin
+  PCRE := TPerlRegEx.Create(nil);
+  try
+    // try to compile regex
+    PCRE.RegEx := FilterEdit.Text;
+    try
+      if FilterEdit.Text <> '' then PCRE.Compile;  // don't attempt if no text
+      // Everything is fine, hide any indicators
+      FilterEditValidator.RulesByControl[FilterEdit].Failed := False;      
+    except
+      // if there is an error during regex compile, stop here and don't do/change
+      // anything. in fact, this might be just a temporary invalid state, while
+      // the user is writing/building his expression.
+      FilterEditValidator.RulesByControl[FilterEdit].Failed := True;
+    end;
+
+    // start either at the node passed, or at the beginning
+    if StartNode = nil then CurrentNode := LogView.GetFirst
+    else CurrentNode := StartNode;
+    // loop through nodes 
+    while CurrentNode <> nil do
+    begin
+      // retrieve data and search
+      Data := LogView.GetNodeData(CurrentNode);
+      PCRE.Subject := Data^.Line;  
+      LogView.IsVisible[CurrentNode] :=
+        (FilterEdit.Text = '') or (PCRE.Match);
+      // next node
+      CurrentNode := LogView.GetNextSibling(CurrentNode);
+    end;
+  finally
+    PCRE.Free;
+    UpdateStatusLabel;    
+  end;
+end;
+
+procedure TMainForm.AutoScrollItemClick(Sender: TObject);
+begin
+  AutoScroll := AutoScrollItem.Checked;
+end;
+
+procedure TMainForm.BufferLimitEditItemAcceptText(Sender: TObject;
+  var NewText: WideString; var Accept: Boolean);
+var
+  NewBufferSize: Integer;
+begin
+  Accept := False;
+  try
+    // try to convert the input to an integer
+    NewBufferSize := StrToInt(NewText);
+    if (NewBufferSize > 0) then
+    begin
+      // If we reach this point, no conversion error occured, so accept the change
+      BufferSize := NewBufferSize;
+      Accept := True;
+
+      // Auto-activate trimming (why else would the user change this value?)
+      AutoTrimBuffer := True;
+    end;
+  except
+    on EConvertError do begin Accept := False; end;  // ignore, don't accept input
+  end;
+end;
+
+procedure TMainForm.BufferNoLimitItemClick(Sender: TObject);
+begin
+  AutoTrimBuffer := not BufferNoLimitItem.Checked;
+end;
+
 function TMainForm.CanOpenSelectedNode: Boolean;
 var
   Selected: TNamespaceArray;
@@ -541,7 +658,7 @@ begin
     (Selected[0].FileSystem);
 end;
 
-procedure TMainForm.CleanBuffer;
+procedure TMainForm.TrimBuffer;
 var
   ItemsToDelete: Cardinal;
   I: Integer;
@@ -559,6 +676,7 @@ begin
       LogView.DeleteNode(LogView.GetFirst);
   finally
     LogView.EndUpdate;
+    UpdateStatusLabel;   // item count may have changed
   end;
 end;
 
@@ -597,9 +715,25 @@ begin
   end;
 end;
 
+procedure TMainForm.SetAutoScroll(const Value: Boolean);
+begin
+  FAutoScroll := Value;
+end;
+
+procedure TMainForm.SetAutoTrimBuffer(const Value: Boolean);
+begin
+  FAutoTrimBuffer := Value;
+end;
+
 procedure TMainForm.SetBufferSize(const Value: Cardinal);
 begin
-  FBufferSize := Value;
+  if FBufferSize <> Value then
+  begin
+    FBufferSize := Value;
+    
+    // if buffer size was made smaller, remove entries right now
+    TrimBuffer;
+  end;
 end;
 
 procedure TMainForm.SetCurrentFilename(const Value: WideString);
@@ -621,9 +755,10 @@ begin
   end;
 end;
 
-procedure TMainForm.SetDateColumnFormat(const Value: WideString);
+procedure TMainForm.SetTimestampColumnFormat(const Value: WideString);
 begin
-  FDateColumnFormat := Value;
+  FTimestampColumnFormat := Value;
+  LogView.Invalidate;
 end;
 
 procedure TMainForm.SetDefaultHighlightColor(const Value: TColor);
@@ -636,12 +771,12 @@ begin
   FLastHighlightColor := Value;
 end;
 
-procedure TMainForm.ShowDateColumnButtonClick(Sender: TObject);
+procedure TMainForm.ShowTimestampColumnItemClick(Sender: TObject);
 var
   NewOptions: TVTColumnOptions;
 begin
   NewOptions := LogView.Header.Columns[1].Options;
-  if ShowDateColumnButton.Checked then Include(NewOptions, coVisible)
+  if ShowTimestampColumnItem.Checked then Include(NewOptions, coVisible)
   else Exclude(NewOptions, coVisible);
   LogView.Header.Columns[1].Options := NewOptions;  
 end;
@@ -657,7 +792,7 @@ end;
 procedure TMainForm.CustomDateFormatEditItemAcceptText(Sender: TObject;
   var NewText: WideString; var Accept: Boolean);
 begin
-  DateColumnFormat := NewText;
+  TimestampColumnFormat := NewText;
 end;
 
 procedure TMainForm.CustomHighlightColorItemChange(Sender: TObject);
@@ -672,7 +807,12 @@ begin
   SelectionSetCustomColorHighlight(LastHighlightColor);
 end;
 
-procedure TMainForm.SpTBXItem1Click(Sender: TObject);
+procedure TMainForm.DefaultTimestampFormatClick(Sender: TObject);
+begin
+  TimestampColumnFormat := TSpTBXItem(Sender).Caption;
+end;
+
+procedure TMainForm.CopyToClipboardItemClick(Sender: TObject);
 var
   I: Integer;
   Selection: TNodeArray;
