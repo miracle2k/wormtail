@@ -7,13 +7,17 @@ uses
   Dialogs, StdCtrls, TntStdCtrls, TB2Dock, TBX, SpTBXItem, TB2Toolbar, TB2Item,
   TB2ExtItems, SpTBXEditors, XPMan, Menus, JclWideStrings, TBXToolPals, ImgList,
   PngImageList, TB2MRU, VirtualTrees, VirtualExplorerTree, TntDialogs,
-  TBXExtItems, ExceptionLog, TntClipbrd, PerlRegEx, FormValidation;
+  TBXExtItems, ExceptionLog, TntClipbrd, PerlRegEx, FormValidation, TBXDkPanels,
+  SpTBXDkPanels, mbTBXSplitter, SpTBXFormPopupMenu, JvComponentBase, JvTrayIcon;
 
 type
+  // Forward declarations
   TFileReadThread = class;
-  
+
+  // Event used by TFileReadThread to notify clients
   TFileChangeEvent = procedure(Sender: TFileReadThread; Data: WideString) of object;
 
+  // Thread to watch a file for additions 
   TFileReadThread = class(TThread)
   private
     FStream: TStream;
@@ -30,6 +34,7 @@ type
     property OnFileChangeEvent: TFileChangeEvent read FOnFileChangeEvent write SetOnFileChangeEvent;
   end;
 
+  // VT node data representing a line in the file
   TLogLineNodeData = record
     Line: WideString;
     Added: TDateTime;
@@ -37,6 +42,16 @@ type
   end;
   PLogLineNodeData = ^TLogLineNodeData;
 
+  // Defines a rule that is applied to each line
+  TLogLineRule = record
+    Name: string;
+    Regex: string;
+    Reverse: Boolean;
+    HighlightColor: TColor;
+  end;
+  PLogLineRule = ^TLogLineRule;
+
+  // Main form class
   TMainForm = class(TForm)
     LeftDock: TSpTBXDock;
     LeftToolbar: TSpTBXToolbar;
@@ -65,6 +80,7 @@ type
     LogViewHeaderPopup: TSpTBXPopupMenu;
     ShowTimestampColumnItem: TSpTBXItem;
     SpTBXSubmenuItem1: TSpTBXSubmenuItem;
+    ColoringRulesMenuItem: TSpTBXSubmenuItem;
     SpTBXItem5: TSpTBXItem;
     SpTBXItem6: TSpTBXItem;
     SpTBXItem7: TSpTBXItem;
@@ -88,7 +104,6 @@ type
     OpenItem: TSpTBXItem;
     FilterLabelItem: TSpTBXLabelItem;
     EurekaLog: TEurekaLog;
-    SpTBXSubmenuItem3: TSpTBXSubmenuItem;
     SpTBXLabelItem1: TSpTBXLabelItem;
     SpTBXSeparatorItem7: TSpTBXSeparatorItem;
     SpTBXSubmenuItem4: TSpTBXSubmenuItem;
@@ -103,6 +118,7 @@ type
     SpTBXDropDownItem1: TSpTBXDropDownItem;
     SpTBXSeparatorItem4: TSpTBXSeparatorItem;
     AutoScrollItem: TSpTBXItem;
+    TrayIcon: TJvTrayIcon;
     procedure FormCreate(Sender: TObject);
     procedure AlwaysOnTopButtonClick(Sender: TObject);
     procedure WordWrapItemClick(Sender: TObject);
@@ -144,8 +160,11 @@ type
     procedure BufferLimitEditItemAcceptText(Sender: TObject;
       var NewText: WideString; var Accept: Boolean);
     procedure AutoScrollItemClick(Sender: TObject);
-  protected
-    procedure EventHandler(Sender: TFileReadThread; Data: WideString);
+    procedure ColoringRulesMenuItemPopup(Sender: TTBCustomItem;
+      FromLink: Boolean);
+    procedure SpTBXItem14Click(Sender: TObject);
+    procedure TrayIconClick(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     FCurrentFilename: WideString;
     FWatchThread: TFileReadThread;
@@ -166,6 +185,12 @@ type
   private
     // color the filter edit depending on regex correctness
     FilterEditValidator: TFormValidator;
+  protected
+    procedure EventHandler(Sender: TFileReadThread; Data: WideString);
+    // vista fixes
+    procedure CreateParams(var Params: TCreateParams); override;
+    procedure WMSyscommand(var Message: TWmSysCommand); message WM_SYSCOMMAND;
+    procedure WMActivate(var Message: TWMActivate); message WM_ACTIVATE;   
   protected
     // Generic
     procedure OpenFile(AFilename: string);
@@ -207,7 +232,7 @@ const
 implementation
 
 uses
-  Core, GnuGetText, MPShellUtilities, AboutFormUnit;
+  Core, VistaCompat, GnuGetText, MPShellUtilities, AboutFormUnit;
 
 {$R *.dfm}
 
@@ -399,7 +424,15 @@ end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  // Vista
+  // Vista "Secret window" fixes
+  ShowWindow(Application.Handle, SW_HIDE);
+  SetWindowLong(Application.Handle, GWL_EXSTYLE,
+    GetWindowLong(Application.Handle, GWL_EXSTYLE) and not WS_EX_APPWINDOW
+      or WS_EX_TOOLWINDOW);
+  ShowWindow(Application.Handle, SW_SHOW);
+
+  // use font setting of os (mainly intended for new vista font)
+  SetDesktopIconFonts(Self.Font);
 
   // Localize
   TranslateComponent(Self);
@@ -658,6 +691,12 @@ begin
     (Selected[0].FileSystem);
 end;
 
+procedure TMainForm.TrayIconClick(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Self.Show;
+end;
+
 procedure TMainForm.TrimBuffer;
 var
   ItemsToDelete: Cardinal;
@@ -812,6 +851,12 @@ begin
   TimestampColumnFormat := TSpTBXItem(Sender).Caption;
 end;
 
+procedure TMainForm.ColoringRulesMenuItemPopup(Sender: TTBCustomItem;
+  FromLink: Boolean);
+begin
+  // Create a submenu item for each rule
+end;
+
 procedure TMainForm.CopyToClipboardItemClick(Sender: TObject);
 var
   I: Integer;
@@ -828,6 +873,19 @@ begin
   TntClipboard.AsText := CopyStr;
 end;
 
+procedure TMainForm.CreateParams(var Params: TCreateParams);
+begin
+  inherited CreateParams(Params);  
+  Params.ExStyle := Params.ExStyle and not WS_EX_TOOLWINDOW or
+    WS_EX_APPWINDOW;
+end;
+
+procedure TMainForm.SpTBXItem14Click(Sender: TObject);
+begin
+  TrayIcon.Active := True;
+  Self.Hide;
+end;
+
 procedure TMainForm.SpTBXItem2Click(Sender: TObject);
 begin
   if FontDialog.Execute then
@@ -840,6 +898,7 @@ procedure TMainForm.SpTBXItem3Click(Sender: TObject);
 begin
   with TAboutForm.Create(Self) do
   begin
+    PopupParent := Self;  // vista    
     ShowModal;
     Free;
   end;
@@ -875,10 +934,13 @@ begin
   LogView.Visible := (FileIsOpen = True);
   CloseButton.Visible := (FileIsOpen = True);
   WordWrapItem.Enabled := (FileIsOpen = True);
+  ColoringRulesMenuItem.Enabled := (FileIsOpen = True);
   StatusLabel.Visible := (FileIsOpen = True);
   FilterEdit.Visible := (FileIsOpen = True);
-  FilterLabelItem.Visible := (FileIsOpen = True);  
+  FilterLabelItem.Visible := (FileIsOpen = True);
   OpenFileItem.Visible := (FileIsOpen = False);
+  //RulesPanel.Visible := (FileIsOpen and ColoringRulesItem.Checked);
+  //RulesSplitter.Visible :=  RulesPanel.Visible;
 
   UpdateStatusLabel;  
 end;
@@ -893,6 +955,35 @@ begin
     NewCaption := NewCaption + ', '+
       IntToStr(LogView.RootNodeCount-LogView.VisibleCount)+' hidden';
   StatusLabel.Caption := NewCaption;
+end;
+
+procedure TMainForm.WMActivate(var Message: TWMActivate);
+begin
+  // vista fix
+  if (Message.Active = WA_ACTIVE) and not IsWindowEnabled(Handle) then
+  begin
+    SetActiveWindow(Application.Handle);
+    Message.Result := 0;
+  end else
+    inherited;
+end;
+
+procedure TMainForm.WMSyscommand(var Message: TWmSysCommand);
+begin
+  case (Message.CmdType and $FFF0) of
+    SC_MINIMIZE:
+    begin
+      ShowWindow(Handle, SW_MINIMIZE);
+      Message.Result := 0;
+    end;
+    SC_RESTORE:
+    begin
+      ShowWindow(Handle, SW_RESTORE);
+      Message.Result := 0;
+    end;
+  else
+    inherited;  
+  end;
 end;
 
 procedure TMainForm.WordWrapItemClick(Sender: TObject);

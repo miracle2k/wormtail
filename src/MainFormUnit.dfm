@@ -5,7 +5,7 @@ object MainForm: TMainForm
   ClientHeight = 299
   ClientWidth = 502
   Color = clBtnFace
-  Constraints.MinHeight = 200
+  Constraints.MinHeight = 300
   Constraints.MinWidth = 434
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +13,7 @@ object MainForm: TMainForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   ShowHint = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -58,6 +59,7 @@ object MainForm: TMainForm
     TreeOptions.VETImageOptions = [toImages, toThreadedImages, toMarkCutAndCopy]
     Visible = False
     OnDblClick = ExplorerTreeDblClick
+    ExplicitWidth = 380
     Columns = <>
   end
   object LeftDock: TSpTBXDock
@@ -71,7 +73,7 @@ object MainForm: TMainForm
       Left = 0
       Top = 0
       DockMode = dmCannotFloatOrChangeDocks
-      DockPos = 6
+      DockPos = 0
       DragHandleStyle = dhNone
       FullSize = True
       Images = SmallImages
@@ -93,7 +95,7 @@ object MainForm: TMainForm
       end
       object SpTBXSeparatorItem6: TSpTBXSeparatorItem
       end
-      object SpTBXSubmenuItem3: TSpTBXSubmenuItem
+      object ColoringRulesMenuItem: TSpTBXSubmenuItem
         Caption = 'Coloring Rules'
         ImageIndex = 14
         Options = [tboDropdownArrow]
@@ -141,6 +143,7 @@ object MainForm: TMainForm
       object SpTBXItem14: TSpTBXItem
         Caption = 'Put In Tray'
         ImageIndex = 2
+        OnClick = SpTBXItem14Click
       end
       object SpTBXItem3: TSpTBXItem
         Caption = 'About'
@@ -174,6 +177,7 @@ object MainForm: TMainForm
     OnGetText = LogViewGetText
     OnPaintText = LogViewPaintText
     OnMeasureItem = LogViewMeasureItem
+    ExplicitWidth = 380
     Columns = <
       item
         Position = 0
@@ -2235,5 +2239,11 @@ object MainForm: TMainForm
     OnExceptionActionNotify = EurekaLogExceptionActionNotify
     Left = 40
     Top = 200
+  end
+  object TrayIcon: TJvTrayIcon
+    IconIndex = 0
+    OnClick = TrayIconClick
+    Left = 40
+    Top = 232
   end
 end

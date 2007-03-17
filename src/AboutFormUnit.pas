@@ -13,10 +13,6 @@ type
     OKButton: TButton;
     VersionLabel: TLabel;
     procedure FormCreate(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
   end;
 
 var
@@ -25,7 +21,7 @@ var
 implementation
 
 uses
-  Core, GnuGetText;
+  Core, VistaCompat, GnuGetText;
 
 const
   CreditsString =
@@ -88,6 +84,10 @@ var
 begin
   // Localize
   TranslateComponent(Self);
+
+  // Vista fonts
+  SetDesktopIconFonts(Self.Font);
+  SetDesktopIconFonts(ScrollingCredits.CreditsFont);  
 
   // Prepare credits string (replace version number etc)
   C := CreditsString;
