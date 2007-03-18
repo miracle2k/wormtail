@@ -12,6 +12,8 @@
         for (i=0; i &lt; (MinorVersionDigits-n.length); i++) n = '0'+n;
         // remove trailing zeros
         n = n.replace(/0+$/, '');
+        // if string is empty now, set to "0"
+        if (n=='') n = '0';
         // return
         return n;
     }
