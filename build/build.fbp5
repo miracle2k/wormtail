@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VSXML>
   <Object Class="TFBProject" XMLID="{15613830-5C2E-4832-8EE9-E4272780FF7B}"><Property MultiValue="0" name="EncryptedEditPassword" type="string"></Property>
-    <Property MultiValue="0" name="GlobalJScript" type="string"></Property>
-    <Property MultiValue="0" name="GlobalVBScript" type="string"></Property>
+    <Property MultiValue="1" name="GlobalJScript" type="string"><![CDATA[    // ******************************************
+    // Version number stuff
+    var MinorVersionDigits = 2;
+
+    function FormatMinor(n)
+    {
+        n = n.toString();
+        // add padding
+        for (i=0; i &lt; (MinorVersionDigits-n.length); i++) n = '0'+n;
+        // remove trailing zeros
+        n = n.replace(/0+$/, '');
+        // return
+        return n;
+    }
+
+    // this should be called once the version numbers are intialized,
+    // and everytime they are changed (e.g. when the build numer is
+    // incremented).
+    function UpdateVersionStringVariables()
+    {
+        VersionStrMinor = FormatMinor(VersionMinor);
+        VersionStrShort = VersionMajor+'.'+VersionStrMinor;
+        VersionStrLong = VersionStrShort;
+        if (VersionIdent!='') VersionStrLong += '-'+VersionIdent;
+        VersionStrFull = VersionStrLong;
+        if (VersionBuild!=0) VersionStrFull += '.'+VersionBuild;
+    }
+    
+    // ******************************************
+]]>
+      </Property>
+    <Property MultiValue="1" name="GlobalVBScript" type="string"><![CDATA[
+]]>
+      </Property>
     <Property MultiValue="0" name="Name" type="string"></Property>
     <Property MultiValue="0" name="ProjectID" type="string"></Property>
     <Property MultiValue="0" name="SCCAuxPath" type="string"></Property>
@@ -580,6 +612,34 @@
             <Property name="WriteBackToSource" type="Boolean">False</Property>
             <Property name="WriteToLog" type="Boolean">True</Property>
             </Object>
+          <Object Class="TFBReplaceVariablesAction" XMLID="{174F9E69-CB15-45DE-8061-03C0D95925FF}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Create VersionInfo.rc file with version data]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[Create VersionInfo.rc file with version data]]>
+              </Property>
+            <Property MultiValue="0" name="DestFile" type="string">%SourceDir%\VersionInfo.rc</Property>
+            <Property name="DestType" type="TFBReplaceDataType">rfFile</Property>
+            <Property MultiValue="0" name="DestVariable" type="string"></Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="FailOnVariableErrors" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property MultiValue="0" name="SourceFile" type="string">%SourceDir%\VersionInfo.template.rc</Property>
+            <Property name="SourceType" type="TFBReplaceDataType">rfFile</Property>
+            <Property MultiValue="0" name="SourceVariable" type="string"></Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Property name="WriteBackToSource" type="Boolean">False</Property>
+            <Property name="WriteToLog" type="Boolean">True</Property>
+            </Object>
           <Object Class="TCommentAction" XMLID="{624F3E51-16C1-470D-9B28-79007ECE19FD}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Compile]]>
               </Property>
@@ -617,6 +677,54 @@
             <Property name="PauseInterval" type="Cardinal">0</Property>
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            </Object>
+          <Object Class="TBorlandResourceCompilerAction" XMLID="{FAB73202-D91D-4B37-A00C-3152DA130A5D}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Borland Resource Compiler [ %SourceDir%\VersionInfo.rc ]]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="CompilerVersion" type="Integer">11</Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="EnableMBCS" type="WordBool">False</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property MultiValue="0" name="ExtraParams" type="WideString"></Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property MultiValue="0" name="IncludePath" type="WideString"></Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property MultiValue="0" name="OutputFileName" type="WideString">%SourceDir%\VersionInfo.res</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property MultiValue="0" name="ScriptFile" type="WideString">%SourceDir%\VersionInfo.rc</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Property name="VerboseOutput" type="WordBool">False</Property>
+            </Object>
+          <Object Class="TBorlandResourceCompilerAction" XMLID="{949D8547-017D-4CCC-849B-79A945C92AF2}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Borland Resource Compiler [ %SourceDir%\wormtail.rc ]]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="CompilerVersion" type="Integer">11</Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="EnableMBCS" type="WordBool">False</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property MultiValue="0" name="ExtraParams" type="WideString"></Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property MultiValue="0" name="IncludePath" type="WideString"></Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property MultiValue="0" name="OutputFileName" type="WideString">%SourceDir%\wormtail.res</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property MultiValue="0" name="ScriptFile" type="WideString">%SourceDir%\wormtail.rc</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Property name="VerboseOutput" type="WordBool">False</Property>
             </Object>
           <Object Class="TDelphiCompilerAction" XMLID="{B493CC82-CAE5-498B-99E6-3A89EC221C02}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Compile Delphi Win32 Project [ %FBPROJECTDIR%\..\src\wormtail.dpr ]]]>
@@ -1051,7 +1159,7 @@ Comments=
               <Property MultiValue="0" name="LogToVariable" type="string"></Property>
               <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
               <Property name="NodeCollapsed" type="Boolean">False</Property>
-              <Property MultiValue="1" name="Params" type="WideString"><![CDATA[%FBPROJECTDIR%\..\setup\setup.iss /dMajorVersion="%VersionMajor%" /dMinorVersion="%VersionMinor%"]]>
+              <Property MultiValue="1" name="Params" type="WideString"><![CDATA[%FBPROJECTDIR%\..\setup\setup.iss /dVersionStrLong="%VersionStrLong%" /dVersionShort="%VersionStrShort%" /dVersionFull="%VersionStrFull%"]]>
                 </Property>
               <Property name="PauseInterval" type="Cardinal">0</Property>
               <Property name="ProcessorAffinity" type="Cardinal">0</Property>
@@ -1903,6 +2011,32 @@ Comments=
                 <Property MultiValue="0" name="VariableName" type="WideString">VersionBuild</Property>
                 </Object>
               </Object>
+            <Object Class="TFBScriptAction" XMLID="{A3CDB90D-486C-4151-A00F-8283A0F028EA}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+              <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Update Formatted VersionString variables]]>
+                </Property>
+              <Property name="ActionTextColor" type="Cardinal">0</Property>
+              <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+              <Property MultiValue="1" name="Description" type="string"><![CDATA[Update Formatted VersionString variables]]>
+                </Property>
+              <Property name="Enabled" type="WordBool">True</Property>
+              <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+              <Property name="IgnoreFailure" type="WordBool">False</Property>
+              <Property name="IsAction" type="Boolean">True</Property>
+              <Property name="IsBreakPoint" type="WordBool">False</Property>
+              <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+              <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+              <Property name="NodeCollapsed" type="Boolean">False</Property>
+              <Property name="PauseInterval" type="Cardinal">0</Property>
+              <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+              <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              <Object Class="TBuildScript" XMLID="{C4F853AA-7C4F-4A4D-8551-224269AF33CE}"><Property MultiValue="0" name="BreakPointsStore" type="string"></Property>
+                <Property MultiValue="0" name="Name" type="string">OnExecute</Property>
+                <Property MultiValue="1" name="Script" type="string"><![CDATA[UpdateVersionStringVariables();
+]]>
+                  </Property>
+                <Property MultiValue="0" name="ScriptLanguage" type="string">JavaScript</Property>
+                </Object>
+              </Object>
             <Object Class="TCommentAction" XMLID="{3CE00CB4-A0AE-4EEA-9DC6-6FDF9D66FD91}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
               <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Make sure this list won't be run again]]>
                 </Property>
@@ -2505,6 +2639,32 @@ Comments=
             <Property MultiValue="0" name="ValueName" type="WideString">Build</Property>
             <Property name="ValueType" type="TIniValueType">vtString</Property>
             </Object>
+          <Object Class="TFBScriptAction" XMLID="{06432B3C-67F7-4C19-A703-83BBE32D5FF3}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Update Formatted VersionString variables]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[Update Formatted VersionString variables]]>
+              </Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Object Class="TBuildScript" XMLID="{3B5BC85A-F325-46C0-A1A6-E0D17274DF7A}"><Property MultiValue="0" name="BreakPointsStore" type="string"></Property>
+              <Property MultiValue="0" name="Name" type="string">OnExecute</Property>
+              <Property MultiValue="1" name="Script" type="string"><![CDATA[UpdateVersionStringVariables();
+]]>
+                </Property>
+              <Property MultiValue="0" name="ScriptLanguage" type="string">JavaScript</Property>
+              </Object>
+            </Object>
           <Object Class="TCommentAction" XMLID="{33573D9F-3BC8-4562-9BCA-B809AF8CDFA7}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- As the Version ini file is part of source control, why not just commit the changed file right now?]]>
               </Property>
@@ -2849,6 +3009,42 @@ Comments=
         <Property name="IsPersistent" type="Boolean">False</Property>
         <Property name="MakeEnv" type="Boolean">False</Property>
         <Property MultiValue="0" name="Name" type="string">VersionInfoFileHasChanges</Property>
+        <Property name="VariableType" type="TFBVariableType">vtProject</Property>
+        </Object>
+      <Object Class="TFBVariable" XMLID="{2079FE68-2A41-4978-92CC-D4943A173B2B}"><Property MultiValue="1" name="Comment" type="string"><![CDATA[Short version number as string, e.g. 1.5 (Major.Minor); Depends on actual version and is set by script.]]>
+          </Property>
+        <Property MultiValue="0" name="DefaultValue" type="string"></Property>
+        <Property name="IsMacro" type="Boolean">False</Property>
+        <Property name="IsPersistent" type="Boolean">False</Property>
+        <Property name="MakeEnv" type="Boolean">False</Property>
+        <Property MultiValue="0" name="Name" type="string">VersionStrShort</Property>
+        <Property name="VariableType" type="TFBVariableType">vtProject</Property>
+        </Object>
+      <Object Class="TFBVariable" XMLID="{D488C430-DA12-40C7-A610-09F5B2299F50}"><Property MultiValue="1" name="Comment" type="string"><![CDATA[Complete version number as string, e.g. 1.5-rc2.3454 (Major.Minor-Ident.Build); Depends on actual version and is set by script.]]>
+          </Property>
+        <Property MultiValue="0" name="DefaultValue" type="string"></Property>
+        <Property name="IsMacro" type="Boolean">False</Property>
+        <Property name="IsPersistent" type="Boolean">False</Property>
+        <Property name="MakeEnv" type="Boolean">False</Property>
+        <Property MultiValue="0" name="Name" type="string">VersionStrFull</Property>
+        <Property name="VariableType" type="TFBVariableType">vtProject</Property>
+        </Object>
+      <Object Class="TFBVariable" XMLID="{1CE86BE6-BA97-4394-B213-03BE8FB0166E}"><Property MultiValue="1" name="Comment" type="string"><![CDATA[Minor version number formatted as a string; Set by script.]]>
+          </Property>
+        <Property MultiValue="0" name="DefaultValue" type="string"></Property>
+        <Property name="IsMacro" type="Boolean">False</Property>
+        <Property name="IsPersistent" type="Boolean">False</Property>
+        <Property name="MakeEnv" type="Boolean">False</Property>
+        <Property MultiValue="0" name="Name" type="string">VersionStrMinor</Property>
+        <Property name="VariableType" type="TFBVariableType">vtProject</Property>
+        </Object>
+      <Object Class="TFBVariable" XMLID="{B6BA8DAE-FA9A-4D9E-BB7E-04DB7ECF793D}"><Property MultiValue="1" name="Comment" type="string"><![CDATA[Long version number as string, e.g. 1.5-rc1 (Major.Minor-Ident); Depends on actual version and is set by script.]]>
+          </Property>
+        <Property MultiValue="0" name="DefaultValue" type="string"></Property>
+        <Property name="IsMacro" type="Boolean">False</Property>
+        <Property name="IsPersistent" type="Boolean">False</Property>
+        <Property name="MakeEnv" type="Boolean">False</Property>
+        <Property MultiValue="0" name="Name" type="string">VersionStrLong</Property>
         <Property name="VariableType" type="TFBVariableType">vtProject</Property>
         </Object>
       </Object>

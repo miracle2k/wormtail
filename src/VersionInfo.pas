@@ -51,6 +51,9 @@ implementation
 
 {$WARNINGS off}  // Prevent "Comparison always evaluates to True" for constant comparisons
 function MakeVersionString(AVersionFormat: TVersionStringFormat): string;
+var
+  MinorStr: string;
+  I: Integer;
 begin
   Result := '';
 
@@ -60,7 +63,15 @@ begin
     Result := Result+IntToStr(APP_VERSION_MAJOR);
     // No minor version without a major on
     if (APP_VERSION_MINOR<>-1) then
-      Result := Result+'.'+Format('%.*d', [MINOR_VERSION_DIGITS, APP_VERSION_MINOR]);
+    begin
+      // format minor version: add 0's at beginning, remove trailing ones
+      MinorStr := Format('%.*d', [MINOR_VERSION_DIGITS, APP_VERSION_MINOR]);
+      for I := Length(MinorStr) downto 2 do // downto 2 - never remove first char
+        if MinorStr[I]='0' then Delete(MinorStr, I, 1)
+        else Break;       
+
+      Result := Result+'.'+MinorStr;
+    end;
   end;
 
   // Ident

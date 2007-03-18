@@ -3,8 +3,9 @@
 ; compile without those from the IDE as well, but it's not really needed so far.
 ;
 ; Here are the variables that are expected:
-;   MajorVersion   - Major version
-;   MinorVersion   - Minor version
+;   VersionStrShort   - e.g. 1.5 (major/minor)
+;   VersionStrLong    - e.g. 1.5-rc1 (major/minor/ident)
+;   VersionStrFull    - e.g. 1.5-rc1.3434 (major/minor/ident/build)
 
 
 ; general constants
@@ -12,13 +13,11 @@
 #define AppNameSystem "Wormtail"       ; to be used in startmenu/directory names etc.
 #define AppURL "http://www.elsdoerfer.info/wormtail"
 
-; used in code section
-#define MinorVersionDigits 2           ; number of digits to use to diplay the minor version (e.g. "1" => "01")
 
 [Setup]
 AppName={#AppName}
 ; Don't use version for now, enable way to add this automatically via build process
-AppVerName={#AppName} {code:FormatVersionNumber}
+AppVerName={#AppName} {#VersionStrLong}
 AppPublisher=Michael Elsdörfer
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
@@ -57,13 +56,5 @@ Name: "{commondesktop}\{#AppNameSystem}"; Filename: "{app}\wormtail.exe"; Tasks:
 
 [Run]
 Filename: "{app}\Wormtail.exe"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent
-
-[Code]
-
-// format a version number
-function FormatVersionNumber(Param: string): string;
-begin
-  Result := '{#MajorVersion}'+'.'+Format('%.*d', [{#MinorVersionDigits}, {#MinorVersion}]);
-end;
 
 
