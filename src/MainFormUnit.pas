@@ -8,7 +8,8 @@ uses
   TB2ExtItems, SpTBXEditors, XPMan, Menus, JclWideStrings, TBXToolPals, ImgList,
   PngImageList, TB2MRU, VirtualTrees, VirtualExplorerTree, TntDialogs,
   TBXExtItems, ExceptionLog, TntClipbrd, PerlRegEx, FormValidation, TBXDkPanels,
-  SpTBXDkPanels, mbTBXSplitter, SpTBXFormPopupMenu, JvComponentBase, JvTrayIcon;
+  SpTBXDkPanels, mbTBXSplitter, SpTBXFormPopupMenu, JvComponentBase, JvTrayIcon,
+  mbTBXNonDockablePanel;
 
 type
   // Forward declarations
@@ -42,15 +43,6 @@ type
   end;
   PLogLineNodeData = ^TLogLineNodeData;
 
-  // Defines a rule that is applied to each line
-  TLogLineRule = record
-    Name: string;
-    Regex: string;
-    Reverse: Boolean;
-    HighlightColor: TColor;
-  end;
-  PLogLineRule = ^TLogLineRule;
-
   // Main form class
   TMainForm = class(TForm)
     LeftDock: TSpTBXDock;
@@ -80,7 +72,6 @@ type
     LogViewHeaderPopup: TSpTBXPopupMenu;
     ShowTimestampColumnItem: TSpTBXItem;
     SpTBXSubmenuItem1: TSpTBXSubmenuItem;
-    ColoringRulesMenuItem: TSpTBXSubmenuItem;
     SpTBXItem5: TSpTBXItem;
     SpTBXItem6: TSpTBXItem;
     SpTBXItem7: TSpTBXItem;
@@ -104,18 +95,6 @@ type
     OpenItem: TSpTBXItem;
     FilterLabelItem: TSpTBXLabelItem;
     EurekaLog: TEurekaLog;
-    SpTBXLabelItem1: TSpTBXLabelItem;
-    SpTBXSeparatorItem7: TSpTBXSeparatorItem;
-    SpTBXSubmenuItem4: TSpTBXSubmenuItem;
-    SpTBXSubmenuItem5: TSpTBXSubmenuItem;
-    TBXColorPalette1: TTBXColorPalette;
-    SpTBXSeparatorItem8: TSpTBXSeparatorItem;
-    SpTBXItem4: TSpTBXItem;
-    TBXColorPalette2: TTBXColorPalette;
-    SpTBXSeparatorItem9: TSpTBXSeparatorItem;
-    SpTBXItem11: TSpTBXItem;
-    SpTBXSeparatorItem10: TSpTBXSeparatorItem;
-    SpTBXDropDownItem1: TSpTBXDropDownItem;
     SpTBXSeparatorItem4: TSpTBXSeparatorItem;
     AutoScrollItem: TSpTBXItem;
     TrayIcon: TJvTrayIcon;
@@ -124,6 +103,9 @@ type
     SpTBXItem1: TSpTBXItem;
     SpTBXSeparatorItem11: TSpTBXSeparatorItem;
     FlashIconItem: TSpTBXItem;
+    SpTBXItem8: TSpTBXItem;
+    SpTBXSeparatorItem12: TSpTBXSeparatorItem;
+    ColoringRulesItem: TSpTBXItem;
     procedure FormCreate(Sender: TObject);
     procedure AlwaysOnTopButtonClick(Sender: TObject);
     procedure WordWrapItemClick(Sender: TObject);
@@ -150,7 +132,6 @@ type
     procedure LogViewMeasureItem(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; var NodeHeight: Integer);
     procedure CopyToClipboardItemClick(Sender: TObject);
-    procedure CustomHighlightColorItemChange(Sender: TObject);
     procedure LogViewBeforeItemErase(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; ItemRect: TRect;
       var ItemColor: TColor; var EraseAction: TItemEraseAction);
@@ -173,6 +154,11 @@ type
     procedure FlashIconItemClick(Sender: TObject);
     procedure SpTBXItem1Click(Sender: TObject);
     procedure TrayPopupPopup(Sender: TObject);
+    procedure SpTBXItem8Click(Sender: TObject);
+    procedure CustomHighlightColorItemChange(Sender: TObject);
+    procedure CustomHighlightColorItemCellClick(Sender: TTBXCustomToolPalette;
+      var ACol, ARow: Integer; var AllowChange: Boolean);
+    procedure ColoringRulesItemClick(Sender: TObject);
   private
     FCurrentFilename: WideString;
     FWatchThread: TFileReadThread;
@@ -217,6 +203,8 @@ type
     procedure SelectionSetCustomColorHighlight(AColor: TColor);
     procedure TrimBuffer;
     procedure ApplyFilter(StartNode: PVirtualNode);
+    procedure ExecuteRules(ApplyTo: PVirtualNode;
+      RequireParent: PVirtualNode = nil);
   protected
     // Set-Accessor takes care of updating caption. Apart from that, best not
     // touch it, use OpenFile() and CloseFile() instead.
@@ -244,7 +232,7 @@ const
 implementation
 
 uses
-  Core, VistaCompat, GnuGetText, MPShellUtilities, AboutFormUnit;
+  Core, VistaCompat, GnuGetText, MPShellUtilities, AboutFormUnit, RulesFormUnit;
 
 {$R *.dfm}
 
@@ -319,7 +307,7 @@ begin
 
         // Save some CPU time, don't overdo it.
         // TODO: read this value from the registry
-        Sleep(80);
+        Sleep(800);
       end;
     except
       // TODO: how do we handle exceptions?
@@ -343,11 +331,11 @@ procedure TMainForm.CloseFile;
 begin
   if FWatchThread <> nil then
   begin
-    // close down the thread (and with it the file handle)
+    // Close down the thread (and with it the file handle)
     FWatchThread.Free;
     FWatchThread := nil;
 
-    // add the file we just closed to the mru list
+    // Add the file we just closed to the mru list
     MRUList.Add(CurrentFilename);
 
     // We no longer have a file opened
@@ -355,6 +343,11 @@ begin
 
     // update the gui
     UpdateGUI;
+
+    // Clear view
+    LogView.Clear;
+    // Clear filter
+    FilterEdit.Text := '';    
   end;
 end;
 
@@ -397,6 +390,8 @@ begin
          // store the first node we add for later
          if FirstNodeAdded = nil then
            FirstNodeAdded := NewNode;
+         // execute rules for this node
+         ExecuteRules(NewNode);
        end;
      finally
        Strings.Free;
@@ -418,10 +413,64 @@ begin
   // if a node was added and we are in tray mode, anmiated the icon
   if TrayIcon.Active and (FirstNodeAdded <> nil) and FlashTrayIconOnChange then
     TrayIcon.Animated := True;
-  
 
   // update status / line count
   UpdateStatusLabel;
+end;
+
+procedure TMainForm.ExecuteRules(ApplyTo: PVirtualNode;
+  RequireParent: PVirtualNode = nil);
+var
+  CurrentNode: PVirtualNode;
+  RuleData: PLogRule;
+  NodeData: PLogLineNodeData;
+  PCRE: TPerlRegEx;
+
+  function CheckRule(Rule: PLogRule): Boolean;
+  begin
+    PCRE.RegEx := Rule.Regex;
+    PCRE.Subject := NodeData.Line;
+    try
+      Result := PCRE.Match;
+    except
+      Result := False;
+    end;
+  end;
+
+begin
+  // get data of log line to check
+  NodeData := LogView.GetNodeData(ApplyTo);
+
+  // init regex engine
+  PCRE := TPerlRegEx.Create(nil);
+
+  try
+    with RulesForm.RulesList do
+    begin
+      // loop through tree
+      CurrentNode := GetFirstChild(RequireParent);
+      while CurrentNode <> nil do
+      begin
+        // get data for this node
+        RuleData := GetNodeData(CurrentNode);
+
+        // check the rule
+        if CheckRule(RuleData) then
+        begin
+          // apply highlight color
+          NodeData.CustomHighlightColor := RuleData.HighlightColor;
+
+          // execute child nodes
+          ExecuteRules(ApplyTo, CurrentNode);
+        end;
+
+        // next node
+        CurrentNode := GetNextSibling(CurrentNode);
+      end;
+    end;
+  finally
+    PCRE.Free;
+  end;
 end;
 
 procedure TMainForm.ExplorerTreeDblClick(Sender: TObject);
@@ -443,6 +492,9 @@ end;
 procedure TMainForm.FlashIconItemClick(Sender: TObject);
 begin
   FlashTrayIconOnChange := FlashIconItem.Checked;
+  // Disable any already active animiations
+  if not FlashTrayIconOnChange then
+    TrayIcon.Animated := False;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -469,6 +521,10 @@ begin
 
   // Init controls
   LogView.NodeDataSize := SizeOf(TLogLineNodeData);
+  MRUList.Prefix := '';              // Has a space ' ' at designtime to shut dxgettext up.
+                                     // A nempty string does not work because the control
+                                     // willreset the value the next time the project is
+                                     // loaded at designtime
 
   // Init some properties
   BufferSize := 1000;
@@ -485,6 +541,10 @@ begin
   // Start off with an empty file
   FWatchThread := nil;
   CurrentFilename := '';
+
+  // Create the rules form
+  RulesForm := TRulesForm.Create(Self);
+  RulesForm.Visible := False;  
 
   // Update the GUI to reflect init state
   UpdateGUI;
@@ -600,6 +660,7 @@ begin
   BufferLimitEditItem.Text := IntToStr(BufferSize);
   BufferNoLimitItem.Checked := not AutoTrimBuffer;
   AutoScrollItem.Checked := AutoScroll;
+  CustomHighlightColorItem.Color := clNone;   // never preselect anything
 end;
 
 procedure TMainForm.MRUListClick(Sender: TObject; const Filename: string);
@@ -770,10 +831,6 @@ var
   Selection: TNodeArray;
   NodeData: PLogLineNodeData;
 begin
-  // if the color equals the default, auto-reset to clNone
-  if AColor = LogView.Color then 
-    AColor := clNone;
-
   // set highlight color for all selected items
   Selection := LogView.GetSortedSelection(False);
   for I := 0 to High(Selection) do
@@ -807,20 +864,20 @@ end;
 procedure TMainForm.SetCurrentFilename(const Value: WideString);
 begin
   if FCurrentFilename <> Value then
-  begin
     FCurrentFilename := Value;
 
-    // update caption
-    if Value = '' then
-    begin
-      Caption := Appname;
-      Application.Title := Appname;
-    end else
-    begin
-      Caption := Appname + ' ['+Value+']';
-      Application.Title := Appname + ' ['+ExtractFileName(Value)+']';;
-    end;
+  // update caption
+  if Value = '' then
+  begin
+    Caption := Appname;
+    Application.Title := Appname;
+  end else
+  begin
+    Caption := Appname + ' ['+Value+']';
+    Application.Title := Appname + ' ['+ExtractFileName(Value)+']';
   end;
+  // tray hint is always = application.title
+  TrayIcon.Hint := Application.Title;
 end;
 
 procedure TMainForm.SetTimestampColumnFormat(const Value: WideString);
@@ -868,11 +925,26 @@ begin
   TimestampColumnFormat := NewText;
 end;
 
+procedure TMainForm.CustomHighlightColorItemCellClick(
+  Sender: TTBXCustomToolPalette; var ACol, ARow: Integer;
+  var AllowChange: Boolean);
+begin
+  CustomHighlightColorItem.Tag := 1;
+end;
+
 procedure TMainForm.CustomHighlightColorItemChange(Sender: TObject);
 begin
-  SelectionSetCustomColorHighlight(CustomHighlightColorItem.Color);
-  // Store this as the last used highlight color
-  LastHighlightColor := CustomHighlightColorItem.Color;
+  // if tag = 1, then the color has been changed by the user via a click.
+  // otherwise, we probably changed it ourselfs via code. unfortunately,
+  // this event handler is always called regardless, so we have to use this
+  // workaround. 
+  if CustomHighlightColorItem.Tag = 1 then
+  begin
+    CustomHighlightColorItem.Tag := 0;  // reset flag
+    SelectionSetCustomColorHighlight(CustomHighlightColorItem.Color);
+    // Store this as the last used highlight color
+    LastHighlightColor := CustomHighlightColorItem.Color;
+  end;
 end;
 
 procedure TMainForm.CustomHighlightItemClick(Sender: TObject);
@@ -942,6 +1014,16 @@ begin
   end;
 end;
 
+procedure TMainForm.ColoringRulesItemClick(Sender: TObject);
+begin
+  RulesForm.Visible := ColoringRulesItem.Checked;
+end;
+
+procedure TMainForm.SpTBXItem8Click(Sender: TObject);
+begin
+  SelectionSetCustomColorHighlight(clNone);
+end;
+
 procedure TMainForm.ToFromTray(Restore: Boolean);
 begin
   if Restore then
@@ -988,14 +1070,14 @@ begin
   LogView.Visible := (FileIsOpen = True);
   CloseButton.Visible := (FileIsOpen = True);
   WordWrapItem.Enabled := (FileIsOpen = True);
-  ColoringRulesMenuItem.Enabled := (FileIsOpen = True);
+  ColoringRulesItem.Enabled := (FileIsOpen = True);
   StatusLabel.Visible := (FileIsOpen = True);
   FilterEdit.Visible := (FileIsOpen = True);
   FilterLabelItem.Visible := (FileIsOpen = True);
   OpenFileItem.Visible := (FileIsOpen = False);
-  //RulesPanel.Visible := (FileIsOpen and ColoringRulesItem.Checked);
-  //RulesSplitter.Visible :=  RulesPanel.Visible;
+  RulesForm.Visible := (FileIsOpen = True) and (ColoringRulesItem.Checked);
 
+  // update the status label as well
   UpdateStatusLabel;  
 end;
 
@@ -1062,13 +1144,16 @@ begin
 end;
 
 procedure TMainForm.AlwaysOnTopButtonClick(Sender: TObject);
-var
-  Order: LongWord;
+const
+  HWND_STYLE: array[Boolean] of HWND = (HWND_NOTOPMOST, HWND_TOPMOST);
 begin
-  if AlwaysOnTopButton.Checked then Order := HWND_TOPMOST
-  else Order := HWND_NOTOPMOST;
-  SetWindowPos(Handle, Order, Left, Top, Width, Height,
-    SWP_DRAWFRAME or SWP_NOMOVE or SWP_NOSIZE);
+  // We need to update both this form's and the rule form's topmost status,
+  // otherwise, for some reason, the rule form will no longer be topmost
+  // to the main form after we switched this feature on and off once.
+  SetWindowPos(Handle, HWND_STYLE[AlwaysOnTopButton.Checked], Left, Top,
+    Width, Height, SWP_DRAWFRAME or SWP_NOMOVE or SWP_NOSIZE);
+  SetWindowPos(RulesForm.Handle, HWND_TOPMOST, Left, Top,
+    Width, Height, SWP_DRAWFRAME or SWP_NOMOVE or SWP_NOSIZE);    
 end;
 
 initialization

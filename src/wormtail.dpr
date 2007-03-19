@@ -2,9 +2,6 @@ program wormtail;
 
 {$R 'wormtail.res' 'wormtail.rc'}
 
-// vista compat
-//    minimize to tray + animate on update
-// manual highlight item: preselected color is always last used instead of current one
 // change font screws with multiline / line height
 // multiline improvements
 // store settings in registry
@@ -16,7 +13,9 @@ uses
   Core in 'Core.pas',
   AboutFormUnit in 'AboutFormUnit.pas' {AboutForm},
   VersionInfo in 'VersionInfo.pas',
-  VistaCompat in 'VistaCompat.pas';
+  VistaCompat in 'VistaCompat.pas',
+  RulesFormUnit in 'RulesFormUnit.pas' {RulesForm},
+  RulePropertiesFormUnit in 'RulePropertiesFormUnit.pas' {RulePropertiesForm};
 
 begin
   Application.Initialize;

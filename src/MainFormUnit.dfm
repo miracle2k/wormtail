@@ -72,7 +72,7 @@ object MainForm: TMainForm
       Left = 0
       Top = 0
       DockMode = dmCannotFloatOrChangeDocks
-      DockPos = 0
+      DockPos = 6
       DragHandleStyle = dhNone
       FullSize = True
       Images = SmallImages
@@ -94,50 +94,14 @@ object MainForm: TMainForm
       end
       object SpTBXSeparatorItem6: TSpTBXSeparatorItem
       end
-      object ColoringRulesMenuItem: TSpTBXSubmenuItem
+      object ColoringRulesItem: TSpTBXItem
         Caption = 'Coloring Rules'
+        AutoCheck = True
         ImageIndex = 14
-        Options = [tboDropdownArrow]
-        object SpTBXLabelItem1: TSpTBXLabelItem
-          Caption = 'Coloring Rules'
-          FontSettings.Bold = tsTrue
-          FontSettings.Color = clSilver
-          Anchored = True
-        end
-        object SpTBXSeparatorItem7: TSpTBXSeparatorItem
-        end
-        object SpTBXSubmenuItem4: TSpTBXSubmenuItem
-          Caption = 'Filter: %sdfsdfsdfsfd'
-          object TBXColorPalette2: TTBXColorPalette
-            PaletteOptions = [tpoCustomImages]
-          end
-          object SpTBXSeparatorItem9: TSpTBXSeparatorItem
-          end
-          object SpTBXItem11: TSpTBXItem
-            Caption = 'Delete Filter'
-          end
-        end
-        object SpTBXSubmenuItem5: TSpTBXSubmenuItem
-          Caption = 'Filter: Date'
-          object TBXColorPalette1: TTBXColorPalette
-            PaletteOptions = [tpoCustomImages]
-          end
-          object SpTBXSeparatorItem8: TSpTBXSeparatorItem
-          end
-          object SpTBXItem4: TSpTBXItem
-            Caption = 'Delete Filter'
-          end
-        end
-        object SpTBXSeparatorItem10: TSpTBXSeparatorItem
-        end
-        object SpTBXDropDownItem1: TSpTBXDropDownItem
-          EditCaption = 'New Filter:'
-          EditWidth = 200
-          ExtendedAccept = True
-        end
+        OnClick = ColoringRulesItemClick
       end
       object SpTBXRightAlignSpacerItem2: TSpTBXRightAlignSpacerItem
-        CustomWidth = 136
+        CustomWidth = 147
       end
       object SpTBXItem14: TSpTBXItem
         Caption = 'Put In Tray'
@@ -283,6 +247,13 @@ object MainForm: TMainForm
       object CustomHighlightColorItem: TTBXColorPalette
         PaletteOptions = [tpoCustomImages]
         OnChange = CustomHighlightColorItemChange
+        OnCellClick = CustomHighlightColorItemCellClick
+      end
+      object SpTBXSeparatorItem12: TSpTBXSeparatorItem
+      end
+      object SpTBXItem8: TSpTBXItem
+        Caption = 'Don'#39't Highlight'
+        OnClick = SpTBXItem8Click
       end
     end
     object SpTBXSeparatorItem2: TSpTBXSeparatorItem
@@ -2217,7 +2188,7 @@ object MainForm: TMainForm
   object MRUList: TTBXMRUList
     HidePathExtension = False
     OnClick = MRUListClick
-    Prefix = 'MRU'
+    Prefix = ' '
     Left = 40
     Top = 168
   end
@@ -2235,8 +2206,8 @@ object MainForm: TMainForm
   end
   object EurekaLog: TEurekaLog
     OnExceptionActionNotify = EurekaLogExceptionActionNotify
-    Left = 40
-    Top = 200
+    Left = 72
+    Top = 168
   end
   object TrayIcon: TJvTrayIcon
     IconIndex = 0
@@ -2244,8 +2215,8 @@ object MainForm: TMainForm
     PopupMenu = TrayPopup
     Delay = 1000
     OnClick = TrayIconClick
-    Left = 40
-    Top = 232
+    Left = 104
+    Top = 168
   end
   object TrayIcons: TImageList
     Left = 104
