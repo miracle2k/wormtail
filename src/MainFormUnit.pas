@@ -119,6 +119,11 @@ type
     SpTBXSeparatorItem4: TSpTBXSeparatorItem;
     AutoScrollItem: TSpTBXItem;
     TrayIcon: TJvTrayIcon;
+    TrayIcons: TImageList;
+    TrayPopup: TSpTBXPopupMenu;
+    SpTBXItem1: TSpTBXItem;
+    SpTBXSeparatorItem11: TSpTBXSeparatorItem;
+    FlashIconItem: TSpTBXItem;
     procedure FormCreate(Sender: TObject);
     procedure AlwaysOnTopButtonClick(Sender: TObject);
     procedure WordWrapItemClick(Sender: TObject);
@@ -165,6 +170,9 @@ type
     procedure SpTBXItem14Click(Sender: TObject);
     procedure TrayIconClick(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure FlashIconItemClick(Sender: TObject);
+    procedure SpTBXItem1Click(Sender: TObject);
+    procedure TrayPopupPopup(Sender: TObject);
   private
     FCurrentFilename: WideString;
     FWatchThread: TFileReadThread;
@@ -185,6 +193,8 @@ type
   private
     // color the filter edit depending on regex correctness
     FilterEditValidator: TFormValidator;
+    FFlashTrayIconOnChange: Boolean;
+    procedure SetFlashTrayIconOnChange(const Value: Boolean);
   protected
     procedure EventHandler(Sender: TFileReadThread; Data: WideString);
     // vista fixes
@@ -197,6 +207,7 @@ type
     procedure CloseFile;
     procedure UpdateGUI;
     procedure UpdateStatusLabel;
+    procedure ToFromTray(Restore: Boolean);
 
     // Explorer mode
     function CanOpenSelectedNode: Boolean;
@@ -217,6 +228,7 @@ type
     property BufferSize: Cardinal read FBufferSize write SetBufferSize;
     property AutoTrimBuffer: Boolean read FAutoTrimBuffer write SetAutoTrimBuffer;
     property AutoScroll: Boolean read FAutoScroll write SetAutoScroll;
+    property FlashTrayIconOnChange: Boolean read FFlashTrayIconOnChange write SetFlashTrayIconOnChange;
   end;
 
 var
@@ -399,8 +411,14 @@ begin
     LogView.EndUpdate;
   end;
 
+  // auto scroll to bottom?
   if AutoScroll then
     LogView.ScrollIntoView(LogView.GetLast, False);
+
+  // if a node was added and we are in tray mode, anmiated the icon
+  if TrayIcon.Active and (FirstNodeAdded <> nil) and FlashTrayIconOnChange then
+    TrayIcon.Animated := True;
+  
 
   // update status / line count
   UpdateStatusLabel;
@@ -420,6 +438,11 @@ end;
 procedure TMainForm.FilterEditChange(Sender: TObject);
 begin
   ApplyFilter(nil);
+end;
+
+procedure TMainForm.FlashIconItemClick(Sender: TObject);
+begin
+  FlashTrayIconOnChange := FlashIconItem.Checked;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -454,6 +477,7 @@ begin
   DefaultHighlightColor := clRed;
   LastHighlightColor := DefaultHighlightColor;
   AutoScroll := True;
+  FlashTrayIconOnChange := True;
 
   // Activate the integrated explorer
   ExplorerTree.Active := True;
@@ -694,7 +718,12 @@ end;
 procedure TMainForm.TrayIconClick(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  Self.Show;
+  if Button = mbLeft then ToFromTray(True);
+end;
+
+procedure TMainForm.TrayPopupPopup(Sender: TObject);
+begin
+  FlashIconItem.Checked := FlashTrayIconOnChange;
 end;
 
 procedure TMainForm.TrimBuffer;
@@ -805,6 +834,11 @@ begin
   FDefaultHighlightColor := Value;
 end;
 
+procedure TMainForm.SetFlashTrayIconOnChange(const Value: Boolean);
+begin
+  FFlashTrayIconOnChange := Value;
+end;
+
 procedure TMainForm.SetLastHighlightColor(const Value: TColor);
 begin
   FLastHighlightColor := Value;
@@ -882,8 +916,12 @@ end;
 
 procedure TMainForm.SpTBXItem14Click(Sender: TObject);
 begin
-  TrayIcon.Active := True;
-  Self.Hide;
+  ToFromTray(False);
+end;
+
+procedure TMainForm.SpTBXItem1Click(Sender: TObject);
+begin
+  ToFromTray(True);
 end;
 
 procedure TMainForm.SpTBXItem2Click(Sender: TObject);
@@ -901,6 +939,22 @@ begin
     PopupParent := Self;  // vista    
     ShowModal;
     Free;
+  end;
+end;
+
+procedure TMainForm.ToFromTray(Restore: Boolean);
+begin
+  if Restore then
+  begin
+    Self.Show;
+    // Reset tray icon
+    TrayIcon.Active := False;
+    TrayIcon.Animated := False;
+    TrayIcon.IconIndex := 0;
+  end else
+  begin
+    TrayIcon.Active := True;
+    Self.Hide;
   end;
 end;
 
