@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-03-17 12:29\n"
-"PO-Revision-Date: 2007-03-17 12:30+0100\n"
+"POT-Creation-Date: 2007-03-19 19:29\n"
+"PO-Revision-Date: 2007-03-19 19:31+0100\n"
 "Last-Translator: Michael Elsdörfer <michael@elsdoerfer.info>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,30 +22,25 @@ msgid "About"
 msgstr "Über"
 
 #. AboutForm..BottomPanel..OKButton..Caption
+#. RulePropertiesForm..BottomPanel..TntButton2..Caption
 #: AboutFormUnit.dfm:65
 msgid "OK"
 msgstr "OK"
 
 #. MainForm..LeftDock..LeftToolbar..AlwaysOnTopButton..Caption
-#: MainFormUnit.dfm:82
+#: MainFormUnit.dfm:84
 msgid "Always On Top"
 msgstr "Fenster immer oben"
 
 #. MainForm..LeftDock..LeftToolbar..WordWrapItem..Caption
-#: MainFormUnit.dfm:88
+#: MainFormUnit.dfm:90
 msgid "Word Wrap"
 msgstr "Zeilenumbruch"
 
-#. MainForm..LeftDock..LeftToolbar..SpTBXItem11..Caption
-#. MainForm..LogViewPopup..CustomHighlightItem..Caption
-#: MainFormUnit.dfm:96
-msgid "Highlight"
-msgstr "Hervorheben"
-
-#. MainForm..LeftDock..LeftToolbar..SpTBXItem4..Caption
-#: MainFormUnit.dfm:100
-msgid "Plugin"
-msgstr "Plugin"
+#. MainForm..LeftDock..LeftToolbar..ColoringRulesItem..Caption
+#: MainFormUnit.dfm:98
+msgid "Coloring Rules"
+msgstr "Farbregeln"
 
 #. MainForm..LeftDock..LeftToolbar..SpTBXItem14..Caption
 #: MainFormUnit.dfm:107
@@ -53,114 +48,237 @@ msgid "Put In Tray"
 msgstr "In Systemtray minimieren"
 
 #. MainForm..LogView......WideText
-#: MainFormUnit.dfm:146
+#: MainFormUnit.dfm:147
 msgid "Line"
 msgstr "Zeile"
 
 #. MainForm..LogView......WideText
-#: MainFormUnit.dfm:151
-msgid "Date"
-msgstr "Zeit"
+#: MainFormUnit.dfm:152
+msgid "Timestamp"
+msgstr "Zeitstempel"
 
 #. MainForm..TopDock..MainToolbar..OpenFileItem..Caption
-#: MainFormUnit.dfm:172
+#: MainFormUnit.dfm:173
 msgid "Previous Files"
 msgstr "Vorherige Dateien"
 
+#. MainForm..TopDock..MainToolbar..OpenFileItem..Hint
+#: MainFormUnit.dfm:174
+msgid "List of previously opened files"
+msgstr "Liste zuvor geöffneter Dateien"
+
 #. MainForm..TopDock..MainToolbar..FilterLabelItem..Caption
-#: MainFormUnit.dfm:182
+#: MainFormUnit.dfm:184
 msgid "Filter:"
 msgstr "Filter:"
 
+#. MainForm..TopDock..MainToolbar..FilterLabelItem..Hint
+#: MainFormUnit.dfm:185
+msgid "Enter a regular expression"
+msgstr "Regulären Ausdruck eingeben"
+
 #. MainForm..TopDock..MainToolbar..CloseButton..Caption
-#: MainFormUnit.dfm:197
+#: MainFormUnit.dfm:200
 msgid "Close"
 msgstr "Schließen"
 
-#. MainForm..LogViewPopup..SpTBXItem1..Caption
-#: MainFormUnit.dfm:231
+#. MainForm..TopDock..MainToolbar..CloseButton..Hint
+#: MainFormUnit.dfm:201
+msgid "Close current file"
+msgstr "Aktuelle Datei schließen"
+
+#. MainForm..LogViewPopup..CopyToClipboardItem..Caption
+#: MainFormUnit.dfm:236
 msgid "Copy"
 msgstr "Kopieren"
 
+#. MainForm..LogViewPopup..CustomHighlightItem..Caption
+#: MainFormUnit.dfm:244
+msgid "Highlight"
+msgstr "Hervorheben"
+
+#. MainForm..LogViewPopup..CustomHighlightItem..SpTBXItem8..Caption
+#. RulePropertiesForm..HighlightColorPicker..Properties.NoneColorCaption
+#. RulePropertiesForm..HighlightColorPicker..Properties.DefaultColorCaption
+#. RulePropertiesForm..HighlightColorPicker..Properties.NoneColorHint
+#. RulePropertiesForm..HighlightColorPicker..Properties.DefaultColorHint
+#: MainFormUnit.dfm:255
+#: RulePropertiesFormUnit.dfm:78
+#: RulePropertiesFormUnit.dfm:80
+#: RulePropertiesFormUnit.dfm:81
+msgid "Don't Highlight"
+msgstr "Nicht Hervorheben"
+
+#. MainForm..LogViewPopup..AutoScrollItem..Caption
+#: MainFormUnit.dfm:262
+msgid "Auto Scroll"
+msgstr "Auto-Scroll"
+
 #. MainForm..LogViewPopup..SpTBXSubmenuItem2..Caption
-#: MainFormUnit.dfm:250
+#: MainFormUnit.dfm:267
 msgid "Buffer Size"
 msgstr "Puffergröße"
 
-#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem10..Caption
-#: MainFormUnit.dfm:252
-msgid "100 lines"
-msgstr "100 Zeilen"
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..BufferLimitEditItem..EditCaption
+#: MainFormUnit.dfm:270
+msgid "Max. Lines"
+msgstr "Max. Zeilen"
 
-#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem9..Caption
-#: MainFormUnit.dfm:255
-msgid "500 lines"
-msgstr "500 Zeilen"
-
-#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem13..Caption
-#: MainFormUnit.dfm:258
-msgid "1000 lines"
-msgstr "1000 Zeilen"
-
-#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem12..Caption
-#: MainFormUnit.dfm:261
-msgid "5000 lines"
-msgstr "5000 Zeilen"
-
-#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXItem8..Caption
-#: MainFormUnit.dfm:264
-msgid "Do not trim"
-msgstr "Nicht abschneiden"
-
-#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXEditItem2..Caption
-#. MainForm..LogViewPopup..SpTBXSubmenuItem2..SpTBXEditItem2..EditCaption
-#. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..CustomDateFormatEditItem..Caption
-#: MainFormUnit.dfm:269
-msgid "Custom"
-msgstr "Eigenes:"
+#. MainForm..LogViewPopup..SpTBXSubmenuItem2..BufferNoLimitItem..Caption
+#: MainFormUnit.dfm:279
+msgid "No Limit"
+msgstr "Kein Limit"
 
 #. MainForm..LogViewPopup..SpTBXItem2..Caption
-#: MainFormUnit.dfm:274
+#: MainFormUnit.dfm:286
 msgid "Change Font"
 msgstr "Font ändern"
 
-#. MainForm..LogViewHeaderPopup..ShowDateColumnButton..Caption
-#: MainFormUnit.dfm:2131
-msgid "Show Date"
-msgstr "Zeit zeigen"
+#. MainForm..LogViewHeaderPopup..ShowTimestampColumnItem..Caption
+#: MainFormUnit.dfm:2143
+msgid "Show Timestamp"
+msgstr "Zeige Zeitstempel"
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..Caption
-#: MainFormUnit.dfm:2136
-msgid "Date Format"
-msgstr "Zeitformat"
+#: MainFormUnit.dfm:2148
+msgid "Timestamp Format"
+msgstr "Zeitstempel-Format"
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..SpTBXItem7..Caption
-#: MainFormUnit.dfm:2138
-msgid "Full (dd.mm.yy hh:nn:ss:zzz)"
-msgstr "Komplett"
+#: MainFormUnit.dfm:2150
+msgid "dd.mm.yy hh:nn:ss:zzz"
+msgstr ""
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..SpTBXItem6..Caption
-#: MainFormUnit.dfm:2141
-msgid "No Year (dd.mm hh:nn:ss:zzz)"
-msgstr "Kein Jahr"
+#: MainFormUnit.dfm:2154
+msgid "dd.mm hh:nn:ss:zzz"
+msgstr ""
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..SpTBXItem5..Caption
-#: MainFormUnit.dfm:2144
-msgid "Seconds (dd.mm hh:nn:ss)"
-msgstr "Sekunden"
+#: MainFormUnit.dfm:2158
+msgid "dd.mm hh:nn:ss"
+msgstr ""
+
+#. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..CustomDateFormatEditItem..EditCaption
+#: MainFormUnit.dfm:2164
+msgid "Custom"
+msgstr "Eigenes:"
 
 #. MainForm..ToolbarPopup..SmallIconsButton..Caption
-#: MainFormUnit.dfm:2161
+#: MainFormUnit.dfm:2176
 msgid "Small Icons"
 msgstr "Kleine Symbole"
 
 #. MainForm..ToolbarPopup..LargeIconsButton..Caption
-#: MainFormUnit.dfm:2167
+#: MainFormUnit.dfm:2182
 msgid "Large Icons"
 msgstr "Große Symbole"
 
 #. MainForm..ExplorerTreePopup..OpenItem..Caption
-#: MainFormUnit.dfm:2185
+#: MainFormUnit.dfm:2201
 msgid "Open"
 msgstr "Öffnen"
+
+#. MainForm..TrayPopup..FlashIconItem..Caption
+#: MainFormUnit.dfm:2368
+msgid "Blink Icon When File Changes"
+msgstr "Icon blinkt bei Änderungen"
+
+#. MainForm..TrayPopup..SpTBXItem1..Caption
+#: MainFormUnit.dfm:2375
+msgid "Restore Window"
+msgstr "Fenster wiederherstellen"
+
+#. RulePropertiesForm..Caption
+#: RulePropertiesFormUnit.dfm:5
+msgid "Rule Properties"
+msgstr "Regel-Eigenschaften"
+
+#. RulePropertiesForm..TntLabel1..Caption
+#: RulePropertiesFormUnit.dfm:29
+msgid "Regular Expression:"
+msgstr "Regulärer Ausdruck:"
+
+#. RulePropertiesForm..TntLabel2..Caption
+#: RulePropertiesFormUnit.dfm:37
+msgid "Color:"
+msgstr "Farbe:"
+
+#. RulePropertiesForm..InverseCheckbox..Caption
+#: RulePropertiesFormUnit.dfm:58
+msgid "Inverse"
+msgstr "Umkehren"
+
+#. RulePropertiesForm..HighlightColorPicker..Properties.CustomColorCaption
+#. RulePropertiesForm..HighlightColorPicker..Properties.CustomColorHint
+#: RulePropertiesFormUnit.dfm:79
+msgid "Other Colors..."
+msgstr "Andere Farben"
+
+#. RulePropertiesForm..BottomPanel..TntButton1..Caption
+#: RulePropertiesFormUnit.dfm:128
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. RulesForm..Caption
+#: RulesFormUnit.dfm:5
+msgid "Rules"
+msgstr "Regeln"
+
+#. RulesForm..RulesList....ClipboardFormats.Strings
+#: RulesFormUnit.dfm:29
+msgid "Virtual Tree Data"
+msgstr ""
+
+#. RulesForm..RulesPopup..SpTBXItem1..Caption
+#: RulesFormUnit.dfm:55
+msgid "New Rule"
+msgstr "Neue Regel"
+
+#. RulesForm..RulesPopup..SpTBXItem3..Caption
+#: RulesFormUnit.dfm:60
+msgid "Edit Rule"
+msgstr "Regel bearbeiten"
+
+#. RulesForm..RulesPopup..SpTBXItem2..Caption
+#: RulesFormUnit.dfm:63
+msgid "Delete Rule"
+msgstr "Regel löschen"
+
+#: RulePropertiesFormUnit.pas:73
+msgid "Error"
+msgstr "Fehler"
+
+#. Make sure we have text
+#: RulePropertiesFormUnit.pas:85
+msgid "Please provide a regular expression"
+msgstr "Bitte einen regulären Ausdruck eingeben"
+
+#: RulePropertiesFormUnit.pas:99
+msgid "The regular expression is invalid: %s"
+msgstr "Der reguläre Ausdruck ist ungültig: %s"
+
+#, fuzzy
+#~ msgid "Filter: Date"
+#~ msgstr "Filter:"
+#~ msgid "Plugin"
+#~ msgstr "Plugin"
+#~ msgid "Date"
+#~ msgstr "Zeit"
+#~ msgid "100 lines"
+#~ msgstr "100 Zeilen"
+#~ msgid "500 lines"
+#~ msgstr "500 Zeilen"
+#~ msgid "1000 lines"
+#~ msgstr "1000 Zeilen"
+#~ msgid "5000 lines"
+#~ msgstr "5000 Zeilen"
+#~ msgid "Do not trim"
+#~ msgstr "Nicht abschneiden"
+#~ msgid "Show Date"
+#~ msgstr "Zeit zeigen"
+#~ msgid "Date Format"
+#~ msgstr "Zeitformat"
+#~ msgid "No Year (dd.mm hh:nn:ss:zzz)"
+#~ msgstr "Kein Jahr"
 
