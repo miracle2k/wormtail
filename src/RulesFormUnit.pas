@@ -20,14 +20,21 @@ type
   TRulesForm = class(TForm)
     RulesList: TVirtualDrawTree;
     RulesPopup: TSpTBXPopupMenu;
-    SpTBXItem1: TSpTBXItem;
-    SpTBXItem2: TSpTBXItem;
-    SpTBXItem3: TSpTBXItem;
+    NewRuleItem: TSpTBXItem;
+    DeleteRuleItem: TSpTBXItem;
+    EditRuleItem: TSpTBXItem;
+    SpTBXSeparatorItem1: TSpTBXSeparatorItem;
+    ReapplyToBufferItem: TSpTBXSubmenuItem;
+    ReapplyThisRuleItem: TSpTBXItem;
+    ReapplyAllRulesItem: TSpTBXItem;
+    SpTBXSeparatorItem2: TSpTBXSeparatorItem;
+    ClearAllItem: TSpTBXItem;
+    SpTBXSeparatorItem3: TSpTBXSeparatorItem;
+    RuleEnabledItem: TSpTBXItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
-    procedure SpTBXItem1Click(Sender: TObject);
+    procedure NewRuleItemClick(Sender: TObject);
     procedure RulesListGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType; var CellText: WideString);
     procedure RulesListDragOver(Sender: TBaseVirtualTree; Source: TObject;
@@ -45,11 +52,18 @@ type
     procedure RulesListGetNodeWidth(Sender: TBaseVirtualTree;
       HintCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
       var NodeWidth: Integer);
+    procedure ClearAllItemClick(Sender: TObject);
+    procedure RulesPopupPopup(Sender: TObject);
+    procedure ReapplyAllRulesItemClick(Sender: TObject);
+    procedure ReapplyThisRuleItemClick(Sender: TObject);
+    procedure DeleteRuleItemClick(Sender: TObject);
+    procedure EditRuleItemClick(Sender: TObject);
+    procedure RuleEnabledItemClick(Sender: TObject);
+    procedure RulesListDblClick(Sender: TObject);
   private
   private
   protected
   public
-    procedure ClearRules;
     function NewRule(ParentNode: PVirtualNode = nil): PLogRule;
   public
   end;
@@ -60,12 +74,52 @@ var
 implementation
 
 uses
-  GnuGetText, VistaCompat, RulePropertiesFormUnit;
+  GnuGetText,
+  TaskDialog,
+  Core, VistaCompat, RulePropertiesFormUnit, MainFormUnit;
 
 {$R *.dfm}
 
-procedure TRulesForm.ClearRules;
+procedure TRulesForm.DeleteRuleItemClick(Sender: TObject);
 begin
+  with TTaskDialog.Create(Self) do
+  begin
+    DialogPosition := dpOwnerFormCenter;
+    Title := _('Please confirm');
+    Icon := tiQuestion;
+    CommonButtons := [cbYes, cbNo];
+    Instruction := _('Are you sure you want to delete the selected rule and all it''s subnodes?');
+    Content := _('This action cannot be undone.');
+    if Execute = ID_YES then
+      RulesList.DeleteSelectedNodes;
+  end;
+end;
+
+procedure TRulesForm.EditRuleItemClick(Sender: TObject);
+var
+  NodeData: PLogRule;
+begin
+  // Make sure we have a selection
+  if RulesList.SelectedCount <= 0 then Exit; 
+
+  // Get the node data - only one can be selected
+  NodeData := RulesList.GetNodeData(RulesList.GetFirstSelected);
+  // show the dialog
+  with TRulePropertiesForm.Create(Self) do
+  begin
+    // apply current values to UI
+    InverseCheckbox.Checked := NodeData.Inverse;
+    RegexEdit.Text := NodeData.Regex;
+    HighlightColor := NodeData.HighlightColor;
+    // ask user for changes
+    if ShowModal = mrOk then
+    begin
+      NodeData.Inverse := InverseCheckbox.Checked;
+      NodeData.Regex := RegexEdit.Text;
+      NodeData.HighlightColor := HighlightColor;
+    end;
+    Free;
+  end;
 end;
 
 procedure TRulesForm.FormCreate(Sender: TObject);
@@ -90,11 +144,6 @@ begin
       Width, Height, SWP_DRAWFRAME or SWP_NOACTIVATE or SWP_NOMOVE or SWP_NOSIZE);
 end;
 
-procedure TRulesForm.FormDestroy(Sender: TObject);
-begin
-  ClearRules;
-end;
-
 procedure TRulesForm.FormShow(Sender: TObject);
 begin
   // Try to have this always on top of the main form
@@ -111,16 +160,45 @@ begin
   Result := RulesList.GetNodeData(NewNode);
 end;
 
+procedure TRulesForm.ReapplyAllRulesItemClick(Sender: TObject);
+begin
+  MainForm.ReapplyRulesToBuffer;
+end;
+
+procedure TRulesForm.ReapplyThisRuleItemClick(Sender: TObject);
+begin
+  // We only allow one selection at this time
+  MainForm.ReapplyRulesToBuffer(RulesList.GetFirstSelected);
+end;
+
+procedure TRulesForm.RuleEnabledItemClick(Sender: TObject);
+var
+  NodeData: PLogRule;
+begin
+  // We only allow one selection at this time
+  NodeData := RulesList.GetNodeData(RulesList.GetFirstSelected);
+  NodeData^.Enabled := RuleEnabledItem.Checked;
+  // Repaint
+  RulesList.InvalidateNode(RulesList.GetFirstSelected)
+end;
+
 procedure TRulesForm.RulesListCollapsing(Sender: TBaseVirtualTree;
   Node: PVirtualNode; var Allowed: Boolean);
 begin
-//  Allowed := Sender.NodeParent[Node] <> nil;
+  // Do not allow any collapsing at all
   Allowed := False;
+end;
+
+procedure TRulesForm.RulesListDblClick(Sender: TObject);
+begin
+  // Make sure we have a selection
+  if RulesList.SelectedCount > 0 then EditRuleItemClick(Sender);
 end;
 
 procedure TRulesForm.RulesListDragAllowed(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; var Allowed: Boolean);
 begin
+  // Always allo drag&drop
   Allowed := True;
 end;
 
@@ -176,10 +254,21 @@ begin
 
     // choose a text color
     if (Column = FocusedColumn) and (Node = FocusedNode) then
-      Canvas.Font.Color := clHighlightText
+    begin
+      if Data.Enabled then Canvas.Font.Color := clHighlightText
+      else Canvas.Font.Color := clSilver;
+    end else
+    begin
+      if Data.Enabled then Canvas.Font.Color := clWindowText
+      else Canvas.Font.Color := clGray;
+    end;
+
+    // if this is a disabled node, use italic text
+    if not Data.Enabled then
+      Canvas.Font.Style := Canvas.Font.Style + [fsItalic]
     else
-      Canvas.Font.Color := clWindowText;
-      
+      Canvas.Font.Style := Canvas.Font.Style - [fsItalic];
+
     // Modify content rect for margin
     R := ContentRect;
     InflateRect(R, -TextMargin, 0);
@@ -190,19 +279,24 @@ begin
     B := R; InflateRect(B, -BoxMargin, -BoxMargin);
     B.Right := B.Left + (B.Bottom-B.Top);
     Inc(B.Top); Inc(B.Bottom);
-    Canvas.Brush.Color := Data^.HighlightColor;
-    Canvas.Pen.Style := psClear;
-    Canvas.Rectangle(B);
+    with Canvas do begin
+      Brush.Color := Data^.HighlightColor;
+      if Brush.Color = clNone then Brush.Style := bsDiagCross
+      else Brush.Style := bsSolid;
+      Pen.Style := psSolid;
+      Pen.Color := clBlack;
+      Pen.Width := 1;
+      Rectangle(B);
+      // reset brush & pen
+      Brush.Style := bsClear;
+      Pen.Style := psClear;
+    end;
 
     // move content rect to the right
     R.Left := B.Right+BoxMargin;
 
-    // shorten text if necessary
-    S := Data^.Regex;
-    with R do
-      if (Canvas.TextWidth(S) > (Right - Left)) then
-        S := ShortenString(Canvas.Handle, S, Right - Left, False);
     // paint via win api (so much more easy than TextOut(), plus, supports unicode)
+    S := Data^.Regex;
     SetBKMode(Canvas.Handle, TRANSPARENT);
     DrawText(Canvas.Handle, PChar(S), Length(S),
       R, DT_TOP or DT_LEFT or DT_VCENTER or DT_SINGLELINE);
@@ -212,9 +306,18 @@ end;
 procedure TRulesForm.RulesListGetNodeWidth(Sender: TBaseVirtualTree;
   HintCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   var NodeWidth: Integer);
+var
+  Data: PLogRule;  
 begin
-  // full width for all nodes
-  NodeWidth := RulesList.ClientWidth - RulesList.Margin;
+  // get node data
+  Data := Sender.GetNodeData(Node);
+
+  // calculate node width:
+  //  # text width +
+  //  # text margin on left and right
+  //  # the color indicator box (width = height)
+  with RulesList do
+    NodeWidth := Canvas.TextWidth(Data.Regex) + 2*TextMargin + Integer(NodeHeight[Node]);
 end;
 
 procedure TRulesForm.RulesListGetText(Sender: TBaseVirtualTree;
@@ -227,19 +330,56 @@ begin
   CellText := NodeData^.Regex;
 end;
 
-procedure TRulesForm.SpTBXItem1Click(Sender: TObject);
+procedure TRulesForm.RulesPopupPopup(Sender: TObject);
+var
+  NodeData: PLogRule;
+begin
+  ClearAllItem.Enabled := RulesList.RootNodeCount > 0;
+  ReapplyToBufferItem.Enabled := RulesList.RootNodeCount > 0;
+  ReapplyThisRuleItem.Enabled := RulesList.SelectedCount = 1;
+  EditRuleItem.Enabled := RulesList.SelectedCount = 1;
+  DeleteRuleItem.Enabled := RulesList.SelectedCount > 0;
+  // "rule enabled" item needs access to the node data for current state
+  RuleEnabledItem.Visible := RulesList.SelectedCount = 1;
+  if RulesList.SelectedCount > 0 then
+  begin
+    NodeData := RulesList.GetNodeData(RulesList.GetFirstSelected);
+    RuleEnabledItem.Checked := NodeData.Enabled;
+  end;
+end;
+
+procedure TRulesForm.NewRuleItemClick(Sender: TObject);
+var
+  NodeData: PLogRule;
 begin
   with TRulePropertiesForm.Create(Self) do
   begin
+    HighlightColor := clNone; // JVCL color picker control has a bug, need this to workaround.
+                              // see TRulePropertiesForm.SetHighlightColor for more details
     if ShowModal = mrOk then
-      with NewRule(RulesList.NodeParent[RulesList.GetFirstSelected])^ do
-      begin
-        Enabled := True;
-        Inverse := InverseCheckbox.Checked;
-        Regex := RegexEdit.Text;
-        HighlightColor := HighlightColorPicker.SelectedColor;
-      end;
+    begin
+      NodeData := NewRule(RulesList.NodeParent[RulesList.GetFirstSelected]);
+      NodeData.Enabled := True;
+      NodeData.Inverse := InverseCheckbox.Checked;
+      NodeData.Regex := RegexEdit.Text;
+      NodeData.HighlightColor := HighlightColor;
+    end;
     Free;
+  end;
+end;
+
+procedure TRulesForm.ClearAllItemClick(Sender: TObject);
+begin
+  with TTaskDialog.Create(Self) do
+  begin
+    DialogPosition := dpOwnerFormCenter;
+    Title := _('Please confirm');
+    Icon := tiWarning;
+    CommonButtons := [cbYes, cbNo];
+    Instruction := _('Are you sure you want to delete ALL rules?');
+    Content := _('This action cannot be undone.');
+    if Execute = ID_YES then
+      RulesList.Clear;
   end;
 end;
 

@@ -26,9 +26,13 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     FValidator: TFormValidator;
+    function GetHighlightColor: TColor;
+    procedure SetHighlightColor(const Value: TColor);
   protected
     function ValidateRegexProc(Sender: TFormValidator; Rule: TValidationRule;
       Value: string): Boolean; virtual;
+  public
+    property HighlightColor: TColor read GetHighlightColor write SetHighlightColor;
   end;
 
 var
@@ -37,7 +41,12 @@ var
 implementation
 
 uses
-  GnuGetText, VistaCompat, PerlRegEx, MainFormUnit;
+  GnuGetText, JvSpeedButton,
+  VistaCompat, PerlRegEx, MainFormUnit;
+
+// to work around some jvcl bugs, we need protected access
+type
+  TJvOfficeColorPanelHack = class(TJvCustomOfficeColorPanel);
 
 {$R *.dfm}
 
@@ -52,14 +61,80 @@ begin
   // Create objects
   FValidator := TFormValidator.Create;
   FValidator.AddRule(RegexEdit, ValidateRegexProc);
-
-  // Init components
-  HighlightColorPicker.SelectedColor := MainForm.DefaultHighlightColor;
 end;
 
 procedure TRulePropertiesForm.FormDestroy(Sender: TObject);
 begin
   FValidator.Free;
+end;
+
+function TRulePropertiesForm.GetHighlightColor: TColor;
+begin
+  Result := HighlightColorPicker.SelectedColor;
+end;
+
+procedure TRulePropertiesForm.SetHighlightColor(const Value: TColor);
+var
+  I: Integer;
+  Found: Boolean;
+  WorkValue: TColor;
+begin
+  // control is unable to pick custom colors up correctly, so help it out;
+  // this is still not a 100% correct - if you call this function multiple times
+  // for one instance, two buttons will be selected. we work around that by
+  // making sure we have a default color (if nothing else is passed) right here.
+  if Value = clNone then WorkValue := MainForm.DefaultHighlightColor
+  else WorkValue := Value;
+
+  // set color WorkValue
+  HighlightColorPicker.SelectedColor := WorkValue;
+
+  // apply manual fixes
+  with TJvOfficeColorPanelHack(HighlightColorPicker) do
+  begin
+    // search for a color button to select
+    Found := False;
+    if Properties.ShowStandardColors then
+      for I := 0 to StandardColorDrawers.Count - 1 do
+      begin
+        TJvSpeedButton(StandardColorDrawers[I]).Down :=
+          TJvColorSpeedButton(StandardColorDrawers[I]).DrawColor = WorkValue;
+        if (TJvSpeedButton(StandardColorDrawers[I]).Down) then
+          Found := True;
+      end;
+    if Properties.ShowSystemColors then
+      for I := 0 to SystemColorDrawers.Count - 1 do
+      begin
+        TJvSpeedButton(SystemColorDrawers[I]).Down :=
+          TJvColorSpeedButton(SystemColorDrawers[I]).DrawColor = WorkValue;
+        if (TJvSpeedButton(SystemColorDrawers[I]).Down) then
+          Found := True;
+      end;
+    if Properties.ShowUserColors then
+      for I := 0 to UserColorDrawers.Count - 1 do
+      begin
+        TJvSpeedButton(UserColorDrawers[I]).Down :=
+          TJvColorSpeedButton(UserColorDrawers[I]).DrawColor = WorkValue;
+        if (TJvSpeedButton(UserColorDrawers[I]).Down) then
+          Found := True;
+      end;
+
+    // no color?
+    if HighlightColorPicker.Properties.NoneColorColor = WorkValue then
+    begin
+      ButtonNoneColor.Down := True;
+      Found := True;
+    end;
+
+    // no color found? apply manual color
+    if not Found then
+    begin
+      CustomColorDrawer.Down := True;
+      // IMPORTANT: if this property is not available in the JVCL, add it
+      // yourself as a protected property, accessing FCustomColorDrawer.
+      CustomColorDrawer.DrawColor := WorkValue;
+    end;
+  end;
 end;
 
 procedure TRulePropertiesForm.TntButton2Click(Sender: TObject);

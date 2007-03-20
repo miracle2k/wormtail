@@ -204,11 +204,13 @@ type
     procedure TrimBuffer;
     procedure ApplyFilter(StartNode: PVirtualNode);
     procedure ExecuteRules(ApplyTo: PVirtualNode;
-      RequireParent: PVirtualNode = nil);
+      RequireParent: PVirtualNode = nil; ThisSubtree: Boolean = False);  // ThisSubtree is ignored if RequireParent = nil
   protected
     // Set-Accessor takes care of updating caption. Apart from that, best not
     // touch it, use OpenFile() and CloseFile() instead.
     property CurrentFilename: WideString read FCurrentFilename write SetCurrentFilename;
+  public
+    procedure ReapplyRulesToBuffer(ARule: PVirtualNode = nil);
   public
     property TimestampColumnFormat: WideString read FTimestampColumnFormat write SetTimestampColumnFormat;
     property DefaultHighlightColor: TColor read FDefaultHighlightColor write SetDefaultHighlightColor;
@@ -235,20 +237,6 @@ uses
   Core, VistaCompat, GnuGetText, MPShellUtilities, AboutFormUnit, RulesFormUnit;
 
 {$R *.dfm}
-
-{ Helper functions }
-
-// Get a good color contrast
-function GetGrayLevel(const Color: TColor): Integer;
-begin
-   Result := (77 * (Color and $FF) + 151 * (Color shr 8 and $FF) + 28 *
-     (Color shr 16 and $FF)) shr 8;
-end;
-function GetGoodContrast(const Color: TColor): TColor;
-begin
-   if GetGrayLevel(Color) < 128 then Result := clWhite
-   else Result := clBlack;
-end;
 
 { TFileReadThread }
 
@@ -419,7 +407,7 @@ begin
 end;
 
 procedure TMainForm.ExecuteRules(ApplyTo: PVirtualNode;
-  RequireParent: PVirtualNode = nil);
+  RequireParent: PVirtualNode = nil; ThisSubtree: Boolean = False);
 var
   CurrentNode: PVirtualNode;
   RuleData: PLogRule;
@@ -435,9 +423,14 @@ var
     except
       Result := False;
     end;
+    // if the rule is inverse, reverse the result
+    if Rule.Inverse then Result := not Result;
   end;
 
 begin
+  // sanitize parameters - ThisSubtree makes no sense without "RequireParent".
+  if (RequireParent = nil) then ThisSubtree := False; 
+
   // get data of log line to check
   NodeData := LogView.GetNodeData(ApplyTo);
 
@@ -447,25 +440,41 @@ begin
   try
     with RulesForm.RulesList do
     begin
+      // select the node to start with. three options:
+      //   # RequireParent = nil: We get the very first node in the tree, and
+      //       proceed to loop through everything.
+      //   # RequireParent <> nil, ThisSubtree = False; We handle all child nodes
+      //       of RequireParent, but not the node itself. This is usually what
+      //       happens everytime this function calls itself recursively.
+      //   # RequireParent <> nil, ThisSubtree = True; We first handle the node
+      //       itself, and then it's childs, but no siblings of the node are
+      //       processed. This can be used by exernal callers to execute one
+      //       specific subtree.
+      if (ThisSubtree = False) or (RequireParent = nil) then
+        CurrentNode := GetFirstChild(RequireParent)
+      else CurrentNode := RequireParent;
       // loop through tree
-      CurrentNode := GetFirstChild(RequireParent);
       while CurrentNode <> nil do
       begin
         // get data for this node
         RuleData := GetNodeData(CurrentNode);
 
-        // check the rule
-        if CheckRule(RuleData) then
+        // check the rule, but only if it is enabled, or if it is a
+        // "ThisSubtree" target. I.e. we will ignore a "disabled" state if
+        // it was explicitly asked to execute this node
+        if (RuleData^.Enabled or ThisSubtree) and (CheckRule(RuleData)) then
         begin
           // apply highlight color
           NodeData.CustomHighlightColor := RuleData.HighlightColor;
 
           // execute child nodes
-          ExecuteRules(ApplyTo, CurrentNode);
+          ExecuteRules(ApplyTo, CurrentNode, False);
         end;
 
-        // next node
-        CurrentNode := GetNextSibling(CurrentNode);
+        // if a specific subtree was requested, stop here. Otherwise,
+        // continue with the next sibling.
+        if (ThisSubtree) then CurrentNode := nil
+        else CurrentNode := GetNextSibling(CurrentNode);
       end;
     end;
   finally
@@ -693,6 +702,31 @@ begin
     OpenFile(SelectedNodeFilename);
 end;
 
+procedure TMainForm.ReapplyRulesToBuffer(ARule: PVirtualNode);
+var
+  CurrentNode: PVirtualNode;
+begin
+  Screen.Cursor := crHourGlass;
+  LogView.BeginUpdate;
+  try
+    // loop through buffer
+    CurrentNode := LogView.GetFirst;
+    while CurrentNode <> nil do
+    begin
+      // if a specific rule was requested, apply that one. otherwise,
+      // apply all rules
+      ExecuteRules(CurrentNode, ARule, True);
+
+      // next
+      CurrentNode := LogView.GetNext(CurrentNode);
+    end;
+  finally
+    LogView.EndUpdate;
+    Screen.Cursor := crDefault;    
+    LogView.Invalidate;
+  end;
+end;
+
 procedure TMainForm.ApplyFilter(StartNode: PVirtualNode);
 var
   Data: PLogLineNodeData;
@@ -704,14 +738,18 @@ begin
     // try to compile regex
     PCRE.RegEx := FilterEdit.Text;
     try
-      if FilterEdit.Text <> '' then PCRE.Compile;  // don't attempt if no text
-      // Everything is fine, hide any indicators
-      FilterEditValidator.RulesByControl[FilterEdit].Failed := False;      
+      try
+        if FilterEdit.Text <> '' then PCRE.Compile;  // don't attempt if no text
+        // Everything is fine, hide any indicators
+        FilterEditValidator.RulesByControl[FilterEdit].Failed := False;
+      except
+        // if there is an error during regex compile, stop here and don't do/change
+        // anything. in fact, this might be just a temporary invalid state, while
+        // the user is writing/building his expression.
+        FilterEditValidator.RulesByControl[FilterEdit].Failed := True;
+      end;
     except
-      // if there is an error during regex compile, stop here and don't do/change
-      // anything. in fact, this might be just a temporary invalid state, while
-      // the user is writing/building his expression.
-      FilterEditValidator.RulesByControl[FilterEdit].Failed := True;
+      // sometimes the exception get's not caught the first time?
     end;
 
     // start either at the node passed, or at the beginning
