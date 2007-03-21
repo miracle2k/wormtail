@@ -28,6 +28,8 @@ object RulesForm: TRulesForm
     Align = alClient
     ClipboardFormats.Strings = (
       'Virtual Tree Data')
+    Colors.UnfocusedSelectionColor = clHighlight
+    Colors.UnfocusedSelectionBorderColor = clHighlight
     Header.AutoSizeIndex = 0
     Header.Font.Charset = DEFAULT_CHARSET
     Header.Font.Color = clWindowText
@@ -48,8 +50,6 @@ object RulesForm: TRulesForm
     OnDragDrop = RulesListDragDrop
     OnDrawNode = RulesListDrawNode
     OnGetNodeWidth = RulesListGetNodeWidth
-    ExplicitWidth = 189
-    ExplicitHeight = 264
     Columns = <>
   end
   object RulesPopup: TSpTBXPopupMenu

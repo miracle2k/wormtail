@@ -122,6 +122,8 @@ object MainForm: TMainForm
     Height = 273
     Align = alClient
     BorderStyle = bsNone
+    Colors.UnfocusedSelectionColor = clHighlight
+    Colors.UnfocusedSelectionBorderColor = clHighlight
     Header.AutoSizeIndex = 0
     Header.Font.Charset = DEFAULT_CHARSET
     Header.Font.Color = clWindowText

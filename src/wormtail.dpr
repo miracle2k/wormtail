@@ -5,8 +5,6 @@ program wormtail;
 // TODO: change font screws with multiline / line height
 // TODO: multiline improvements
 // TODO: store settings in registry
-// TODO: selection in lsitviews is hardly readable if window deactivated
-// TODO: when opening a file, add a couple of lines "prefilled"
 // TODO: .log and file association registration
 
 uses
