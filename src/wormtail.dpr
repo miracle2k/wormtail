@@ -5,7 +5,6 @@ program wormtail;
 // TODO: change font screws with multiline / line height
 // TODO: multiline improvements
 // TODO: store settings in registry
-// TODO: .log and file association registration
 
 uses
   ExceptionLog,

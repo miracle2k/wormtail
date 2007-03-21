@@ -234,7 +234,7 @@ const
 implementation
 
 uses
-  Math,
+  Math, TaskDialog,
   Core, VistaCompat, GnuGetText, MPShellUtilities, AboutFormUnit, RulesFormUnit;
 
 {$R *.dfm}
@@ -664,6 +664,10 @@ begin
 
   // TODO: testing only, remove for release
   MRUList.Add('G:\Programme\Xampp\apache\logs\access.log');
+
+  // If a parameter was passed, go ahead and try to open that file right now
+  if ParamCount = 1 then
+    OpenFile(ParamStr(1));
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -786,12 +790,36 @@ begin
 end;
 
 procedure TMainForm.OpenFile(AFilename: string);
+var
+  NewWatchThread: TFileReadThread;
 begin
-  // close any existing file, should it exist
+  try
+    // try to create a new file thread - note: if this files,
+    // we can continue with the current file, as the old one is not yet closed.
+    NewWatchThread := TFileReadThread.Create(AFilename);
+  except
+    on E: Exception do
+    begin
+      // Show error message
+      with TTaskDialog.Create(Self) do begin
+        DialogPosition := dpOwnerFormCenter;
+        Title := _('Error');
+        Icon := tiError;
+        Instruction := 'Failed to open file.';
+        Content := _(Format('The following error occured: %s', [E.Message]));
+        Execute;
+      end;
+      // don't go any further
+      Exit;
+    end;
+  end;
+
+  // if we are here we could successfully create the thread (and open the file);
+  // now try to close the existing one, if possible
   CloseFile;
 
-  // create a new watch thread for the new file
-  FWatchThread := TFileReadThread.Create(AFilename);
+  // continue with the thread object we just created.
+  FWatchThread := NewWatchThread;
   FWatchThread.OnFileChangeEvent := EventHandler;
   FWatchThread.Resume;
 
