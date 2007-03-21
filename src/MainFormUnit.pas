@@ -25,6 +25,8 @@ type
   private
     FStream: TStream;
     FOnFileChangeEvent: TFileChangeEvent;
+    FLinebreaksWanted: Integer;
+    FSleepTime: Integer;
     procedure SetStream(const Value: TStream);
     procedure SetOnFileChangeEvent(const Value: TFileChangeEvent);
   public
@@ -35,6 +37,8 @@ type
   public
     property Stream: TStream read FStream write SetStream;
     property OnFileChangeEvent: TFileChangeEvent read FOnFileChangeEvent write SetOnFileChangeEvent;
+    property LinebreaksWanted: Integer read FLinebreaksWanted write FLinebreaksWanted;
+    property SleepTime: Integer read FSleepTime write FSleepTime; 
   end;
 
   // VT node data representing a line in the file
@@ -237,7 +241,9 @@ uses
 constructor TFileReadThread.Create(Filename: string);
 begin
   inherited Create(True);
-  Priority := tpLowest;
+  FLinebreaksWanted := 10;
+  FSleepTime := 10;
+  Priority := tpLower;
   FStream := TFileStream.Create(Filename, fmOpenRead or fmShareDenyNone);
 end;
 
@@ -264,7 +270,6 @@ var
   const
     BytesAPieceToRead = 1024;
     LinebreakChars = [#13, #10];
-    LinebreaksWanted = 10; // TODO: move to config
   begin
     // Init variables
     StopPosition := 0;
@@ -392,8 +397,7 @@ begin
       end;
 
       // Save some CPU time, don't overdo it.
-      // TODO: read this value from the registry
-      Sleep(80);      
+      Sleep(SleepTime);
     except
       // TODO: how do we handle exceptions?
     end;
@@ -492,7 +496,7 @@ begin
   end;
 
   // auto scroll to bottom?
-  if AutoScroll then
+  if Settings.AutoScroll then
     LogView.ScrollIntoView(LogView.GetLast, False);
 
   // if a node was added and we are in tray mode, anmiated the icon
@@ -832,6 +836,8 @@ begin
 
   // continue with the thread object we just created.
   FWatchThread := NewWatchThread;
+  FWatchThread.LinebreaksWanted := Settings.NumberOfLinesPreloaded;
+  FWatchThread.SleepTime := Settings.ThreadSleepTime;
   FWatchThread.OnFileChangeEvent := EventHandler;
   FWatchThread.Resume;
 
@@ -875,7 +881,7 @@ procedure TMainForm.ApplyFilter(StartNode: PVirtualNode);
 var
   Data: PLogLineNodeData;
   CurrentNode: PVirtualNode;
-  PCRE: TPerlRegEx; // TODO: add this to credits
+  PCRE: TPerlRegEx;
 begin
   PCRE := TPerlRegEx.Create(nil);
   try

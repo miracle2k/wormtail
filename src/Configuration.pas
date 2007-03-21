@@ -18,6 +18,8 @@ type
     FLeftToolbarLargeIcons: Boolean;
     FDefaultHighlightColor: TColor;
     FAutoTrimBuffer: Boolean;
+    FNumberOfLinesPreloaded: Integer;
+    FThreadSleepTime: Integer;
     procedure SetAutoScroll(const Value: Boolean);
     procedure SetDefaultHighlightColor(const Value: TColor);
     procedure SetFlashTrayIconOnChange(const Value: Boolean);
@@ -28,6 +30,8 @@ type
     procedure SetTimestampColumnFormat(const Value: WideString);
     procedure SetTopToolbarLargeIcons(const Value: Boolean);
     procedure SetAutoTrimBuffer(const Value: Boolean);
+    procedure SetNumberOfLinesPreloaded(const Value: Integer);
+    procedure SetThreadSleepTime(const Value: Integer);
   published
   public
     constructor Create; virtual;
@@ -43,6 +47,8 @@ type
     property ShowTimestamp: Boolean read FShowTimestamp write SetShowTimestamp;
     property TimestampColumnFormat: WideString read FTimestampColumnFormat write SetTimestampColumnFormat;
     property FlashTrayIconOnChange: Boolean read FFlashTrayIconOnChange write SetFlashTrayIconOnChange;
+    property NumberOfLinesPreloaded: Integer read FNumberOfLinesPreloaded write SetNumberOfLinesPreloaded;
+    property ThreadSleepTime: Integer read FThreadSleepTime write SetThreadSleepTime;
   end;
 
 implementation
@@ -64,6 +70,8 @@ begin
   FTopToolbarLargeIcons := False;
   FLeftToolbarLargeIcons := False;
   FDefaultHighlightColor := clRed;
+  FNumberOfLinesPreloaded := 15;
+  FThreadSleepTime := 10;
 end;
 
 destructor TWormtailSettings.Destroy;
@@ -113,9 +121,19 @@ begin
   end;
 end;
 
+procedure TWormtailSettings.SetNumberOfLinesPreloaded(const Value: Integer);
+begin
+  FNumberOfLinesPreloaded := Value;
+end;
+
 procedure TWormtailSettings.SetShowTimestamp(const Value: Boolean);
 begin
   FShowTimestamp := Value;
+end;
+
+procedure TWormtailSettings.SetThreadSleepTime(const Value: Integer);
+begin
+  FThreadSleepTime := Value;
 end;
 
 procedure TWormtailSettings.SetTimestampColumnFormat(const Value: WideString);

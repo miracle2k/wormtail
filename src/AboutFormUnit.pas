@@ -46,6 +46,7 @@ const
 'PngDelphi'#13#10+
 'RemObjects Pascal Script'#13#10+
 'EurekaLog'#13#10+
+'TPerlRegEx'#13#10+
 ''#13#10+
 ''#13#10+
 ''#13#10+
