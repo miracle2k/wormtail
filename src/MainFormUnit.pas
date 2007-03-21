@@ -234,6 +234,7 @@ const
 implementation
 
 uses
+  Math,
   Core, VistaCompat, GnuGetText, MPShellUtilities, AboutFormUnit, RulesFormUnit;
 
 {$R *.dfm}
@@ -257,9 +258,112 @@ procedure TFileReadThread.Execute;
 var
   T: string;
   BufferSize: Cardinal;
+  StartingPosition: Cardinal;
+
+  // Extract the last X lines from a stream
+  // TODO: what happens if the file is made smaller DURING execution of this
+  function ParseTail: string;
+  var
+    I: Integer;
+    LinebreakCount: Integer;
+    BytesToRead, StopPosition: Cardinal;
+    LastChar: Char;  // needed so we don't count a #13#10 twice
+  const
+    BytesAPieceToRead = 1024;
+    LinebreakChars = [#13, #10];
+    LinebreaksWanted = 10; // TODO: move to config
+  begin
+    // Init variables
+    StopPosition := 0;
+    LinebreakCount := 0;
+    LastChar := #0;
+    // Try to read the last few lines of the file:
+    while Stream.Position > 0 do
+    begin
+      // Always read X bytes a piece, except for when there are fewer bytes left
+      // in the file. Determine that now.
+      BytesToRead := Min(BytesAPieceToRead, Stream.Position);
+      Stream.Position := Stream.Position - BytesToRead;
+      // Read the number of bytes we just decided on
+      SetLength(T, BytesToRead);
+      Stream.ReadBuffer(T[1], BytesToRead);
+      // Reset the position counter by the number of bytes we just read,
+      // or we will read the same thing again next time.
+      Stream.Position := Stream.Position - BytesToRead;
+      
+      // Search the buffer for line breaks
+      for I := Length(T) downto 1 do
+      begin
+        if T[I] in LinebreakChars then
+          // Make sure #13#10 combinations are only counted once - only continue
+          // if the last character was no linebreak at all, or the same one we
+          // handle now (in which case there is an empty line, probably).
+          if (T[I] = LastChar) or not (LastChar in LinebreakChars) then
+          begin
+            // We found another (valid) linebreak
+            Inc(LinebreakCount);
+            // If there are enough lines, stop here
+            if LinebreakCount > LinebreaksWanted then
+            begin
+              // Calculate the (virtual) position the current linebreak character
+              // has in the stream, and move the stream there (do not include
+              // the linebreak itself)
+              StopPosition := Stream.Position + I;
+              Break;
+            end;
+          end
+          // If this was not a valid linebreak, reset LastChar explicitely to
+          // #0, otherwise, multiple linebreaks #13#10#13#10#13#10 will not be
+          // detected correctly (as we will always think the current one belongs
+          // to the last one. The alternative way to handle this would be to
+          // actually *look* at the order of #13#10, and only accept the
+          // correct one. Probably even the better solution. 
+          else begin
+            LastChar := #0;
+            Continue;  // skip the standard LastChar assignment below
+          end;
+
+        LastChar := T[I];  
+      end;
+
+      // Check if we are at the end of our tail reading process. This is either
+      // the case if we reached the beginning of the file, or if StopPosition
+      // has been set (which means that we found as many lines as we want).
+      if (StopPosition <> 0) or (Stream.Position = 0) then
+      begin
+        // Go to the stop position
+        Stream.Position := StopPosition;
+        // Now read everything from there to our starting position (which is
+        // were we previously started searching backwards).
+        BytesToRead := StartingPosition - Stream.Position;
+        SetLength(T, BytesToRead);
+        Stream.ReadBuffer(T[1], BytesToRead);
+        // Return what the buffer we read and exit
+        Result := T;
+        Break;        
+      end;
+    end;
+  end;
+
 begin
-  // Starting off, jump to the end of the file to monitor changes
-  Stream.Position := Stream.Size;
+  // We start at the end of the file. Please note that before we can actually
+  // watch for changes we have to do some other work first, and while we do
+  // that the file might change. We store the (current) end of the file in a
+  // varibale here so that we can later continue at exactly that point.
+  StartingPosition := Stream.Size;
+  
+  // Starting off, jump to the end of the file
+  Stream.Position := StartingPosition;
+
+  // Read the tail of the file, and return to client
+  T := ParseTail;
+  if (T <> '') then
+    if Assigned(FOnFileChangeEvent) then
+      FOnFileChangeEvent(Self, WideString(T));
+
+  // Jump to the end (the "end" we previously determined), and start
+  // watching the file from there.
+  Stream.Position := StartingPosition;
 
   // Loop until termination
   while not Terminated do
@@ -292,11 +396,11 @@ begin
             LeaveCriticalSection(FileChangeEvent_CS);
           end;
         end;
-
-        // Save some CPU time, don't overdo it.
-        // TODO: read this value from the registry
-        Sleep(800);
       end;
+
+      // Save some CPU time, don't overdo it.
+      // TODO: read this value from the registry
+      Sleep(80);      
     except
       // TODO: how do we handle exceptions?
     end;
