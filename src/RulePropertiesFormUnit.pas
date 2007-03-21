@@ -82,9 +82,11 @@ begin
   // control is unable to pick custom colors up correctly, so help it out;
   // this is still not a 100% correct - if you call this function multiple times
   // for one instance, two buttons will be selected. we work around that by
-  // making sure we have a default color (if nothing else is passed) right here.
-  if Value = clNone then WorkValue := MainForm.DefaultHighlightColor
-  else WorkValue := Value;
+  // always making sure that this is only called once. That also means we cannot
+  // pre-initialize a color. The caller of this form either has to set one - or
+  // set a default according to his wishes.
+
+  WorkValue := Value;
 
   // set color WorkValue
   HighlightColorPicker.SelectedColor := WorkValue;
