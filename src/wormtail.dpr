@@ -4,7 +4,6 @@ program wormtail;
 
 // TODO: change font screws with multiline / line height
 // TODO: multiline improvements
-// TODO: store settings in registry
 
 uses
   ExceptionLog,
@@ -15,7 +14,8 @@ uses
   VersionInfo in 'VersionInfo.pas',
   VistaCompat in 'VistaCompat.pas',
   RulesFormUnit in 'RulesFormUnit.pas' {RulesForm},
-  RulePropertiesFormUnit in 'RulePropertiesFormUnit.pas' {RulePropertiesForm};
+  RulePropertiesFormUnit in 'RulePropertiesFormUnit.pas' {RulePropertiesForm},
+  Configuration in 'Configuration.pas';
 
 begin
   Application.Initialize;

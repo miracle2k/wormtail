@@ -98,4 +98,12 @@ object RulesForm: TRulesForm
       OnClick = ClearAllItemClick
     end
   end
+  object FormStorage: TJvFormStorage
+    AppStorage = MainForm.AppStorage
+    AppStoragePath = 'RulesForm\'
+    VersionCheck = fpvcNocheck
+    StoredValues = <>
+    Left = 8
+    Top = 40
+  end
 end

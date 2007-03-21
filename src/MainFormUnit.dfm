@@ -142,6 +142,8 @@ object MainForm: TMainForm
     OnGetText = LogViewGetText
     OnPaintText = LogViewPaintText
     OnMeasureItem = LogViewMeasureItem
+    ExplicitLeft = 0
+    ExplicitTop = 50
     Columns = <
       item
         Position = 0
@@ -2378,5 +2380,21 @@ object MainForm: TMainForm
       Caption = 'Restore Window'
       OnClick = SpTBXItem1Click
     end
+  end
+  object AppStorage: TJvAppRegistryStorage
+    StorageOptions.BooleanStringTrueValues = 'TRUE, YES, Y'
+    StorageOptions.BooleanStringFalseValues = 'FALSE, NO, N'
+    Root = '%NONE%'
+    SubStorages = <>
+    Left = 72
+    Top = 200
+  end
+  object FormStorage: TJvFormStorage
+    AppStorage = AppStorage
+    AppStoragePath = 'MainForm\'
+    VersionCheck = fpvcNocheck
+    StoredValues = <>
+    Left = 40
+    Top = 200
   end
 end

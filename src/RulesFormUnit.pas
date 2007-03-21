@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, VirtualTrees, Menus, TB2Item, TBX, SpTBXItem, ActiveX;
+  Dialogs, VirtualTrees, Menus, TB2Item, TBX, SpTBXItem, ActiveX,
+  JvComponentBase, JvFormPlacement;
 
 type
   // Defines a filter rule
@@ -31,6 +32,7 @@ type
     ClearAllItem: TSpTBXItem;
     SpTBXSeparatorItem3: TSpTBXSeparatorItem;
     RuleEnabledItem: TSpTBXItem;
+    FormStorage: TJvFormStorage;
     procedure FormCreate(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -112,6 +114,7 @@ begin
     RegexEdit.Text := NodeData.Regex;
     HighlightColor := NodeData.HighlightColor;
     // ask user for changes
+    PopupParent := Self;  // Vista fix
     if ShowModal = mrOk then
     begin
       NodeData.Inverse := InverseCheckbox.Checked;
@@ -356,6 +359,7 @@ begin
   begin
     HighlightColor := clNone; // JVCL color picker control has a bug, need this to workaround.
                               // see TRulePropertiesForm.SetHighlightColor for more details
+    PopupParent := Self;  // Vista fix
     if ShowModal = mrOk then
     begin
       NodeData := NewRule(RulesList.NodeParent[RulesList.GetFirstSelected]);
