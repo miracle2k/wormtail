@@ -2,9 +2,6 @@ program wormtail;
 
 {$R 'wormtail.res' 'wormtail.rc'}
 
-// TODO: change font screws with multiline / line height
-// TODO: multiline improvements
-
 uses
   ExceptionLog,
   GnuGetText,
