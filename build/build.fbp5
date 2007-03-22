@@ -2218,6 +2218,7 @@ Comments=
                 <Property name="IsAction" type="Boolean">True</Property>
                 <Property name="IsBreakPoint" type="WordBool">False</Property>
                 <Property name="ListOfItems" type="TStrings"><![CDATA[default
+eureka
 ]]>
                   </Property>
                 <Property MultiValue="0" name="LogToVariable" type="string"></Property>
