@@ -27,7 +27,7 @@ DefaultGroupName={#AppNameSystem}
 ; We don't create a submenu, only an icon
 DisableProgramGroupPage=yes
 AllowNoIcons=yes
-OutputBaseFilename={#LowerCase(AppNameSystem)}-setup
+OutputBaseFilename={#LowerCase(AppNameSystem)}-setup-{#VersionStrShort}
 ; relative to SourceDir
 OutputDir=..\
 Compression=lzma/max

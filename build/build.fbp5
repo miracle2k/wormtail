@@ -1241,7 +1241,7 @@ Comments=
               </Property>
             <Property name="ActionTextColor" type="Cardinal">0</Property>
             <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
-            <Property MultiValue="0" name="ArchiveName" type="string">%FBPROJECTDIR%\wormtail.zip</Property>
+            <Property MultiValue="0" name="ArchiveName" type="string">%FBPROJECTDIR%\wormtail-%VersionStrShort%.zip</Property>
             <Property name="ArchiveType" type="T7ZipArchiveType">zZip</Property>
             <Property name="CompressionLevel" type="T7ZipCompressLevel">clUltra</Property>
             <Property name="CreateSFXArchive" type="Boolean">False</Property>
@@ -1347,7 +1347,7 @@ Comments=
               <Property MultiValue="0" name="LogToVariable" type="string"></Property>
               <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
               <Property name="NodeCollapsed" type="Boolean">False</Property>
-              <Property MultiValue="1" name="Params" type="WideString"><![CDATA[%FBPROJECTDIR%\..\setup\setup.iss /dVersionStrLong="%VersionStrLong%" /dVersionShort="%VersionStrShort%" /dVersionFull="%VersionStrFull%"]]>
+              <Property MultiValue="1" name="Params" type="WideString"><![CDATA[%FBPROJECTDIR%\..\setup\setup.iss /dVersionStrLong="%VersionStrLong%" /dVersionStrShort="%VersionStrShort%" /dVersionStrFull="%VersionStrFull%"]]>
                 </Property>
               <Property name="PauseInterval" type="Cardinal">0</Property>
               <Property name="ProcessorAffinity" type="Cardinal">0</Property>
