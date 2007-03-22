@@ -397,8 +397,8 @@ begin
       begin
         // TODO 1: dxgettext claims it is not threadsafe. Is this a problem
         // for us? Should we create a separate instance for this thread?
-        DoOnFileChangeEvent(_(Format('WARNING: The size of this file just '+
-          'decreased by %d bytes.', [Stream.Position-Stream.Size])));
+        DoOnFileChangeEvent(Format(_('WARNING: The size of this file just '+
+          'decreased by %d bytes.'), [Stream.Position-Stream.Size]));
         // Not automatically adjusted, fix position pointer
         Stream.Position := Stream.Size;
       end;
@@ -434,7 +434,7 @@ begin
       on E: Exception do
       begin
          // TODO 1: dxgettext thread safety issues as well, see above
-         DoOnFileChangeEvent(_(Format('WARNING: An exception occured in the watch thread: "%s"', [E.Message])));
+         DoOnFileChangeEvent(Format(_('WARNING: An exception occured in the watch thread: "%s"'), [E.Message]));
          Sleep(SleepTime*3);         
       end;
     end;
