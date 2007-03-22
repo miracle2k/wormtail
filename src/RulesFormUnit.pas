@@ -152,7 +152,9 @@ procedure TRulesForm.FormHide(Sender: TObject);
 begin
   // Work around JVCL bug: position is loaded in onShow, but not stored when
   // form is hidden.
-  // { TODO 1 -cworkaround : check for fix in official sources }
+  // TODO 1 -cworkaround : check for fix in official sources
+  // Looks like this is already fixed, see
+  //   http://homepages.borland.com/jedi/issuetracker/view.php?id=4002
   FormStorage.SaveFormPlacement;
 end;
 
