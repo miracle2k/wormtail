@@ -3,7 +3,7 @@ unit Configuration;
 interface
 
 uses
-  Classes, Graphics;
+  Forms, Classes, Graphics, SysUtils;
 
 type
   TWormtailSettings = class(TPersistent)
@@ -32,6 +32,8 @@ type
     procedure SetAutoTrimBuffer(const Value: Boolean);
     procedure SetNumberOfLinesPreloaded(const Value: Integer);
     procedure SetThreadSleepTime(const Value: Integer);
+    procedure SetApplicationExePath(const Value: WideString);
+    function GetApplicationExePath: WideString;
   published
   public
     constructor Create; virtual;
@@ -49,6 +51,8 @@ type
     property FlashTrayIconOnChange: Boolean read FFlashTrayIconOnChange write SetFlashTrayIconOnChange;
     property NumberOfLinesPreloaded: Integer read FNumberOfLinesPreloaded write SetNumberOfLinesPreloaded;
     property ThreadSleepTime: Integer read FThreadSleepTime write SetThreadSleepTime;
+    // This makes sure the path to the executable is automatically written to the registry
+    property ApplicationExePath: WideString read GetApplicationExePath write SetApplicationExePath;
   end;
 
 implementation
@@ -78,6 +82,16 @@ destructor TWormtailSettings.Destroy;
 begin
   FListFont.Free;
   inherited;
+end;
+
+function TWormtailSettings.GetApplicationExePath: WideString;
+begin
+  Result := ExtractFilePath(Application.ExeName);
+end;
+
+procedure TWormtailSettings.SetApplicationExePath(const Value: WideString);
+begin
+  // do not accept any values for this
 end;
 
 procedure TWormtailSettings.SetAutoScroll(const Value: Boolean);
