@@ -7,6 +7,9 @@ program wormtail;
 
 uses
   ExceptionLog,
+  GnuGetText,
+  EurekaLogGetText,
+  Graphics,
   Forms,
   MainFormUnit in 'MainFormUnit.pas' {MainForm},
   Core in 'Core.pas',
@@ -18,6 +21,11 @@ uses
   Configuration in 'Configuration.pas';
 
 begin
+  // Exclude some stuff from translation
+  TP_GlobalIgnoreClass(TFont);
+  // Localize EurekaLog Messages
+  GetTextTranslateEurekaLog();
+
   Application.Initialize;
   Application.Title := AppName;
   Application.CreateForm(TMainForm, MainForm);
