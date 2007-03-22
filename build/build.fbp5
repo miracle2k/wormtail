@@ -1054,46 +1054,50 @@ Comments=
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             </Object>
-          <Object Class="TFBZipAction" XMLID="{E99C0FB0-54DA-4CE4-8BD1-646ABD8324E0}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
-            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Create Zip File [ %FBPROJECTDIR%\wormtail.zip ]]]>
+          <Object Class="TFB7zipCreateArchiveAction" XMLID="{0604C443-C04B-4566-906E-F134B18FF33D}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Create Archive [%FBPROJECTDIR%\wormtail.zip]]]>
               </Property>
             <Property name="ActionTextColor" type="Cardinal">0</Property>
             <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
-            <Property name="AddDirEntriesOnRecurse" type="WordBool">True</Property>
-            <Property name="Dispose" type="WordBool">False</Property>
+            <Property MultiValue="0" name="ArchiveName" type="string">%FBPROJECTDIR%\wormtail.zip</Property>
+            <Property name="ArchiveType" type="T7ZipArchiveType">zZip</Property>
+            <Property name="CompressionLevel" type="T7ZipCompressLevel">clUltra</Property>
+            <Property name="CreateSFXArchive" type="Boolean">False</Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[Create Archive [%FBPROJECTDIR%\wormtail.zip]]]>
+              </Property>
             <Property name="Enabled" type="WordBool">True</Property>
-            <Property MultiValue="0" name="EncryptedPassword" type="WideString"></Property>
-            <Property name="ExcludeList" type="TStrings"><![CDATA[]]>
+            <Property name="EnableTimeout" type="Boolean">False</Property>
+            <Property name="ExcludeFiles" type="TStrings"><![CDATA[]]>
               </Property>
             <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
-            <Property name="FailIfFileMissing" type="WordBool">False</Property>
-            <Property name="FailIfZeroFiles" type="WordBool">False</Property>
+            <Property MultiValue="0" name="ExtraCmdLineParamsAtEnd" type="string"></Property>
+            <Property MultiValue="0" name="ExtraCmdLineParamsAtStart" type="string"></Property>
             <Property name="FilesList" type="TStrings"><![CDATA[*
 ]]>
               </Property>
+            <Property name="IfArchiveExists" type="TIfArchiveExistsOption">exOverwrite</Property>
             <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property MultiValue="0" name="ImpersonateToken" type="string"></Property>
+            <Property name="ImpersonateUser" type="Boolean">False</Property>
+            <Property MultiValue="0" name="ImpersonateUserName" type="string"></Property>
             <Property name="IsAction" type="Boolean">True</Property>
             <Property name="IsBreakPoint" type="WordBool">False</Property>
-            <Property name="LogFiles" type="WordBool">True</Property>
             <Property MultiValue="0" name="LogToVariable" type="string"></Property>
             <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
-            <Property name="NoCompressList" type="TStrings"><![CDATA[]]>
-              </Property>
+            <Property name="Multithreaded" type="Boolean">False</Property>
             <Property name="NodeCollapsed" type="Boolean">False</Property>
-            <Property MultiValue="0" name="OutputFileName" type="WideString">%FBPROJECTDIR%\wormtail.zip</Property>
-            <Property name="PackLevel" type="Integer">9</Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
-            <Property name="Recurse" type="WordBool">True</Property>
-            <Property name="RelativePaths" type="WordBool">True</Property>
-            <Property name="ResetArchiveBitOnZip" type="WordBool">False</Property>
+            <Property name="ProcessorAffinity" type="Cardinal">0</Property>
+            <Property name="ProcessPriority" type="TFBExecuteThreadPriority">tpNormal</Property>
+            <Property name="Recurse" type="T7ZipRecurse">zrDefault</Property>
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
-            <Property MultiValue="0" name="RootDir" type="WideString">%OutputDir%</Property>
-            <Property name="SkipIfArchiveBitNotSet" type="WordBool">False</Property>
-            <Property name="Store83Names" type="WordBool">False</Property>
-            <Property name="StorePaths" type="WordBool">True</Property>
+            <Property MultiValue="0" name="RootDirectory" type="string">%OutputDir%</Property>
+            <Property name="SolidMode" type="Boolean">True</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
-            <Property name="ZipAction" type="TZipAction">zaUpdate</Property>
-            <Property MultiValue="0" name="ZipComment" type="WideString"></Property>
+            <Property name="TerminateOnTimeout" type="Boolean">True</Property>
+            <Property name="TimeoutLength" type="Cardinal">2</Property>
+            <Property MultiValue="0" name="Token" type="string"></Property>
+            <Property MultiValue="0" name="WorkingDir" type="string"></Property>
             </Object>
           <Object Class="TCommentAction" XMLID="{8695B3AC-26E6-4B25-A90B-6EA3168051D7}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Create setup (execute manually instead of using built-in action, need to pass parameters)]]>
