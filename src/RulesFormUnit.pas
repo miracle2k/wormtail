@@ -62,6 +62,7 @@ type
     procedure EditRuleItemClick(Sender: TObject);
     procedure RuleEnabledItemClick(Sender: TObject);
     procedure RulesListDblClick(Sender: TObject);
+    procedure FormHide(Sender: TObject);
   private
   private
   protected
@@ -145,6 +146,14 @@ begin
   if Visible then
     SetWindowPos(RulesForm.Handle, HWND_TOPMOST, Left, Top,
       Width, Height, SWP_DRAWFRAME or SWP_NOACTIVATE or SWP_NOMOVE or SWP_NOSIZE);
+end;
+
+procedure TRulesForm.FormHide(Sender: TObject);
+begin
+  // Work around JVCL bug: position is loaded in onShow, but not stored when
+  // form is hidden.
+  // { TODO 1 -cworkaround : check for fix in official sources }
+  FormStorage.SaveFormPlacement;
 end;
 
 procedure TRulesForm.FormShow(Sender: TObject);

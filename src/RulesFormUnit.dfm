@@ -17,6 +17,7 @@ object RulesForm: TRulesForm
   Position = poOwnerFormCenter
   OnCreate = FormCreate
   OnDeactivate = FormDeactivate
+  OnHide = FormHide
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
