@@ -633,7 +633,13 @@ end;
 
 procedure TMainForm.FilterEditChange(Sender: TObject);
 begin
-  ApplyFilter(nil);
+  try
+    ApplyFilter(nil);
+  except
+    // for some reason (bug?) an TPerlRegEx exception, even though it is
+    // enclosed by TWO(!) except-clauses still is not caught in ApplyFilter.
+    // To workaround that we catch it here again (which works, afai could try)
+  end;
 end;
 
 procedure TMainForm.FlashIconItemClick(Sender: TObject);
