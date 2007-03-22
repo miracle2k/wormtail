@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-03-21 15:30\n"
-"PO-Revision-Date: 2007-03-21 15:30\n"
+"POT-Creation-Date: 2007-03-22 13:51\n"
+"PO-Revision-Date: 2007-03-22 13:51\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -253,8 +253,20 @@ msgstr ""
 msgid "Clear All Rules"
 msgstr ""
 
+#. for us? Should we create a separate instance for this thread?
+#: MainFormUnit.pas:401
+msgid "WARNING: The size of this file just decreased by %d "
+"bytes."
+msgstr ""
+
+#. TODO 1: dxgettext thread safety issues as well, see above
+#: MainFormUnit.pas:437
+msgid "WARNING: An exception occured in the watch thread: "
+"\"%s\""
+msgstr ""
+
 #. Show error message
-#: MainFormUnit.pas:806
+#: MainFormUnit.pas:857
 #: RulePropertiesFormUnit.pas:150
 msgid "Error"
 msgstr ""
@@ -268,22 +280,22 @@ msgstr ""
 msgid "The regular expression is invalid: %s"
 msgstr ""
 
-#: RulesFormUnit.pas:88
-#: RulesFormUnit.pas:376
+#: RulesFormUnit.pas:90
+#: RulesFormUnit.pas:380
 msgid "Please confirm"
 msgstr ""
 
-#: RulesFormUnit.pas:91
+#: RulesFormUnit.pas:93
 msgid "Are you sure you want to delete the selected rule and all it's "
 "subnodes?"
 msgstr ""
 
-#: RulesFormUnit.pas:92
-#: RulesFormUnit.pas:380
+#: RulesFormUnit.pas:94
+#: RulesFormUnit.pas:384
 msgid "This action cannot be undone."
 msgstr ""
 
-#: RulesFormUnit.pas:379
+#: RulesFormUnit.pas:383
 msgid "Are you sure you want to delete ALL "
 "rules?"
 msgstr ""

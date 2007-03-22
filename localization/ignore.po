@@ -1,24 +1,30 @@
 # Placeholders
 msgid "%DYNAMICTEXT%"
-msgstr ""
 
 msgid "%VARIABLE%"
-msgstr ""
 
 # Appname
 msgid "Wormtail"
-msgstr ""
 
 # Virtual Tree View Clipboard Formats
 msgid "Virtual Tree Data"
-msgstr ""
 
 # Default timestamp format strings
 msgid "dd.mm.yy hh:nn:ss:zzz"
-msgstr ""
 
 msgid "dd.mm hh:nn:ss:zzz"
-msgstr ""
 
 msgid "dd.mm hh:nn:ss"
-msgstr ""
+
+# JVCL AppStorage/FormStorage
+msgid "TRUE, YES, Y"
+
+msgid "FALSE, NO, N"
+
+msgid "MainForm"
+
+msgid "MainForm\"
+
+msgid "RulesForm"
+
+msgid "RulesForm\"
