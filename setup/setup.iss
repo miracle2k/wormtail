@@ -48,7 +48,7 @@ Source: "*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 ; create empty registry key, but do not write any values. we do this only so that
 ; the uninstaller will the delete the key (and all it's values), as our app
 ; stores some data in the registry.
-; Root: HKCU; Subkey: "Software\Wormtail"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\Wormtail"; Flags: uninsdeletekey
 
 [Icons]
 Name: "{commonprograms}\{#AppNameSystem}"; Filename: "{app}\wormtail.exe"
