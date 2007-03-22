@@ -142,8 +142,6 @@ object MainForm: TMainForm
     OnGetText = LogViewGetText
     OnPaintText = LogViewPaintText
     OnMeasureItem = LogViewMeasureItem
-    ExplicitLeft = 0
-    ExplicitTop = 50
     Columns = <
       item
         Position = 0

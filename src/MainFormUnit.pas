@@ -260,7 +260,7 @@ var
   StartingPosition: Cardinal;
 
   // Extract the last X lines from a stream
-  // TODO: what happens if the file is made smaller DURING execution of this
+  
   function ParseTail: string;
   var
     I: Integer;
@@ -343,6 +343,17 @@ var
     end;
   end;
 
+  procedure DoOnFileChangeEvent(Str: Widestring);
+  begin
+    // TODO 1: is this actually enough to make our access thread safe?
+    EnterCriticalSection(FileChangeEvent_CS);
+    try
+      FOnFileChangeEvent(Self, Str);
+    finally
+      LeaveCriticalSection(FileChangeEvent_CS);
+    end;
+  end;
+
 begin
   // We start at the end of the file. Please note that before we can actually
   // watch for changes we have to do some other work first, and while we do
@@ -354,10 +365,16 @@ begin
   Stream.Position := StartingPosition;
 
   // Read the tail of the file, and return to client
-  T := ParseTail;
-  if (T <> '') then
-    if Assigned(FOnFileChangeEvent) then
-      FOnFileChangeEvent(Self, WideString(T));
+  try
+    T := ParseTail;
+    if (T <> '') then
+      if Assigned(FOnFileChangeEvent) then
+       DoOnFileChangeEvent(WideString(T));
+  except
+    // TODO 1: If a file shrinks DURING execution of ParseTail, potentially
+    // bad stuff might happen. For now, just ignore any exceptions and continue
+    // business as usual afterwards.
+  end;
 
   // Jump to the end (the "end" we previously determined), and start
   // watching the file from there.
@@ -367,8 +384,26 @@ begin
   while not Terminated do
   begin
     try
+      // Check if the file was made smaller (e.g. portions have been removed).
+      // there's really nothing we can do about it (and it goes against the
+      // assumptions we make for this tool), but at least we can notify the
+      // user about it.
+      // It looks like TStream does not automatically adjust Stream.Position
+      // to the new maximum size of this happens. On the one hand, this sucks,
+      // but at the same time it comes in handy as we can use it to check
+      // if the file was made smaller without using a separate variable (that
+      // would store the last known position/size).
+      if (Stream.Position > Stream.Size) then
+      begin
+        // TODO 1: dxgettext claims it is not threadsafe. Is this a problem
+        // for us? Should we create a separate instance for this thread?
+        DoOnFileChangeEvent(_(Format('WARNING: The size of this file just '+
+          'decreased by %d bytes.', [Stream.Position-Stream.Size])));
+        // Not automatically adjusted, fix position pointer
+        Stream.Position := Stream.Size;
+      end;
+
       // something was added
-      // TODO: handle removed, right now we assume that stuff is always added
       if Stream.Position <> Stream.Size then
       begin
         // Read how many bytes were added. and store in local variable.
@@ -386,20 +421,22 @@ begin
         else begin
           SetLength(T, BufferSize);
           Stream.ReadBuffer(T[1], BufferSize);
-          
-          EnterCriticalSection(FileChangeEvent_CS);
-          try
-            FOnFileChangeEvent(Self, WideString(T));
-          finally
-            LeaveCriticalSection(FileChangeEvent_CS);
-          end;
+
+          // call event handler through a critical section
+          DoOnFileChangeEvent(Widestring(T));
         end;
       end;
 
       // Save some CPU time, don't overdo it.
       Sleep(SleepTime);
     except
-      // TODO: how do we handle exceptions?
+      // If there is an exception, show it to the user as well, and do an extra long sleep
+      on E: Exception do
+      begin
+         // TODO 1: dxgettext thread safety issues as well, see above
+         DoOnFileChangeEvent(_(Format('WARNING: An exception occured in the watch thread: "%s"', [E.Message])));
+         Sleep(SleepTime*3);         
+      end;
     end;
   end;
 end;
