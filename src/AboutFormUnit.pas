@@ -25,9 +25,10 @@ uses
 
 const
   CreditsString =
-'&b&uWormtail %VERSION%'#13#10+
+'&b&uWormtail'#13#10+
+'Version %VERSION%'#13#10+
 ''#13#10+
-'2007 by Michael Elsd'#246'rfer '#13#10+
+'2007 by Michael Elsd'#246'rfer'#13#10+
 '<michael@elsdoerfer.info>'#13#10+
 ''#13#10+
 ''#13#10+
@@ -38,15 +39,63 @@ const
 ''#13#10+
 '&b&uComponents && Libraries'#13#10+
 ''#13#10+
-'Toolbar2000, TBX, SpTBX, mbTBX'#13#10+
-'TntWare Unicode Controls'#13#10+
-'VirtualTreeView'#13#10+
-'VirtualShellTools'#13#10+
-'JCL/JVCL'#13#10+
-'PngDelphi'#13#10+
-'RemObjects Pascal Script'#13#10+
-'EurekaLog'#13#10+
-'TPerlRegEx'#13#10+
+'&iIn no particular order'#13#10+
+''#13#10+
+'&bToolbar2000'#13#10+
+'By Jordan Russell'#13#10+
+'&ijrsoftware.org'#13#10+
+''#13#10+
+'&bTBX'#13#10+
+'By Alex A. Denisov'#13#10+
+'&ig32.org/tbx'#13#10+
+''#13#10+
+'&bSpTBX'#13#10+
+'By Robert Lee'#13#10+
+'Licensed under MPL'#13#10+
+'&iclub.telepolis.com/silverpointdev'#13#10+
+''#13#10+
+'&bmbTBX'#13#10+
+'By Marco Binic'#13#10+
+'&imxs.bergsoft.net'#13#10+
+''#13#10+
+'&bTntWare Unicode Controls'#13#10+
+'By Troy Wolbrink'#13#10+
+'&itntware.com'#13#10+
+''#13#10+
+'&bVirtualTreeView'#13#10+
+'By Mike Lischke and contributors'#13#10+
+'Licensed under MPL'#13#10+
+'&idelphi-gems.com'#13#10+
+''#13#10+
+'&bVirtualShellTools'#13#10+
+'By Jim Kueneman'#13#10+
+'Licensed under MPL'#13#10+
+'&imustangpeak.net'#13#10+
+''#13#10+
+'&bJCL/JVCL'#13#10+
+'Licensed under MPL'#13#10+
+'&idelphi-jedi.org'#13#10+
+''#13#10+
+'&bPngComponents'#13#10+
+'By Martijn Saly'#13#10+
+'&ithany.org'#13#10+
+''#13#10+
+'&bpngdelphi'#13#10+
+'By Gustavo Daud'#13#10+
+'&ipngdelphi.sourceforge.net'#13#10+
+''#13#10+
+'&bEurekaLog'#13#10+
+'By Fabio Dell''Aria'#13#10+
+'&ieurekalog.com'#13#10+
+''#13#10+
+'&bTPerlRegEx'#13#10+
+'By Jan Goyvaerts'#13#10+
+'&iregular-expressions.info'#13#10+
+''#13#10+
+'&bTMS TaskDialog'#13#10+
+'By TMS Software'#13#10+
+'&itmssoftware.com'#13#10+
+''#13#10+
 ''#13#10+
 ''#13#10+
 ''#13#10+
@@ -57,6 +106,9 @@ const
 ''#13#10+
 ''#13#10+
 '&b&uShoutouts'#13#10+
+''#13#10+
+'&iOther great software used'#13#10+
+'&iduring this production'#13#10+
 ''#13#10+
 'FinalBuilder'#13#10+
 'InnoSetup'#13#10+
@@ -73,9 +125,6 @@ const
 '&ito the housekeeper!  That'#39's inappropriate! '#13#10+
 '&iThat'#39's inexcusable! That, I don'#39't forgive! &iWhat '#13#10+
 '&iwere you thinking? What were you thinking?';
-
-//const
-//  CreditsText = 'Wormtail '+AppnameWithVersion+';
 
 {$R *.dfm}
 
