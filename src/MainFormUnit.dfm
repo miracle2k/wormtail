@@ -50,7 +50,7 @@ object MainForm: TMainForm
     TabOrder = 1
     TabStop = True
     TreeOptions.AutoOptions = [toAutoScroll]
-    TreeOptions.MiscOptions = [toAcceptOLEDrop, toEditable, toToggleOnDblClick]
+    TreeOptions.MiscOptions = [toEditable, toToggleOnDblClick]
     TreeOptions.PaintOptions = [toShowButtons, toShowTreeLines, toUseBlendedImages, toGhostedIfUnfocused]
     TreeOptions.SelectionOptions = [toLevelSelectConstraint]
     TreeOptions.VETFolderOptions = [toFoldersExpandable, toForceHideRecycleBin]
@@ -139,9 +139,11 @@ object MainForm: TMainForm
     Header.Style = hsFlatButtons
     PopupMenu = LogViewPopup
     TabOrder = 2
+    TreeOptions.MiscOptions = [toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
     TreeOptions.PaintOptions = [toShowDropmark, toShowHorzGridLines, toThemeAware, toUseBlendedImages]
     TreeOptions.SelectionOptions = [toDisableDrawSelection, toExtendedFocus, toFullRowSelect, toMiddleClickSelect, toMultiSelect, toRightClickSelect, toSimpleDrawSelection]
     OnBeforeItemErase = LogViewBeforeItemErase
+    OnDragOver = LogViewDragOver
     OnGetText = LogViewGetText
     OnPaintText = LogViewPaintText
     OnMeasureItem = LogViewMeasureItem

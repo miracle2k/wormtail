@@ -173,6 +173,9 @@ type
       var Effect: Integer; var Accept: Boolean);
     procedure ExplorerTreeEnumFolder(Sender: TCustomVirtualExplorerTree;
       Namespace: TNamespace; var AllowAsChild: Boolean);
+    procedure LogViewDragOver(Sender: TBaseVirtualTree; Source: TObject;
+      Shift: TShiftState; State: TDragState; Pt: TPoint; Mode: TDropMode;
+      var Effect: Integer; var Accept: Boolean);
   private
     // color the filter edit depending on regex correctness
     FilterEditValidator: TFormValidator;
@@ -793,6 +796,14 @@ begin
       FillRect(ItemRect);
       EraseAction := eaNone;
     end;
+end;
+
+procedure TMainForm.LogViewDragOver(Sender: TBaseVirtualTree; Source: TObject;
+  Shift: TShiftState; State: TDragState; Pt: TPoint; Mode: TDropMode;
+  var Effect: Integer; var Accept: Boolean);
+begin
+  // Don't accept drag&drop
+  Accept := False;
 end;
 
 procedure TMainForm.LogViewGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
