@@ -1,6 +1,7 @@
 1.02 (03-23-2007)
 	
-	* Internal file explorer now supports incremental search
+	* Internal file explorer no longer accepts drag&drop operations.
+	* Internal file explorer now supports incremental search.
 
 1.01 (03-23-2007)
 

@@ -167,6 +167,9 @@ type
     procedure CustomHighlightColorItemCellClick(Sender: TTBXCustomToolPalette;
       var ACol, ARow: Integer; var AllowChange: Boolean);
     procedure ColoringRulesItemClick(Sender: TObject);
+    procedure ExplorerTreeDragOver(Sender: TBaseVirtualTree; Source: TObject;
+      Shift: TShiftState; State: TDragState; Pt: TPoint; Mode: TDropMode;
+      var Effect: Integer; var Accept: Boolean);
   private
     // color the filter edit depending on regex correctness
     FilterEditValidator: TFormValidator;
@@ -626,6 +629,14 @@ begin
     OpenFile(SelectedNodeFilename);
 end;
 
+procedure TMainForm.ExplorerTreeDragOver(Sender: TBaseVirtualTree;
+  Source: TObject; Shift: TShiftState; State: TDragState; Pt: TPoint;
+  Mode: TDropMode; var Effect: Integer; var Accept: Boolean);
+begin
+  // Do not accept drag/drops, ever
+  Accept := False;
+end;
+
 procedure TMainForm.ExplorerTreePopupPopup(Sender: TObject);
 begin
   OpenItem.Enabled := CanOpenSelectedNode;
@@ -683,7 +694,7 @@ begin
 
   // Initialize storage
   AppStorage.Root := 'Software\Wormtail';
-  FormStorage.AppStoragePath := 'MainForm';                                     
+  FormStorage.AppStoragePath := 'MainForm';
 
   // Load configuration
   Settings := TWormtailSettings.Create;
@@ -1020,7 +1031,9 @@ var
 begin
   Selected := ExplorerTree.SelectedToNamespaceArray;
   Result := (High(Selected) = 0) and (not Selected[0].Directory) and
-    (Selected[0].FileSystem);
+    (Selected[0].FileSystem) and
+    // for some reason, Namespaces.Directory does not always work, e.g. for directory links
+    (not DirectoryExists(Selected[0].NameForParsing));
 end;
 
 procedure TMainForm.TrayIconClick(Sender: TObject; Button: TMouseButton;

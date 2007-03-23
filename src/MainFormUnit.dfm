@@ -60,6 +60,7 @@ object MainForm: TMainForm
     TreeOptions.VETImageOptions = [toImages, toThreadedImages, toMarkCutAndCopy]
     Visible = False
     OnDblClick = ExplorerTreeDblClick
+    OnDragOver = ExplorerTreeDragOver
     Columns = <>
   end
   object LeftDock: TSpTBXDock
