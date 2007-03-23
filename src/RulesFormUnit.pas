@@ -162,7 +162,15 @@ procedure TRulesForm.FormShow(Sender: TObject);
 begin
   // Try to have this always on top of the main form
   SetWindowPos(RulesForm.Handle, HWND_TOPMOST, Left, Top,
-    Width, Height, SWP_DRAWFRAME or SWP_NOMOVE or SWP_NOSIZE);  
+    Width, Height, SWP_DRAWFRAME or SWP_NOMOVE or SWP_NOSIZE);
+
+  // Activate form storage manually when the form is shown; reason: there is
+  // currently a bug in the jvcl - if the form is never ever shown and has no
+  // fixed default values (e.g. only set via Position/ScreenCenter etc). the
+  // null values are written to the registry on exit
+  // TODO 1 -cworkaround : check for fix in official sources
+  FormStorage.Active := True;
+  FormStorage.RestoreFormPlacement;    
 end;
 
 function TRulesForm.NewRule(ParentNode: PVirtualNode = nil): PLogRule;

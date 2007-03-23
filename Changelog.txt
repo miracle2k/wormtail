@@ -1,5 +1,6 @@
 1.02 (03-23-2007)
-	
+
+	* Fixed: In some cases, the last position of the rules window was not saved correctly.
 	* Fixed: Some strings that were not localizable. 
 	* Internal file explorer no longer shows the control panel.
 	* Internal file explorer no longer tries to open directory links.

@@ -100,6 +100,7 @@ object RulesForm: TRulesForm
     end
   end
   object FormStorage: TJvFormStorage
+    Active = False
     AppStorage = MainForm.AppStorage
     AppStoragePath = 'RulesForm\'
     VersionCheck = fpvcNocheck
