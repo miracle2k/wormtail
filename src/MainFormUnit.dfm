@@ -43,6 +43,7 @@ object MainForm: TMainForm
     Header.MainColumn = -1
     Header.Options = [hoColumnResize, hoDrag]
     HintMode = hmHint
+    IncrementalSearch = isVisibleOnly
     ParentColor = False
     PopupMenu = ExplorerTreePopup
     RootFolder = rfDesktop
