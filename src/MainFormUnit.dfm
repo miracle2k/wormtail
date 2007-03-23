@@ -61,6 +61,7 @@ object MainForm: TMainForm
     Visible = False
     OnDblClick = ExplorerTreeDblClick
     OnDragOver = ExplorerTreeDragOver
+    OnEnumFolder = ExplorerTreeEnumFolder
     Columns = <>
   end
   object LeftDock: TSpTBXDock

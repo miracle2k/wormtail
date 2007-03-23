@@ -10,6 +10,7 @@ uses
   TBXExtItems, ExceptionLog, TntClipbrd, PerlRegEx, FormValidation, TBXDkPanels,
   SpTBXDkPanels, mbTBXSplitter, SpTBXFormPopupMenu, JvComponentBase, JvTrayIcon,
   mbTBXNonDockablePanel, JvFormPlacement, JvAppStorage, JvAppRegistryStorage,
+  MPShellUtilities,
 
   Configuration;
 
@@ -170,6 +171,8 @@ type
     procedure ExplorerTreeDragOver(Sender: TBaseVirtualTree; Source: TObject;
       Shift: TShiftState; State: TDragState; Pt: TPoint; Mode: TDropMode;
       var Effect: Integer; var Accept: Boolean);
+    procedure ExplorerTreeEnumFolder(Sender: TCustomVirtualExplorerTree;
+      Namespace: TNamespace; var AllowAsChild: Boolean);
   private
     // color the filter edit depending on regex correctness
     FilterEditValidator: TFormValidator;
@@ -235,7 +238,7 @@ implementation
 
 uses
   Math, TaskDialog,
-  Core, VistaCompat, GnuGetText, MPShellUtilities, AboutFormUnit, RulesFormUnit;
+  Core, VistaCompat, GnuGetText, AboutFormUnit, RulesFormUnit;
 
 {$R *.dfm}
 
@@ -635,6 +638,13 @@ procedure TMainForm.ExplorerTreeDragOver(Sender: TBaseVirtualTree;
 begin
   // Do not accept drag/drops, ever
   Accept := False;
+end;
+
+procedure TMainForm.ExplorerTreeEnumFolder(Sender: TCustomVirtualExplorerTree;
+  Namespace: TNamespace; var AllowAsChild: Boolean);
+begin
+  // Do not show control panel
+  AllowAsChild := not Namespace.IsControlPanel;
 end;
 
 procedure TMainForm.ExplorerTreePopupPopup(Sender: TObject);
