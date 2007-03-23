@@ -1,5 +1,6 @@
 1.02 (03-23-2007)
 	
+	* Fixed: Some strings that were not localizable. 
 	* Internal file explorer no longer shows the control panel.
 	* Internal file explorer no longer tries to open directory links.
 	* Internal file explorer no longer accepts drag&drop operations.

@@ -1331,11 +1331,11 @@ procedure TMainForm.UpdateStatusLabel;
 var
   NewCaption: string;
 begin
-  NewCaption := IntToStr(LogView.RootNodeCount)+' items';
+  NewCaption := Format(_('%d items'), [LogView.RootNodeCount]);
   // if there are hidden nodes
   if (LogView.VisibleCount <> LogView.RootNodeCount) then
-    NewCaption := NewCaption + ', '+
-      IntToStr(LogView.RootNodeCount-LogView.VisibleCount)+' hidden';
+    NewCaption := NewCaption + Format(_(', %d hidden'),
+       [LogView.RootNodeCount-LogView.VisibleCount]);
   StatusLabel.Caption := NewCaption;
 end;
 

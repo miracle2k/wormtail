@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-03-22 13:51\n"
-"PO-Revision-Date: 2007-03-22 13:52+0100\n"
+"POT-Creation-Date: 2007-03-23 19:25\n"
+"PO-Revision-Date: 2007-03-23 19:26+0100\n"
 "Last-Translator: Michael Elsdörfer <michael@elsdoerfer.info>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,72 +28,72 @@ msgid "OK"
 msgstr "OK"
 
 #. MainForm..LeftDock..LeftToolbar..AlwaysOnTopButton..Caption
-#: MainFormUnit.dfm:84
+#: MainFormUnit.dfm:87
 msgid "Always On Top"
 msgstr "Fenster immer oben"
 
 #. MainForm..LeftDock..LeftToolbar..WordWrapItem..Caption
-#: MainFormUnit.dfm:90
+#: MainFormUnit.dfm:93
 msgid "Word Wrap"
 msgstr "Zeilenumbruch"
 
 #. MainForm..LeftDock..LeftToolbar..ColoringRulesItem..Caption
-#: MainFormUnit.dfm:98
+#: MainFormUnit.dfm:101
 msgid "Coloring Rules"
 msgstr "Farbregeln"
 
 #. MainForm..LeftDock..LeftToolbar..SpTBXItem14..Caption
-#: MainFormUnit.dfm:107
+#: MainFormUnit.dfm:110
 msgid "Put In Tray"
 msgstr "In Systemtray minimieren"
 
 #. MainForm..LogView......WideText
-#: MainFormUnit.dfm:149
+#: MainFormUnit.dfm:152
 msgid "Line"
 msgstr "Zeile"
 
 #. MainForm..LogView......WideText
-#: MainFormUnit.dfm:154
+#: MainFormUnit.dfm:157
 msgid "Timestamp"
 msgstr "Zeitstempel"
 
 #. MainForm..TopDock..MainToolbar..OpenFileItem..Caption
-#: MainFormUnit.dfm:175
+#: MainFormUnit.dfm:178
 msgid "Previous Files"
 msgstr "Vorherige Dateien"
 
 #. MainForm..TopDock..MainToolbar..OpenFileItem..Hint
-#: MainFormUnit.dfm:176
+#: MainFormUnit.dfm:179
 msgid "List of previously opened files"
 msgstr "Liste zuvor geöffneter Dateien"
 
 #. MainForm..TopDock..MainToolbar..FilterLabelItem..Caption
-#: MainFormUnit.dfm:186
+#: MainFormUnit.dfm:189
 msgid "Filter:"
 msgstr "Filter:"
 
 #. MainForm..TopDock..MainToolbar..FilterLabelItem..Hint
-#: MainFormUnit.dfm:187
+#: MainFormUnit.dfm:190
 msgid "Enter a regular expression"
 msgstr "Regulären Ausdruck eingeben"
 
 #. MainForm..TopDock..MainToolbar..CloseButton..Caption
-#: MainFormUnit.dfm:202
+#: MainFormUnit.dfm:205
 msgid "Close"
 msgstr "Schließen"
 
 #. MainForm..TopDock..MainToolbar..CloseButton..Hint
-#: MainFormUnit.dfm:203
+#: MainFormUnit.dfm:206
 msgid "Close current file"
 msgstr "Aktuelle Datei schließen"
 
 #. MainForm..LogViewPopup..CopyToClipboardItem..Caption
-#: MainFormUnit.dfm:238
+#: MainFormUnit.dfm:241
 msgid "Copy"
 msgstr "Kopieren"
 
 #. MainForm..LogViewPopup..CustomHighlightItem..Caption
-#: MainFormUnit.dfm:246
+#: MainFormUnit.dfm:249
 msgid "Highlight"
 msgstr "Hervorheben"
 
@@ -102,7 +102,7 @@ msgstr "Hervorheben"
 #. RulePropertiesForm..HighlightColorPicker..Properties.DefaultColorCaption
 #. RulePropertiesForm..HighlightColorPicker..Properties.NoneColorHint
 #. RulePropertiesForm..HighlightColorPicker..Properties.DefaultColorHint
-#: MainFormUnit.dfm:257
+#: MainFormUnit.dfm:260
 #: RulePropertiesFormUnit.dfm:78
 #: RulePropertiesFormUnit.dfm:80
 #: RulePropertiesFormUnit.dfm:81
@@ -110,67 +110,67 @@ msgid "Don't Highlight"
 msgstr "Nicht Hervorheben"
 
 #. MainForm..LogViewPopup..AutoScrollItem..Caption
-#: MainFormUnit.dfm:264
+#: MainFormUnit.dfm:267
 msgid "Auto Scroll"
 msgstr "Auto-Scroll"
 
 #. MainForm..LogViewPopup..SpTBXSubmenuItem2..Caption
-#: MainFormUnit.dfm:269
+#: MainFormUnit.dfm:272
 msgid "Buffer Size"
 msgstr "Puffergröße"
 
 #. MainForm..LogViewPopup..SpTBXSubmenuItem2..BufferLimitEditItem..EditCaption
-#: MainFormUnit.dfm:272
+#: MainFormUnit.dfm:275
 msgid "Max. Lines"
 msgstr "Max. Zeilen"
 
 #. MainForm..LogViewPopup..SpTBXSubmenuItem2..BufferNoLimitItem..Caption
-#: MainFormUnit.dfm:281
+#: MainFormUnit.dfm:284
 msgid "No Limit"
 msgstr "Kein Limit"
 
 #. MainForm..LogViewPopup..SpTBXItem2..Caption
-#: MainFormUnit.dfm:288
+#: MainFormUnit.dfm:291
 msgid "Change Font"
 msgstr "Font ändern"
 
 #. MainForm..LogViewHeaderPopup..ShowTimestampColumnItem..Caption
-#: MainFormUnit.dfm:2145
+#: MainFormUnit.dfm:2148
 msgid "Show Timestamp"
 msgstr "Zeige Zeitstempel"
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..Caption
-#: MainFormUnit.dfm:2150
+#: MainFormUnit.dfm:2153
 msgid "Timestamp Format"
 msgstr "Zeitstempel-Format"
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..CustomDateFormatEditItem..EditCaption
-#: MainFormUnit.dfm:2166
+#: MainFormUnit.dfm:2169
 msgid "Custom"
 msgstr "Eigenes:"
 
 #. MainForm..ToolbarPopup..SmallIconsButton..Caption
-#: MainFormUnit.dfm:2178
+#: MainFormUnit.dfm:2181
 msgid "Small Icons"
 msgstr "Kleine Symbole"
 
 #. MainForm..ToolbarPopup..LargeIconsButton..Caption
-#: MainFormUnit.dfm:2184
+#: MainFormUnit.dfm:2187
 msgid "Large Icons"
 msgstr "Große Symbole"
 
 #. MainForm..ExplorerTreePopup..OpenItem..Caption
-#: MainFormUnit.dfm:2203
+#: MainFormUnit.dfm:2206
 msgid "Open"
 msgstr "Öffnen"
 
 #. MainForm..TrayPopup..FlashIconItem..Caption
-#: MainFormUnit.dfm:2371
+#: MainFormUnit.dfm:2374
 msgid "Blink Icon When File Changes"
 msgstr "Icon blinkt bei Änderungen"
 
 #. MainForm..TrayPopup..SpTBXItem1..Caption
-#: MainFormUnit.dfm:2378
+#: MainFormUnit.dfm:2381
 msgid "Restore Window"
 msgstr "Fenster wiederherstellen"
 
@@ -211,59 +211,68 @@ msgid "Rules"
 msgstr "Regeln"
 
 #. RulesForm..RulesPopup..RuleEnabledItem..Caption
-#: RulesFormUnit.dfm:60
+#: RulesFormUnit.dfm:61
 msgid "Enabled"
 msgstr "Aktiv"
 
 #. RulesForm..RulesPopup..NewRuleItem..Caption
-#: RulesFormUnit.dfm:67
+#: RulesFormUnit.dfm:68
 msgid "New Rule"
 msgstr "Neue Regel"
 
 #. RulesForm..RulesPopup..EditRuleItem..Caption
-#: RulesFormUnit.dfm:72
+#: RulesFormUnit.dfm:73
 msgid "Edit Rule"
 msgstr "Regel bearbeiten"
 
 #. RulesForm..RulesPopup..DeleteRuleItem..Caption
-#: RulesFormUnit.dfm:77
+#: RulesFormUnit.dfm:78
 msgid "Delete Rule"
 msgstr "Regel löschen"
 
 #. RulesForm..RulesPopup..ReapplyToBufferItem..Caption
-#: RulesFormUnit.dfm:84
+#: RulesFormUnit.dfm:85
 msgid "Reapply To Buffer"
 msgstr "Erneut auf kompletten Puffer anwenden"
 
 #. RulesForm..RulesPopup..ReapplyToBufferItem..ReapplyThisRuleItem..Caption
-#: RulesFormUnit.dfm:86
+#: RulesFormUnit.dfm:87
 msgid "This Rule"
 msgstr "Diese Regel"
 
 #. RulesForm..RulesPopup..ReapplyToBufferItem..ReapplyAllRulesItem..Caption
-#: RulesFormUnit.dfm:90
+#: RulesFormUnit.dfm:91
 msgid "All Rules"
 msgstr "Alle Regeln"
 
 #. RulesForm..RulesPopup..ClearAllItem..Caption
-#: RulesFormUnit.dfm:97
+#: RulesFormUnit.dfm:98
 msgid "Clear All Rules"
 msgstr "Alle Regeln löschen"
 
 #. for us? Should we create a separate instance for this thread?
-#: MainFormUnit.pas:401
+#: MainFormUnit.pas:407
 msgid "WARNING: The size of this file just decreased by %d bytes."
 msgstr "WARNUNG: Die Dateigröße hat sich um %d Bytes verkleinert."
 
 #. TODO 1: dxgettext thread safety issues as well, see above
-#: MainFormUnit.pas:437
+#: MainFormUnit.pas:443
 msgid "WARNING: An exception occured in the watch thread: \"%s\""
 msgstr "WARNING: Ein Fehler ist im Watch Thread aufgetreten: \"%s\""
 
 #. Show error message
-#: MainFormUnit.pas:857
+#: MainFormUnit.pas:884
 msgid "Error"
 msgstr "Fehler"
+
+#: MainFormUnit.pas:1334
+msgid "%d items"
+msgstr "%d Einträge"
+
+#. if there are hidden nodes
+#: MainFormUnit.pas:1337
+msgid ", %d hidden"
+msgstr ", %d versteckt"
 
 #. Make sure we have text
 #: RulePropertiesFormUnit.pas:162
@@ -274,19 +283,19 @@ msgstr "Bitte einen regulären Ausdruck eingeben"
 msgid "The regular expression is invalid: %s"
 msgstr "Der reguläre Ausdruck ist ungültig: %s"
 
-#: RulesFormUnit.pas:90
+#: RulesFormUnit.pas:91
 msgid "Please confirm"
 msgstr "Bitte bestätigen"
 
-#: RulesFormUnit.pas:93
+#: RulesFormUnit.pas:94
 msgid "Are you sure you want to delete the selected rule and all it's subnodes?"
 msgstr "Sollen die ausgewählte Regel und alle Unterknoten wirklich gelöscht werden?"
 
-#: RulesFormUnit.pas:94
+#: RulesFormUnit.pas:95
 msgid "This action cannot be undone."
 msgstr "Diese Aktion kann nicht rückgüngig gemacht werden."
 
-#: RulesFormUnit.pas:383
+#: RulesFormUnit.pas:394
 msgid "Are you sure you want to delete ALL rules?"
 msgstr "Sollen wirklich ALLE Regeln gelöscht werden?"
 
