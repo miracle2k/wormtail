@@ -986,7 +986,7 @@ official-release
             <Property name="UpdateDofFile" type="Boolean">False</Property>
             <Property name="UpdatePackageSource" type="Boolean">False</Property>
             <Property name="UseEurekaLogCompiler" type="Boolean">True</Property>
-            <Property name="UseProjectSettings" type="TFBUseProjectSettings">[usPackages,usCompiler,usLinker,usVersionInfo]</Property>
+            <Property name="UseProjectSettings" type="TFBUseProjectSettings">[usPackages,usLinker,usVersionInfo]</Property>
             <Property name="UsePropertySet" type="Boolean">False</Property>
             <Property name="UseVersionFromDOF" type="Boolean">False</Property>
             <Property MultiValue="1" name="VersionInfoKeys" type="WideString"><![CDATA[CompanyName=
@@ -1243,6 +1243,71 @@ Comments=
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             </Object>
+          <Object Class="TCommentAction" XMLID="{07076845-D4AA-4580-8901-ECBE791CB731}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Determine filenames to use for to different distributions]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">16711680</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[-- Determine filenames to use for to different distributions]]>
+              </Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            </Object>
+          <Object Class="TSetVariableAction" XMLID="{E9B38F28-31B8-4A9E-B20B-6A5EC7D4C9BD}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Set Variable DistribOutputFilenameZip to [ %FBPROJECTDIR%\wormtail-%VersionStrShort%.zip ]]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="ApplyToExisting" type="Boolean">False</Property>
+            <Property name="DoExpandExpression" type="Boolean">True</Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="ForceType" type="TFBSetVariableForceType">ftDefault</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="Modifier" type="TFBSetVariableModifier">smNone</Property>
+            <Property MultiValue="0" name="NewValue" type="WideString">%FBPROJECTDIR%\wormtail-%VersionStrShort%.zip</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Property MultiValue="0" name="VariableName" type="WideString">DistribOutputFilenameZip</Property>
+            </Object>
+          <Object Class="TSetVariableAction" XMLID="{2FAFD3C6-1C15-4A4F-9C19-9F958EF4546E}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Set Variable DistribOutputFilenameSetup to [ %FBPROJECTDIR%\wormtail-setup-%VersionStrShort%.exe ]]]>
+              </Property>
+            <Property name="ActionTextColor" type="Cardinal">0</Property>
+            <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+            <Property name="ApplyToExisting" type="Boolean">False</Property>
+            <Property name="DoExpandExpression" type="Boolean">True</Property>
+            <Property name="Enabled" type="WordBool">True</Property>
+            <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+            <Property name="ForceType" type="TFBSetVariableForceType">ftDefault</Property>
+            <Property name="IgnoreFailure" type="WordBool">False</Property>
+            <Property name="IsAction" type="Boolean">True</Property>
+            <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+            <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+            <Property name="Modifier" type="TFBSetVariableModifier">smNone</Property>
+            <Property MultiValue="0" name="NewValue" type="WideString">%FBPROJECTDIR%\wormtail-setup-%VersionStrShort%.exe</Property>
+            <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property name="PauseInterval" type="Cardinal">0</Property>
+            <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Property MultiValue="0" name="VariableName" type="WideString">DistribOutputFilenameSetup</Property>
+            </Object>
           <Object Class="TCommentAction" XMLID="{D11C3DD2-6BE0-438B-B38A-53A13F50B22B}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Create zip file]]>
               </Property>
@@ -1263,15 +1328,15 @@ Comments=
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             </Object>
           <Object Class="TFB7zipCreateArchiveAction" XMLID="{0604C443-C04B-4566-906E-F134B18FF33D}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
-            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Create Archive [%FBPROJECTDIR%\wormtail.zip]]]>
+            <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Create Archive [%DistribOutputFilenameZip%]]]>
               </Property>
             <Property name="ActionTextColor" type="Cardinal">0</Property>
             <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
-            <Property MultiValue="0" name="ArchiveName" type="string">%FBPROJECTDIR%\wormtail-%VersionStrShort%.zip</Property>
+            <Property MultiValue="0" name="ArchiveName" type="string">%DistribOutputFilenameZip%</Property>
             <Property name="ArchiveType" type="T7ZipArchiveType">zZip</Property>
             <Property name="CompressionLevel" type="T7ZipCompressLevel">clUltra</Property>
             <Property name="CreateSFXArchive" type="Boolean">False</Property>
-            <Property MultiValue="1" name="Description" type="string"><![CDATA[Create Archive [%FBPROJECTDIR%\wormtail.zip]]]>
+            <Property MultiValue="1" name="Description" type="string"><![CDATA[Create Archive [%DistribOutputFilenameZip%]]]>
               </Property>
             <Property name="Enabled" type="WordBool">True</Property>
             <Property name="EnableTimeout" type="Boolean">False</Property>
@@ -3052,6 +3117,30 @@ Click Yes to continue build, press No to cancel now.]]>
             <Property name="ShortCircuitEvaluation" type="Boolean">True</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             <Property name="TermJoiner" type="TFBIfTermJoiner">jwOr</Property>
+            <Object Class="TFileExistsAction" XMLID="{DBD72B68-A476-454A-B372-E6D3021F4668}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+              <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Make sure the version ini file exists]]>
+                </Property>
+              <Property name="ActionTextColor" type="Cardinal">0</Property>
+              <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+              <Property MultiValue="1" name="Description" type="string"><![CDATA[Make sure the version ini file exists]]>
+                </Property>
+              <Property name="Enabled" type="WordBool">True</Property>
+              <Property name="ExistsMode" type="TFileExistsMode">feFailIfMissing</Property>
+              <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+              <Property MultiValue="0" name="FileOrDirectory" type="WideString">%VersionInfoIniFile%</Property>
+              <Property MultiValue="0" name="FileSet" type="string"></Property>
+              <Property name="IgnoreFailure" type="WordBool">False</Property>
+              <Property name="IsAction" type="Boolean">True</Property>
+              <Property name="IsBreakPoint" type="WordBool">False</Property>
+              <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+              <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+              <Property name="NodeCollapsed" type="Boolean">False</Property>
+              <Property name="PauseInterval" type="Cardinal">0</Property>
+              <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+              <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              <Property name="UseFileSpec" type="Boolean">True</Property>
+              <Property MultiValue="0" name="Variable" type="string"></Property>
+              </Object>
             <Object Class="TGroupAction" XMLID="{6B1BD434-519C-4D8B-8127-B4B384BC2A2C}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
               <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Load Version Info From Ini]]>
                 </Property>
@@ -4243,6 +4332,22 @@ eureka
         <Property name="IsPersistent" type="Boolean">False</Property>
         <Property name="MakeEnv" type="Boolean">False</Property>
         <Property MultiValue="0" name="Name" type="string">BuildTimestamp</Property>
+        <Property name="VariableType" type="TFBVariableType">vtProject</Property>
+        </Object>
+      <Object Class="TFBVariable" XMLID="{C966F6ED-36DB-42E0-9589-770EB6FC952E}"><Property MultiValue="0" name="Comment" type="string"></Property>
+        <Property MultiValue="0" name="DefaultValue" type="string"></Property>
+        <Property name="IsMacro" type="Boolean">False</Property>
+        <Property name="IsPersistent" type="Boolean">False</Property>
+        <Property name="MakeEnv" type="Boolean">False</Property>
+        <Property MultiValue="0" name="Name" type="string">DistribOutputFilenameSetup</Property>
+        <Property name="VariableType" type="TFBVariableType">vtProject</Property>
+        </Object>
+      <Object Class="TFBVariable" XMLID="{55614F19-9F8F-42D0-9124-9DFD56B465B3}"><Property MultiValue="0" name="Comment" type="string"></Property>
+        <Property MultiValue="0" name="DefaultValue" type="string"></Property>
+        <Property name="IsMacro" type="Boolean">False</Property>
+        <Property name="IsPersistent" type="Boolean">False</Property>
+        <Property name="MakeEnv" type="Boolean">False</Property>
+        <Property MultiValue="0" name="Name" type="string">DistribOutputFilenameZip</Property>
         <Property name="VariableType" type="TFBVariableType">vtProject</Property>
         </Object>
       </Object>

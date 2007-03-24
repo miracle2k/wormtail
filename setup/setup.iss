@@ -16,7 +16,6 @@
 
 [Setup]
 AppName={#AppName}
-; Don't use version for now, enable way to add this automatically via build process
 AppVerName={#AppName} {#VersionStrLong}
 AppPublisher=Michael Elsdörfer
 AppPublisherURL={#AppURL}
