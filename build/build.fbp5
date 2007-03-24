@@ -2444,7 +2444,7 @@ Click Yes to continue build, press No to cancel now.]]>
                     <Property name="IsBreakPoint" type="WordBool">False</Property>
                     <Property MultiValue="0" name="LogToVariable" type="string"></Property>
                     <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
-                    <Property name="NoAuthCache" type="Boolean">False</Property>
+                    <Property name="NoAuthCache" type="Boolean">True</Property>
                     <Property name="NodeCollapsed" type="Boolean">False</Property>
                     <Property name="NonInteractive" type="Boolean">True</Property>
                     <Property name="NoRecurse" type="Boolean">False</Property>
