@@ -1899,7 +1899,7 @@ Comments=
                       </Property>
                     <Property MultiValue="0" name="LogToVariable" type="string"></Property>
                     <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
-                    <Property name="NodeCollapsed" type="Boolean">True</Property>
+                    <Property name="NodeCollapsed" type="Boolean">False</Property>
                     <Property name="PauseInterval" type="Cardinal">0</Property>
                     <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
                     <Property name="SkipBlankLines" type="Boolean">True</Property>
@@ -2021,7 +2021,7 @@ Comments=
                       <Property name="Enabled" type="WordBool">True</Property>
                       <Property name="ExistsMode" type="TFileExistsMode">feFailIfMissing</Property>
                       <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
-                      <Property MultiValue="0" name="FileOrDirectory" type="WideString">%FBPROJECTDIR%\wormtail-%VersionStrShort%.zip</Property>
+                      <Property MultiValue="0" name="FileOrDirectory" type="WideString">%DistribOutputFilenameZip%</Property>
                       <Property MultiValue="0" name="FileSet" type="string"></Property>
                       <Property name="IgnoreFailure" type="WordBool">False</Property>
                       <Property name="IsAction" type="Boolean">True</Property>
@@ -2045,7 +2045,7 @@ Comments=
                       <Property name="Enabled" type="WordBool">True</Property>
                       <Property name="ExistsMode" type="TFileExistsMode">feFailIfMissing</Property>
                       <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
-                      <Property MultiValue="0" name="FileOrDirectory" type="WideString">%FBPROJECTDIR%\wormtail-setup-%VersionStrShort%.exe</Property>
+                      <Property MultiValue="0" name="FileOrDirectory" type="WideString">%DistribOutputFilenameSetup%</Property>
                       <Property MultiValue="0" name="FileSet" type="string"></Property>
                       <Property name="IgnoreFailure" type="WordBool">False</Property>
                       <Property name="IsAction" type="Boolean">True</Property>
@@ -2068,7 +2068,7 @@ Comments=
                         </Property>
                       <Property name="Enabled" type="WordBool">True</Property>
                       <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
-                      <Property MultiValue="0" name="FileName" type="string">%FBPROJECTDIR%\wormtail-%VersionStrShort%.zip</Property>
+                      <Property MultiValue="0" name="FileName" type="string">%DistribOutputFilenameZip%</Property>
                       <Property MultiValue="0" name="FileSetName" type="string"></Property>
                       <Property MultiValue="0" name="FormattedSizeVariable" type="string"></Property>
                       <Property name="IgnoreFailure" type="WordBool">False</Property>
@@ -2117,7 +2117,7 @@ Comments=
                         </Property>
                       <Property name="Enabled" type="WordBool">True</Property>
                       <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
-                      <Property MultiValue="0" name="FileName" type="string">%FBPROJECTDIR%\wormtail-setup-%VersionStrShort%.exe</Property>
+                      <Property MultiValue="0" name="FileName" type="string">%DistribOutputFilenameSetup%</Property>
                       <Property MultiValue="0" name="FileSetName" type="string"></Property>
                       <Property MultiValue="0" name="FormattedSizeVariable" type="string"></Property>
                       <Property name="IgnoreFailure" type="WordBool">False</Property>
@@ -4373,7 +4373,7 @@ eureka
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
             </Object>
-          <Object Class="TFBIfVariableDefined" XMLID="{DD97EEA2-FFD5-4990-9F65-2979B88EAD87}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+          <Object Class="TFBIfThenAction" XMLID="{ABF41C8A-5F3B-4F5F-ADE9-AB091E694A89}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Make sure a variable was passed telling us where to store the files (%DistributionsRemoteDirectory%)]]>
               </Property>
             <Property name="ActionTextColor" type="Cardinal">0</Property>
@@ -4382,18 +4382,46 @@ eureka
               </Property>
             <Property name="Enabled" type="WordBool">True</Property>
             <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
-            <Property name="FailIfNotDefined" type="Boolean">True</Property>
-            <Property MultiValue="0" name="FBVariable" type="string">DistributionsRemoteDirectory</Property>
             <Property name="IgnoreFailure" type="WordBool">False</Property>
-            <Property name="Invert" type="Boolean">False</Property>
             <Property name="IsAction" type="Boolean">True</Property>
             <Property name="IsBreakPoint" type="WordBool">False</Property>
+            <Property MultiValue="1" name="LHSStorageString" type="string"><![CDATA[%DistributionsRemoteDirectory%
+]]>
+              </Property>
             <Property MultiValue="0" name="LogToVariable" type="string"></Property>
             <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
             <Property name="NodeCollapsed" type="Boolean">False</Property>
+            <Property MultiValue="1" name="OperatorsStorageString" type="string"><![CDATA[=
+]]>
+              </Property>
             <Property name="PauseInterval" type="Cardinal">0</Property>
             <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+            <Property MultiValue="1" name="RHSStorageString" type="string"><![CDATA[
+]]>
+              </Property>
+            <Property name="ShortCircuitEvaluation" type="Boolean">True</Property>
             <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+            <Property name="TermJoiner" type="TFBIfTermJoiner">jwOr</Property>
+            <Object Class="TFBStopBuildAction" XMLID="{AB5D5116-66B3-440A-B2A1-0FE5445F68C3}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
+              <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[Stop Run: "DistributionsRemoteDirectory" parameter is missing]]>
+                </Property>
+              <Property name="ActionTextColor" type="Cardinal">0</Property>
+              <Property MultiValue="0" name="ActionTypeID" type="string"></Property>
+              <Property name="BuildResult" type="Boolean">False</Property>
+              <Property MultiValue="1" name="Description" type="string"><![CDATA[Stop Run: "DistributionsRemoteDirectory" parameter is missing]]>
+                </Property>
+              <Property name="Enabled" type="WordBool">True</Property>
+              <Property name="ExpandActionLogTitle" type="Boolean">True</Property>
+              <Property name="IgnoreFailure" type="WordBool">False</Property>
+              <Property name="IsAction" type="Boolean">True</Property>
+              <Property name="IsBreakPoint" type="WordBool">False</Property>
+              <Property MultiValue="0" name="LogToVariable" type="string"></Property>
+              <Property name="MaxRetryAttempts" type="Cardinal">0</Property>
+              <Property name="NodeCollapsed" type="Boolean">False</Property>
+              <Property name="PauseInterval" type="Cardinal">0</Property>
+              <Property name="RetryPauseInterval" type="Cardinal">1000</Property>
+              <Property name="SuppressStatusMessages" type="Boolean">False</Property>
+              </Object>
             </Object>
           <Object Class="TCommentAction" XMLID="{C0C96A10-48D6-46DE-BABF-8401DDEBD27E}"><Property MultiValue="0" name="ActionComment" type="string"></Property>
             <Property MultiValue="1" name="ActionDescription" type="string"><![CDATA[-- Begin FTP transactions]]>
