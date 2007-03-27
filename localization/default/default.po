@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-03-23 19:25\n"
-"PO-Revision-Date: 2007-03-23 19:25\n"
+"POT-Creation-Date: 2007-03-27 18:50\n"
+"PO-Revision-Date: 2007-03-27 18:50\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,57 +49,57 @@ msgid "Put In Tray"
 msgstr ""
 
 #. MainForm..LogView......WideText
-#: MainFormUnit.dfm:152
+#: MainFormUnit.dfm:154
 msgid "Line"
 msgstr ""
 
 #. MainForm..LogView......WideText
-#: MainFormUnit.dfm:157
+#: MainFormUnit.dfm:159
 msgid "Timestamp"
 msgstr ""
 
 #. MainForm..TopDock..MainToolbar..OpenFileItem..Caption
-#: MainFormUnit.dfm:178
+#: MainFormUnit.dfm:180
 msgid "Previous Files"
 msgstr ""
 
 #. MainForm..TopDock..MainToolbar..OpenFileItem..Hint
-#: MainFormUnit.dfm:179
+#: MainFormUnit.dfm:181
 msgid "List of previously opened files"
 msgstr ""
 
 #. MainForm..TopDock..MainToolbar..FilterLabelItem..Caption
-#: MainFormUnit.dfm:189
+#: MainFormUnit.dfm:191
 msgid "Filter:"
 msgstr ""
 
 #. MainForm..TopDock..MainToolbar..FilterLabelItem..Hint
-#: MainFormUnit.dfm:190
+#: MainFormUnit.dfm:192
 msgid "Enter a regular expression"
 msgstr ""
 
 #. MainForm..TopDock..MainToolbar..CloseButton..Caption
-#: MainFormUnit.dfm:205
+#: MainFormUnit.dfm:207
 msgid "Close"
 msgstr ""
 
 #. MainForm..TopDock..MainToolbar..CloseButton..Hint
-#: MainFormUnit.dfm:206
+#: MainFormUnit.dfm:208
 msgid "Close current file"
 msgstr ""
 
 #. MainForm..LogViewPopup..CopyToClipboardItem..Caption
-#: MainFormUnit.dfm:241
+#: MainFormUnit.dfm:243
 msgid "Copy"
 msgstr ""
 
 #. MainForm..LogViewPopup..CustomHighlightItem..Caption
-#: MainFormUnit.dfm:249
+#: MainFormUnit.dfm:251
 msgid "Highlight"
 msgstr ""
 
 #. MainForm..LogViewPopup..CustomHighlightItem..SpTBXItem8..Caption
-#: MainFormUnit.dfm:260
+#: MainFormUnit.dfm:262
 #. RulePropertiesForm..HighlightColorPicker..Properties.NoneColorCaption
 #: RulePropertiesFormUnit.dfm:77
 #. RulePropertiesForm..HighlightColorPicker..Properties.DefaultColorCaption
@@ -112,67 +112,67 @@ msgid "Don't Highlight"
 msgstr ""
 
 #. MainForm..LogViewPopup..AutoScrollItem..Caption
-#: MainFormUnit.dfm:267
+#: MainFormUnit.dfm:269
 msgid "Auto Scroll"
 msgstr ""
 
 #. MainForm..LogViewPopup..SpTBXSubmenuItem2..Caption
-#: MainFormUnit.dfm:272
+#: MainFormUnit.dfm:274
 msgid "Buffer Size"
 msgstr ""
 
 #. MainForm..LogViewPopup..SpTBXSubmenuItem2..BufferLimitEditItem..EditCaption
-#: MainFormUnit.dfm:275
+#: MainFormUnit.dfm:277
 msgid "Max. Lines"
 msgstr ""
 
 #. MainForm..LogViewPopup..SpTBXSubmenuItem2..BufferNoLimitItem..Caption
-#: MainFormUnit.dfm:284
+#: MainFormUnit.dfm:286
 msgid "No Limit"
 msgstr ""
 
 #. MainForm..LogViewPopup..SpTBXItem2..Caption
-#: MainFormUnit.dfm:291
+#: MainFormUnit.dfm:293
 msgid "Change Font"
 msgstr ""
 
 #. MainForm..LogViewHeaderPopup..ShowTimestampColumnItem..Caption
-#: MainFormUnit.dfm:2148
+#: MainFormUnit.dfm:2150
 msgid "Show Timestamp"
 msgstr ""
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..Caption
-#: MainFormUnit.dfm:2153
+#: MainFormUnit.dfm:2155
 msgid "Timestamp Format"
 msgstr ""
 
 #. MainForm..LogViewHeaderPopup..SpTBXSubmenuItem1..CustomDateFormatEditItem..EditCaption
-#: MainFormUnit.dfm:2169
+#: MainFormUnit.dfm:2171
 msgid "Custom"
 msgstr ""
 
 #. MainForm..ToolbarPopup..SmallIconsButton..Caption
-#: MainFormUnit.dfm:2181
+#: MainFormUnit.dfm:2183
 msgid "Small Icons"
 msgstr ""
 
 #. MainForm..ToolbarPopup..LargeIconsButton..Caption
-#: MainFormUnit.dfm:2187
+#: MainFormUnit.dfm:2189
 msgid "Large Icons"
 msgstr ""
 
 #. MainForm..ExplorerTreePopup..OpenItem..Caption
-#: MainFormUnit.dfm:2206
+#: MainFormUnit.dfm:2208
 msgid "Open"
 msgstr ""
 
 #. MainForm..TrayPopup..FlashIconItem..Caption
-#: MainFormUnit.dfm:2374
+#: MainFormUnit.dfm:2376
 msgid "Blink Icon When File Changes"
 msgstr ""
 
 #. MainForm..TrayPopup..SpTBXItem1..Caption
-#: MainFormUnit.dfm:2381
+#: MainFormUnit.dfm:2383
 msgid "Restore Window"
 msgstr ""
 
@@ -253,30 +253,39 @@ msgstr ""
 msgid "Clear All Rules"
 msgstr ""
 
+#. Init other gui stuff
+#: AboutFormUnit.pas:154
+msgid "About %s"
+msgstr ""
+
+#: AboutFormUnit.pas:155
+msgid "Version %s"
+msgstr ""
+
 #. for us? Should we create a separate instance for this thread?
-#: MainFormUnit.pas:407
+#: MainFormUnit.pas:410
 msgid "WARNING: The size of this file just decreased by %d "
 "bytes."
 msgstr ""
 
 #. TODO 1: dxgettext thread safety issues as well, see above
-#: MainFormUnit.pas:443
+#: MainFormUnit.pas:446
 msgid "WARNING: An exception occured in the watch thread: "
 "\"%s\""
 msgstr ""
 
 #. Show error message
-#: MainFormUnit.pas:884
+#: MainFormUnit.pas:895
 #: RulePropertiesFormUnit.pas:150
 msgid "Error"
 msgstr ""
 
-#: MainFormUnit.pas:1334
+#: MainFormUnit.pas:1345
 msgid "%d items"
 msgstr ""
 
 #. if there are hidden nodes
-#: MainFormUnit.pas:1337
+#: MainFormUnit.pas:1348
 msgid ", %d hidden"
 msgstr ""
 
@@ -290,7 +299,7 @@ msgid "The regular expression is invalid: %s"
 msgstr ""
 
 #: RulesFormUnit.pas:91
-#: RulesFormUnit.pas:391
+#: RulesFormUnit.pas:399
 msgid "Please confirm"
 msgstr ""
 
@@ -300,11 +309,11 @@ msgid "Are you sure you want to delete the selected rule and all it's "
 msgstr ""
 
 #: RulesFormUnit.pas:95
-#: RulesFormUnit.pas:395
+#: RulesFormUnit.pas:403
 msgid "This action cannot be undone."
 msgstr ""
 
-#: RulesFormUnit.pas:394
+#: RulesFormUnit.pas:402
 msgid "Are you sure you want to delete ALL "
 "rules?"
 msgstr ""
