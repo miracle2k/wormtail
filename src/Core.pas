@@ -8,6 +8,7 @@ uses
 
 const
   Appname = 'Wormtail';
+  AppWebsiteUrl = 'http://www.elsdoerfer.info/wormtail';  
   function AppnameWithVersion: string;
   function AppVersion: string;
 

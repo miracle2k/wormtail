@@ -11,8 +11,13 @@ type
     ScrollingCredits: TScrollingCredits;
     BottomPanel: TPanel;
     OKButton: TButton;
+    Panel1: TPanel;
+    WebsiteLink: TLabel;
     VersionLabel: TLabel;
     procedure FormCreate(Sender: TObject);
+    procedure WebsiteLinkClick(Sender: TObject);
+    procedure WebsiteLinkMouseEnter(Sender: TObject);
+    procedure WebsiteLinkMouseLeave(Sender: TObject);
   end;
 
 var
@@ -21,7 +26,7 @@ var
 implementation
 
 uses
-  Core, VistaCompat, GnuGetText;
+  Core, VistaCompat, GnuGetText, ShellApi;
 
 const
   CreditsString =
@@ -143,12 +148,29 @@ begin
   C := CreditsString;
   C := StringReplace(C, '%VERSION%', AppVersion, [rfIgnoreCase, rfReplaceAll]);
   ScrollingCredits.Credits.Text := C;
+  WebsiteLink.Caption := 'elsdoerfer.info/wormtail';
 
-  // Show current version on label
-  VersionLabel.Caption := AppVersion;
+  // Init other gui stuff
+  Self.Caption := Format(_('About %s'), [Appname]);
+  VersionLabel.Caption := Format(_('Version %s'), [AppVersion]);
 
   // Start rolling!
   ScrollingCredits.Animate := True;
+end;
+
+procedure TAboutForm.WebsiteLinkClick(Sender: TObject);
+begin
+  ShellExecute(Application.Handle, '', AppWebsiteUrl, '', '', SW_SHOWNORMAL);
+end;
+
+procedure TAboutForm.WebsiteLinkMouseEnter(Sender: TObject);
+begin
+  with WebsiteLink.Font do Style := Style + [fsUnderline];
+end;
+
+procedure TAboutForm.WebsiteLinkMouseLeave(Sender: TObject);
+begin
+  with WebsiteLink.Font do Style := Style - [fsUnderline];
 end;
 
 end.
