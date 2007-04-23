@@ -85,7 +85,7 @@ uses
 
 procedure TRulesForm.DeleteRuleItemClick(Sender: TObject);
 begin
-  with TTaskDialog.Create(Self) do
+  with TAdvTaskDialog.Create(Self) do
   begin
     DialogPosition := dpOwnerFormCenter;
     Title := _('Please confirm');
@@ -393,7 +393,7 @@ end;
 
 procedure TRulesForm.ClearAllItemClick(Sender: TObject);
 begin
-  with TTaskDialog.Create(Self) do
+  with TAdvTaskDialog.Create(Self) do
   begin
     DialogPosition := dpOwnerFormCenter;
     Title := _('Please confirm');

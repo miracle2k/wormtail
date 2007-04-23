@@ -677,12 +677,14 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   // Vista "Secret window" fixes
+  {IFDEF VISTA_COMPAT}
   ShowWindow(Application.Handle, SW_HIDE);
   SetWindowLong(Application.Handle, GWL_EXSTYLE,
     GetWindowLong(Application.Handle, GWL_EXSTYLE) and not WS_EX_APPWINDOW
       or WS_EX_TOOLWINDOW);
   ShowWindow(Application.Handle, SW_SHOW);
-
+  {ENDIF}
+  
   // use font setting of os (mainly intended for new vista font)
   SetDesktopIconFonts(Self.Font);
 
@@ -890,7 +892,7 @@ begin
     on E: Exception do
     begin
       // Show error message
-      with TTaskDialog.Create(Self) do begin
+      with TAdvTaskDialog.Create(Self) do begin
         DialogPosition := dpOwnerFormCenter;
         Title := _('Error');
         Icon := tiError;
@@ -1353,12 +1355,14 @@ end;
 procedure TMainForm.WMActivate(var Message: TWMActivate);
 begin
   // vista fix
+  {$IFDEF VISTA_COMPAT}
   if (Message.Active = WA_ACTIVE) and not IsWindowEnabled(Handle) then
   begin
     SetActiveWindow(Application.Handle);
     Message.Result := 0;
   end else
     inherited;
+  {$ENDIF}
 end;
 
 procedure TMainForm.WMSyscommand(var Message: TWmSysCommand);
