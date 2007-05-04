@@ -677,13 +677,13 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   // Vista "Secret window" fixes
-  {IFDEF VISTA_COMPAT}
+  {$IFDEF VISTA_FIXES}
   ShowWindow(Application.Handle, SW_HIDE);
   SetWindowLong(Application.Handle, GWL_EXSTYLE,
     GetWindowLong(Application.Handle, GWL_EXSTYLE) and not WS_EX_APPWINDOW
       or WS_EX_TOOLWINDOW);
   ShowWindow(Application.Handle, SW_SHOW);
-  {ENDIF}
+  {$ENDIF}
   
   // use font setting of os (mainly intended for new vista font)
   SetDesktopIconFonts(Self.Font);
@@ -1355,7 +1355,7 @@ end;
 procedure TMainForm.WMActivate(var Message: TWMActivate);
 begin
   // vista fix
-  {$IFDEF VISTA_COMPAT}
+  {$IFDEF VISTA_FIXES}
   if (Message.Active = WA_ACTIVE) and not IsWindowEnabled(Handle) then
   begin
     SetActiveWindow(Application.Handle);

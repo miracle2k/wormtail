@@ -17,6 +17,9 @@ uses
   RulePropertiesFormUnit in 'RulePropertiesFormUnit.pas' {RulePropertiesForm},
   Configuration in 'Configuration.pas';
 
+// Define this on compilers < delphi 2007 to make the app run smoothly on vista 
+//{$DEFINE VISTA_FIXES}   
+
 begin
   // Exclude some stuff from translation
   TP_GlobalIgnoreClass(TFont);
@@ -25,6 +28,9 @@ begin
 
   Application.Initialize;
   Application.Title := AppName;
+  {$IFNDEF VISTA_FIXES}
+  Application.MainFormOnTaskBar := True;
+ 	{$ENDIF}
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.
