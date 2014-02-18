@@ -1,0 +1,60 @@
+Rules window visibility not synchronized with toolbar button state
+------------------------------------------------------------------
+If you close the rules window manually, the toolbar button to toggle it's visibility is not updated.
+
+
+Test Wormtail on Windows ME and other systems, if possible
+----------------------------------------------------------
+Make sure (or at least check) if it is working.
+
+
+open file directly from drag&drop
+---------------------------------
+If a file is dragged into explorer OR loglist view, automatically add that file.
+
+We can either do that in the same window, or, possible open a new instance. Or, possibly, use a context menu for right mouse button drag?
+
+
+Number of lines currently preloaded by default after file open is hardcoded
+---------------------------------------------------------------------------
+This should be a configuration option that also supports "load complete file", or at the very least a registry switch.
+
+By Richard Sinclair (per Mail)
+
+
+Support tabs
+------------
+As suggested by nan.ullah@*.co.uk
+
+
+Save/Open highlight configurations
+----------------------------------
+Currently, use of the feature is pretty limited if you loose everything on a retart.
+
+As suggested by adnan.ullah@*.co.uk
+
+
+Highlighting: ability to change foreground colour
+-------------------------------------------------
+"ability to change foreground colour for more highlighting permutations"
+
+As suggested by adnan.ullah@*.co.uk
+
+
+When new lines are added/found, use fade-out effect to highlight them
+---------------------------------------------------------------------
+When a new line is added, highlight it (with the default highlight color?), and then quickly "fade out" (using alpha-channel transparency).
+
+Might not work on older systems though.
+
+
+Improve multiline display
+-------------------------
+Multiline feature currently sucks:
+
+ * Breaks on empty lines
+ * Changes line height of single line items (can differ depending on current font setting)
+ * Might not work on 9x systems (disable, provide alternate?)
+ * Text is aligned to top / not centered in node rect.
+
+
